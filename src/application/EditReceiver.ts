@@ -60,15 +60,16 @@ export class EditReceiver {
     if (handlers.length > 1) throw new Error(`ambiguous attribute handlers: ${attribute} (${handlers.map(handler => handler.name).join(', ')})`);
     const handler = handlers[0];
     if (handler) {
-      let undone: () => string;
+      let undone: string;
       return state.run(() => {
         const result = handler.apply(shape, attribute, value, new AttributeTransaction(shape, state));
         if (!result || typeof result.message !== 'string' || typeof result.undone !== 'function') {
           throw new Error(`invalid attribute result: ${handler.name}`);
         }
-        undone = result.undone;
+        undone = result.undone();
+        if (typeof undone !== 'string') throw new Error(`invalid attribute result: ${handler.name}`);
         return result.message;
-      }, () => undone());
+      }, () => undone);
     }
     return state.run(() => {
       state.record(shape.rememberAttribute(attribute));

@@ -7,6 +7,7 @@ export interface AttributeEdit {
 }
 export interface AttributeResult {
   readonly message: string;
+  /** 在 apply 所在事务内立即求值；捕获旧值，不依赖 undo 的调用时机。 */
   readonly undone: () => string;
 }
 export interface AttributeHandler {

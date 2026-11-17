@@ -110,3 +110,23 @@ test('tree labels compose in registration order and absent labels preserve every
   extensions.decorators.clear();
   assert.equal(await cli.execute('tree'), baseline);
 });
+
+
+test('a throwing undo-message provider fails inside the transaction rather than corrupting future undo', async () => {
+  const { extensions, session, cli } = await fixture();
+  await cli.execute('move a 1 0');
+  await cli.execute('undo');
+  const before = new SvgCodec().encode(session.document);
+  const counts = [session.history.undoCount, session.history.redoCount];
+  extensions.registerAttribute({
+    name: 'feedback-failure', handles: (_shape, attr) => attr === 'feedback',
+    apply(shape, _attr, value, edit) {
+      edit.set(shape, 'fill', value);
+      return { message: 'changed', undone: () => { throw new Error('feedback failed'); } };
+    },
+  });
+  assert.equal(await cli.execute('set a feedback red'), 'error: feedback failed');
+  assert.equal(new SvgCodec().encode(session.document), before);
+  assert.deepEqual([session.history.undoCount, session.history.redoCount], counts);
+  assert.doesNotMatch((await cli.execute('redo'))!, /^error:/);
+});
