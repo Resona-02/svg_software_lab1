@@ -158,6 +158,45 @@ test('bare package modules use Node resolution anchored at the config directory'
   assert.equal(fixture.registry.commands.has('package-command'), true);
 });
 
+test('bare packages follow ESM import-only exports and prefer import over require conditions', async t => {
+  const fixture = await LoaderFixture.create(t);
+  for (const name of ['import-only', 'dual-mode']) {
+    await fixture.command(`node_modules/@test/${name}`, name);
+    const path = join(fixture.path, `node_modules/@test/${name}/package.json`);
+    const manifest = JSON.parse(await readFile(path, 'utf8'));
+    delete manifest.main;
+    manifest.exports = name === 'import-only'
+      ? { import: './index.js' }
+      : { import: './index.js', require: './must-not-load.cjs' };
+    await writeFile(path, JSON.stringify(manifest));
+  }
+  await fixture.loader.loadConfig(await fixture.config([
+    { module: '@test/import-only', options: 'import-only-options' },
+    { module: '@test/dual-mode', options: 'import-condition-options' },
+  ]));
+  assert.deepEqual(fixture.messages, []);
+  assert.deepEqual([...fixture.registry.commands.keys()], ['import-only', 'dual-mode']);
+  assert.equal(fixture.registry.commands.get('import-only')?.create(undefined!, undefined!).execute(), '"import-only-options"');
+  assert.equal(fixture.registry.commands.get('dual-mode')?.create(undefined!, undefined!).execute(), '"import-condition-options"');
+});
+
+test('missing bare modules and missing relative files stay distinct from transitive import failures', async t => {
+  const fixture = await LoaderFixture.create(t);
+  await fixture.command('valid', 'valid');
+  await fixture.plugin('broken', { name: 'broken-file' }, 'import "./missing-dependency.js"; export default { activate() {} };');
+  await fixture.loader.loadConfig(await fixture.config([
+    { module: '@test/no-such-package' },
+    { module: './missing-file.js' },
+    { module: './broken/index.js' },
+    { module: './valid/index.js' },
+  ]));
+  assert.equal(fixture.messages[0], 'error: plugin not found: @test/no-such-package');
+  assert.equal(fixture.messages[1], 'error: plugin not found: ./missing-file.js');
+  assert.match(fixture.messages[2], /^error: plugin failed to activate: broken-file \(/);
+  assert.equal(fixture.messages.length, 3);
+  assert.equal(fixture.registry.commands.has('valid'), true);
+});
+
 test('all four load failure paths, duplicates and later recovery leave earlier plugins intact', async t => {
   const fixture = await LoaderFixture.create(t);
   const good = await fixture.command('good', 'retained');

@@ -1,5 +1,6 @@
 import type { EditorSession } from './EditorSession.js';
 import { AttributeTransaction } from './AttributeTransaction.js';
+import type { AttributeResult } from './AttributeHandler.js';
 import { ShapePlacements } from '../domain/ShapePlacements.js';
 import type { Shape } from '../domain/Shape.js';
 import type { UndoState } from './UndoState.js';
@@ -62,7 +63,18 @@ export class EditReceiver {
     if (handler) {
       let undone: string;
       return state.run(() => {
-        const result = handler.apply(shape, attribute, value, new AttributeTransaction(shape, state));
+        const edit = new AttributeTransaction(shape, state);
+        let result: AttributeResult;
+        try {
+          result = handler.apply(shape, attribute, value, edit);
+        } finally {
+          edit.close();
+        }
+        if (result instanceof Promise) {
+          // A mistaken async handler must not produce an unhandled rejection later.
+          void result.catch(() => undefined);
+          throw new Error(`attribute handler must be synchronous: ${handler.name}`);
+        }
         if (!result || typeof result.message !== 'string' || typeof result.undone !== 'function') {
           throw new Error(`invalid attribute result: ${handler.name}`);
         }

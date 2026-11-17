@@ -4,7 +4,7 @@ import { EditorSession, TestExtensions, SvgCodec } from './helpers/TestRuntime.j
 import { MemoryDocumentStore } from './helpers/MemoryDocumentStore.js';
 import { CommandDispatcher } from '../src/cli/CommandDispatcher.js';
 import { CommandFactory } from '../src/cli/CommandFactory.js';
-import type { AttributeHandler } from '../src/api/index.js';
+import type { AttributeHandler, AttributeEdit } from '../src/api/index.js';
 
 async function fixture() {
   const extensions = new TestExtensions();
@@ -129,4 +129,43 @@ test('a throwing undo-message provider fails inside the transaction rather than 
   assert.equal(new SvgCodec().encode(session.document), before);
   assert.deepEqual([session.history.undoCount, session.history.redoCount], counts);
   assert.doesNotMatch((await cli.execute('redo'))!, /^error:/);
+});
+
+
+test('retained attribute edit contexts close after success and failure', async () => {
+  const { extensions, session, cli } = await fixture();
+  let retained!: AttributeEdit;
+  extensions.registerAttribute({
+    name: 'retained', handles: (_shape, attr) => attr === 'retained',
+    apply(shape, _attr, value, edit) {
+      retained = edit;
+      edit.set(shape, 'fill', value);
+      if (value === 'fail') throw new Error('intentional failure');
+      return { message: 'changed', undone: () => 'restored' };
+    },
+  });
+  assert.equal(await cli.execute('set a retained red'), 'changed');
+  assert.throws(() => retained.set(session.document.find('a'), 'fill', 'blue'), /transaction is closed/);
+  assert.equal(await cli.execute('set a retained fail'), 'error: intentional failure');
+  assert.throws(() => retained.set(session.document.find('a'), 'fill', 'blue'), /transaction is closed/);
+  assert.equal(session.document.find('a').attributes().fill, 'red');
+  assert.equal(await cli.execute('undo'), 'restored');
+  assert.equal(session.document.find('a').attributes().fill, undefined);
+});
+
+test('an accidentally async handler rolls back and cannot write after its await', async () => {
+  const { extensions, session, cli } = await fixture();
+  const before = new SvgCodec().encode(session.document);
+  extensions.registerAttribute({
+    name: 'async', handles: (_shape, attr) => attr === 'async',
+    apply: (async (...[shape, _attr, value, edit]: Parameters<AttributeHandler['apply']>) => {
+      edit.set(shape, 'fill', value);
+      await Promise.resolve();
+      edit.set(shape, 'fill', 'blue');
+      return { message: '', undone: () => '' };
+    }) as unknown as AttributeHandler['apply'],
+  });
+  assert.equal(await cli.execute('set a async red'), 'error: attribute handler must be synchronous: async');
+  await new Promise(resolve => setImmediate(resolve));
+  assert.equal(new SvgCodec().encode(session.document), before);
 });

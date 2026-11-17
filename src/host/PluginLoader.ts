@@ -1,7 +1,8 @@
 import { readFile, stat } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { dirname, isAbsolute, join, resolve } from 'node:path';
-import { pathToFileURL } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
+import { moduleResolve } from 'import-meta-resolve';
 import type { Plugin, PluginManifest } from '../application/Plugin.js';
 import { ExtensionRegistry } from '../application/ExtensionRegistry.js';
 
@@ -50,11 +51,10 @@ export class PluginLoader {
     // Only resolution errors identify a missing top-level module. Errors from import()
     // (including a missing transitive dependency) are reported as activation failures.
     let resolved: string;
-    const resolver = createRequire(join(base, '__svg_plugin_host__.cjs'));
     try {
-      resolved = resolver.resolve(entry.module);
+      resolved = this.resolveModule(entry.module, base);
     } catch (error) {
-      if ((error as NodeJS.ErrnoException).code === 'MODULE_NOT_FOUND') {
+      if (['MODULE_NOT_FOUND', 'ERR_MODULE_NOT_FOUND'].includes((error as NodeJS.ErrnoException).code ?? '')) {
         this.report(`error: plugin not found: ${entry.module}`);
       } else {
         this.report(`error: plugin failed to activate: ${entry.module} (${this.reason(error)})`);
@@ -80,6 +80,18 @@ export class PluginLoader {
       return;
     }
     await this.activate({ plugin: imported.default as Plugin, manifest, options: entry.options });
+  }
+
+  private resolveModule(specifier: string, base: string): string {
+    const parent = pathToFileURL(join(base, '__svg_plugin_host__.mjs'));
+    if (specifier.startsWith('.') || isAbsolute(specifier)) {
+      // Local package directories use their main entry (Node ESM itself rejects
+      // directory imports). Existing explicit-file paths keep the same behavior.
+      return createRequire(parent).resolve(specifier);
+    }
+    // Use ESM export/import maps for package names, including import-only packages.
+    // These are standard node/import conditions; custom loaders/conditions are not supported.
+    return fileURLToPath(moduleResolve(specifier, parent, new Set(['node', 'import'])));
   }
 
   private parseConfig(value: unknown): readonly ConfigPluginEntry[] {
