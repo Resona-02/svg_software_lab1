@@ -1,0 +1,22 @@
+# 固定目录含 docs、plugins、隐藏文件及预先存在的 snapshot.svg。
+# dir 在 init 前可用；save 覆盖已有文件，不改变目录成员。
+dir
+init 800 600
+stats
+create g flowchart
+create box n1 120 100 160 60 "开始" in flowchart
+create circle c1 400 150 20 red
+stats
+save snapshot.svg
+dir
+set n1 label "开始 v2"
+stats
+dir
+undo
+tree
+redo
+tree
+# read 不改变 cwd；读入已知文件后再次统计并列出同一目录。
+read other.svg
+stats
+dir

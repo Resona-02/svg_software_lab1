@@ -1,0 +1,37 @@
+@startuml
+left to right direction
+skinparam componentStyle rectangle
+component "Host / Composition Root\nRuntime / CodePlugins / PluginLoader" as host
+component "Public API\nsrc/api/index.ts" as api
+component "CLI\nTokenizer / CommandFactory / Dispatcher" as cli
+component "Application\nExtensionRegistry / EditorSession\nReceivers / History / AttributeTransaction" as app
+component "Domain\nShapeProvider / ShapeFactory\nShape / Group / SvgDocument" as domain
+component "Infrastructure\nSVG Codec / FileStore" as infra
+package "Plugins" {
+ component "Built-in shapes & commands" as builtins
+ component "stats / dir" as commands
+ component "box\nShapeProvider + AttributeHandler + TreeDecorator" as box
+ component "modified-star" as star
+}
+host --> cli
+host --> app
+host --> infra
+host --> builtins : default
+host --> commands : activate
+host --> box : activate
+host --> star : activate
+builtins --> api
+commands --> api
+box --> api
+star --> api
+api --> app : exports
+api --> domain : exports
+cli --> app
+app --> domain
+infra --> app : implements DocumentStore
+infra --> domain
+note bottom of app
+核心只调用公开契约，不引用任何插件实现。
+注册校验在独立暂存区完成后一次发布。
+end note
+@enduml

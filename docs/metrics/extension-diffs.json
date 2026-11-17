@@ -1,0 +1,1676 @@
+{
+  "methodology": "Committed Git trees only; validate real source paths before accepting empty C^..C diffs. No working-tree input or timestamp.",
+  "configDemonstrationBranch": {
+    "name": "phase2-box-config",
+    "commit": "04b315b69c43077b6013df7baa499bb6fe74fb8a"
+  },
+  "cases": [
+    {
+      "name": "box-code-A",
+      "requestedRef": "dfcbe29",
+      "commit": "dfcbe29589ebc28ae8c1fa4f1f400bc2aad78705",
+      "parent": "4fe35f812f2445d0f9c6576a99f125be1688bfe2",
+      "policy": {
+        "newPlugin": "plugins/shape-box",
+        "allowedExistingSourceChanges": [
+          "src/host/CodePlugins.ts"
+        ],
+        "configurationChanged": false,
+        "protectedCorePaths": [
+          "src/domain",
+          "src/application",
+          "src/cli",
+          "src/infrastructure",
+          "src/api"
+        ],
+        "protectedExistingPlugins": [
+          "plugins/builtin-commands",
+          "plugins/builtin-shapes",
+          "plugins/command-dir",
+          "plugins/command-stats"
+        ]
+      },
+      "pathExistence": {
+        "before": [
+          {
+            "path": "src/domain",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "9d19420b1a11b2d00ee26fc1ace7f0647dc4cd3f",
+            "sourceFileCount": 12,
+            "sourceFiles": [
+              "src/domain/Circle.ts",
+              "src/domain/Ellipse.ts",
+              "src/domain/Group.ts",
+              "src/domain/Line.ts",
+              "src/domain/Rect.ts",
+              "src/domain/Shape.ts",
+              "src/domain/ShapeFactory.ts",
+              "src/domain/ShapePlacements.ts",
+              "src/domain/ShapeProvider.ts",
+              "src/domain/SvgDocument.ts",
+              "src/domain/Text.ts",
+              "src/domain/Validator.ts"
+            ],
+            "sourceSha256": "70a4793de9ccd9fd75ff20cdc7ef390250c6528c31b653d664832f239f0c4488"
+          },
+          {
+            "path": "src/application",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "19ade9da8bef91b90f24f01e70120912012b9fe4",
+            "sourceFileCount": 38,
+            "sourceFiles": [
+              "src/application/AddToCommand.ts",
+              "src/application/AttributeHandler.ts",
+              "src/application/AttributeTransaction.ts",
+              "src/application/BackCommand.ts",
+              "src/application/CanvasCommand.ts",
+              "src/application/Command.ts",
+              "src/application/CommandArguments.ts",
+              "src/application/CommandExecutor.ts",
+              "src/application/CommandProvider.ts",
+              "src/application/CommandTrigger.ts",
+              "src/application/CreateCommand.ts",
+              "src/application/DeleteCommand.ts",
+              "src/application/DocumentStore.ts",
+              "src/application/EditCommand.ts",
+              "src/application/EditReceiver.ts",
+              "src/application/EditorSession.ts",
+              "src/application/ExtensionRegistry.ts",
+              "src/application/FrontCommand.ts",
+              "src/application/GroupCommand.ts",
+              "src/application/HelpCommand.ts",
+              "src/application/HelpReceiver.ts",
+              "src/application/History.ts",
+              "src/application/InitCommand.ts",
+              "src/application/MoveCommand.ts",
+              "src/application/Plugin.ts",
+              "src/application/ReadCommand.ts",
+              "src/application/RedoCommand.ts",
+              "src/application/SaveCommand.ts",
+              "src/application/ScaleCommand.ts",
+              "src/application/SetCommand.ts",
+              "src/application/ShowCommand.ts",
+              "src/application/Token.ts",
+              "src/application/TreeCommand.ts",
+              "src/application/TreeDecorator.ts",
+              "src/application/UndoCommand.ts",
+              "src/application/UndoState.ts",
+              "src/application/UngroupCommand.ts",
+              "src/application/ViewReceiver.ts"
+            ],
+            "sourceSha256": "52bd4503080dd9c4c27a9f252a9359e74d3aaeed68fa7803956ee193a5d3d01b"
+          },
+          {
+            "path": "src/cli",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "a7ae37c18faefd246478d4f625322634ade743ff",
+            "sourceFileCount": 7,
+            "sourceFiles": [
+              "src/cli/Cli.ts",
+              "src/cli/CommandArguments.ts",
+              "src/cli/CommandDispatcher.ts",
+              "src/cli/CommandFactory.ts",
+              "src/cli/CommandSource.ts",
+              "src/cli/Token.ts",
+              "src/cli/Tokenizer.ts"
+            ],
+            "sourceSha256": "6d7d22f60ae9791c2bfb4975c192d38e0cd59ceacfc95ef423bbe128c38a4b84"
+          },
+          {
+            "path": "src/infrastructure",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "2966a6f00db2db3f4733837cc3ae6e7985242db8",
+            "sourceFileCount": 2,
+            "sourceFiles": [
+              "src/infrastructure/SvgCodec.ts",
+              "src/infrastructure/SvgFileStore.ts"
+            ],
+            "sourceSha256": "c75ea48a22e4e0eedd6ad8f207b0b36ce82afccb9b4ce72e400f4536ccfdfae5"
+          },
+          {
+            "path": "src/api",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "0c107b2628b630f7c53d39354605300b48d45fdc",
+            "sourceFileCount": 1,
+            "sourceFiles": [
+              "src/api/index.ts"
+            ],
+            "sourceSha256": "86260ec065087dd4d7339df854f8b16d41c1cb82e48383f745c6e95e34e2efea"
+          },
+          {
+            "path": "plugins/builtin-commands",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "906aa6709fa42f7aa8845d46488e296c5bae297a",
+            "sourceFileCount": 3,
+            "sourceFiles": [
+              "plugins/builtin-commands/BuiltinCommandProvider.ts",
+              "plugins/builtin-commands/BuiltinCommandsPlugin.ts",
+              "plugins/builtin-commands/index.ts"
+            ],
+            "sourceSha256": "93ba5bccfb217ee1233680f70f99dfc1765ad17d318848e1662355b6b14d3661"
+          },
+          {
+            "path": "plugins/builtin-shapes",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "955c933037173e208e64e32f16afba2a1d746003",
+            "sourceFileCount": 3,
+            "sourceFiles": [
+              "plugins/builtin-shapes/BuiltinShapeProvider.ts",
+              "plugins/builtin-shapes/BuiltinShapesPlugin.ts",
+              "plugins/builtin-shapes/index.ts"
+            ],
+            "sourceSha256": "787907a528a61d1f4fe102121177ce111c9508f4a17f4443bbd7157f16141fb9"
+          },
+          {
+            "path": "plugins/command-dir",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "6f925a0b5de2ee980ea9a699b1ee5e3bbb54e6b3",
+            "sourceFileCount": 7,
+            "sourceFiles": [
+              "plugins/command-dir/DirCommand.ts",
+              "plugins/command-dir/DirPlugin.ts",
+              "plugins/command-dir/DirProvider.ts",
+              "plugins/command-dir/DirectoryReader.ts",
+              "plugins/command-dir/DirectoryReceiver.ts",
+              "plugins/command-dir/NodeDirectoryAdapter.ts",
+              "plugins/command-dir/index.ts"
+            ],
+            "sourceSha256": "817adf43b85473d2953ca7da6a406db52f574d04f428708b690a9249929288c9"
+          },
+          {
+            "path": "plugins/command-stats",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "4b8f500965b3bee5d0b3f043e4f6421ed015a1cd",
+            "sourceFileCount": 5,
+            "sourceFiles": [
+              "plugins/command-stats/StatsCommand.ts",
+              "plugins/command-stats/StatsPlugin.ts",
+              "plugins/command-stats/StatsProvider.ts",
+              "plugins/command-stats/StatsReceiver.ts",
+              "plugins/command-stats/index.ts"
+            ],
+            "sourceSha256": "6809406a709ca06c2d61531531d0663f78cb3047971129e456b79f94345f9c96"
+          }
+        ],
+        "after": [
+          {
+            "path": "src/domain",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "9d19420b1a11b2d00ee26fc1ace7f0647dc4cd3f",
+            "sourceFileCount": 12,
+            "sourceFiles": [
+              "src/domain/Circle.ts",
+              "src/domain/Ellipse.ts",
+              "src/domain/Group.ts",
+              "src/domain/Line.ts",
+              "src/domain/Rect.ts",
+              "src/domain/Shape.ts",
+              "src/domain/ShapeFactory.ts",
+              "src/domain/ShapePlacements.ts",
+              "src/domain/ShapeProvider.ts",
+              "src/domain/SvgDocument.ts",
+              "src/domain/Text.ts",
+              "src/domain/Validator.ts"
+            ],
+            "sourceSha256": "70a4793de9ccd9fd75ff20cdc7ef390250c6528c31b653d664832f239f0c4488"
+          },
+          {
+            "path": "src/application",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "19ade9da8bef91b90f24f01e70120912012b9fe4",
+            "sourceFileCount": 38,
+            "sourceFiles": [
+              "src/application/AddToCommand.ts",
+              "src/application/AttributeHandler.ts",
+              "src/application/AttributeTransaction.ts",
+              "src/application/BackCommand.ts",
+              "src/application/CanvasCommand.ts",
+              "src/application/Command.ts",
+              "src/application/CommandArguments.ts",
+              "src/application/CommandExecutor.ts",
+              "src/application/CommandProvider.ts",
+              "src/application/CommandTrigger.ts",
+              "src/application/CreateCommand.ts",
+              "src/application/DeleteCommand.ts",
+              "src/application/DocumentStore.ts",
+              "src/application/EditCommand.ts",
+              "src/application/EditReceiver.ts",
+              "src/application/EditorSession.ts",
+              "src/application/ExtensionRegistry.ts",
+              "src/application/FrontCommand.ts",
+              "src/application/GroupCommand.ts",
+              "src/application/HelpCommand.ts",
+              "src/application/HelpReceiver.ts",
+              "src/application/History.ts",
+              "src/application/InitCommand.ts",
+              "src/application/MoveCommand.ts",
+              "src/application/Plugin.ts",
+              "src/application/ReadCommand.ts",
+              "src/application/RedoCommand.ts",
+              "src/application/SaveCommand.ts",
+              "src/application/ScaleCommand.ts",
+              "src/application/SetCommand.ts",
+              "src/application/ShowCommand.ts",
+              "src/application/Token.ts",
+              "src/application/TreeCommand.ts",
+              "src/application/TreeDecorator.ts",
+              "src/application/UndoCommand.ts",
+              "src/application/UndoState.ts",
+              "src/application/UngroupCommand.ts",
+              "src/application/ViewReceiver.ts"
+            ],
+            "sourceSha256": "52bd4503080dd9c4c27a9f252a9359e74d3aaeed68fa7803956ee193a5d3d01b"
+          },
+          {
+            "path": "src/cli",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "a7ae37c18faefd246478d4f625322634ade743ff",
+            "sourceFileCount": 7,
+            "sourceFiles": [
+              "src/cli/Cli.ts",
+              "src/cli/CommandArguments.ts",
+              "src/cli/CommandDispatcher.ts",
+              "src/cli/CommandFactory.ts",
+              "src/cli/CommandSource.ts",
+              "src/cli/Token.ts",
+              "src/cli/Tokenizer.ts"
+            ],
+            "sourceSha256": "6d7d22f60ae9791c2bfb4975c192d38e0cd59ceacfc95ef423bbe128c38a4b84"
+          },
+          {
+            "path": "src/infrastructure",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "2966a6f00db2db3f4733837cc3ae6e7985242db8",
+            "sourceFileCount": 2,
+            "sourceFiles": [
+              "src/infrastructure/SvgCodec.ts",
+              "src/infrastructure/SvgFileStore.ts"
+            ],
+            "sourceSha256": "c75ea48a22e4e0eedd6ad8f207b0b36ce82afccb9b4ce72e400f4536ccfdfae5"
+          },
+          {
+            "path": "src/api",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "0c107b2628b630f7c53d39354605300b48d45fdc",
+            "sourceFileCount": 1,
+            "sourceFiles": [
+              "src/api/index.ts"
+            ],
+            "sourceSha256": "86260ec065087dd4d7339df854f8b16d41c1cb82e48383f745c6e95e34e2efea"
+          },
+          {
+            "path": "plugins/builtin-commands",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "906aa6709fa42f7aa8845d46488e296c5bae297a",
+            "sourceFileCount": 3,
+            "sourceFiles": [
+              "plugins/builtin-commands/BuiltinCommandProvider.ts",
+              "plugins/builtin-commands/BuiltinCommandsPlugin.ts",
+              "plugins/builtin-commands/index.ts"
+            ],
+            "sourceSha256": "93ba5bccfb217ee1233680f70f99dfc1765ad17d318848e1662355b6b14d3661"
+          },
+          {
+            "path": "plugins/builtin-shapes",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "955c933037173e208e64e32f16afba2a1d746003",
+            "sourceFileCount": 3,
+            "sourceFiles": [
+              "plugins/builtin-shapes/BuiltinShapeProvider.ts",
+              "plugins/builtin-shapes/BuiltinShapesPlugin.ts",
+              "plugins/builtin-shapes/index.ts"
+            ],
+            "sourceSha256": "787907a528a61d1f4fe102121177ce111c9508f4a17f4443bbd7157f16141fb9"
+          },
+          {
+            "path": "plugins/command-dir",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "6f925a0b5de2ee980ea9a699b1ee5e3bbb54e6b3",
+            "sourceFileCount": 7,
+            "sourceFiles": [
+              "plugins/command-dir/DirCommand.ts",
+              "plugins/command-dir/DirPlugin.ts",
+              "plugins/command-dir/DirProvider.ts",
+              "plugins/command-dir/DirectoryReader.ts",
+              "plugins/command-dir/DirectoryReceiver.ts",
+              "plugins/command-dir/NodeDirectoryAdapter.ts",
+              "plugins/command-dir/index.ts"
+            ],
+            "sourceSha256": "817adf43b85473d2953ca7da6a406db52f574d04f428708b690a9249929288c9"
+          },
+          {
+            "path": "plugins/command-stats",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "4b8f500965b3bee5d0b3f043e4f6421ed015a1cd",
+            "sourceFileCount": 5,
+            "sourceFiles": [
+              "plugins/command-stats/StatsCommand.ts",
+              "plugins/command-stats/StatsPlugin.ts",
+              "plugins/command-stats/StatsProvider.ts",
+              "plugins/command-stats/StatsReceiver.ts",
+              "plugins/command-stats/index.ts"
+            ],
+            "sourceSha256": "6809406a709ca06c2d61531531d0663f78cb3047971129e456b79f94345f9c96"
+          }
+        ],
+        "protectedFiles": [
+          {
+            "path": "src/host/PluginLoader.ts",
+            "before": {
+              "path": "src/host/PluginLoader.ts",
+              "exists": true,
+              "objectType": "blob",
+              "blobOid": "e43d6b5c83d5a09552be5683f093d05347bfab68",
+              "sha256": "b0f6787650c313811b7c8183c65f7f5639597502d87197130badf34ddd6d0cd9"
+            },
+            "after": {
+              "path": "src/host/PluginLoader.ts",
+              "exists": true,
+              "objectType": "blob",
+              "blobOid": "e43d6b5c83d5a09552be5683f093d05347bfab68",
+              "sha256": "b0f6787650c313811b7c8183c65f7f5639597502d87197130badf34ddd6d0cd9"
+            }
+          },
+          {
+            "path": "src/application/ViewReceiver.ts",
+            "before": {
+              "path": "src/application/ViewReceiver.ts",
+              "exists": true,
+              "objectType": "blob",
+              "blobOid": "1838542c589f08f631a173db6658315e7c510cce",
+              "sha256": "dea3b7294e801533e17fe23e5c52522cb9e64ad0e2a4e183ff5f2f9327e64be7"
+            },
+            "after": {
+              "path": "src/application/ViewReceiver.ts",
+              "exists": true,
+              "objectType": "blob",
+              "blobOid": "1838542c589f08f631a173db6658315e7c510cce",
+              "sha256": "dea3b7294e801533e17fe23e5c52522cb9e64ad0e2a4e183ff5f2f9327e64be7"
+            }
+          },
+          {
+            "path": "src/host/CodePlugins.ts",
+            "before": {
+              "path": "src/host/CodePlugins.ts",
+              "exists": true,
+              "objectType": "blob",
+              "blobOid": "f2fade0228191eda312692f03d1a731e9f9e0132",
+              "sha256": "802338fdfcaba6934fad9d04b1caf15663218533874ac192127e63274e2e5be7"
+            },
+            "after": {
+              "path": "src/host/CodePlugins.ts",
+              "exists": true,
+              "objectType": "blob",
+              "blobOid": "268861300cde24622e1024c77d27ff573cd5494c",
+              "sha256": "ecc4459603ed22cd2b00871a797942d9431b8a6daea28aebfa36770d5432d24c"
+            }
+          }
+        ],
+        "newPlugin": {
+          "existsBefore": false,
+          "after": {
+            "path": "plugins/shape-box",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "1adfd83df46fbb5087496eca4f766f0625ef489a",
+            "sourceFileCount": 6,
+            "sourceFiles": [
+              "plugins/shape-box/Box.ts",
+              "plugins/shape-box/BoxAttributes.ts",
+              "plugins/shape-box/BoxPlugin.ts",
+              "plugins/shape-box/BoxProvider.ts",
+              "plugins/shape-box/BoxTypeLabel.ts",
+              "plugins/shape-box/index.ts"
+            ],
+            "sourceSha256": "7fa3e6f37d0c87019d0499c954bc16f40ad56b5273140069032d33598bd62044"
+          },
+          "manifestName": "@svgframe/plugin-shape-box",
+          "contributes": {
+            "shapes": [
+              "box"
+            ],
+            "attributes": [
+              "box-attributes"
+            ],
+            "decorators": [
+              "box-type-label"
+            ]
+          }
+        }
+      },
+      "evidence": {
+        "full": {
+          "command": [
+            "git",
+            "diff",
+            "--name-status",
+            "--no-renames",
+            "4fe35f812f2445d0f9c6576a99f125be1688bfe2",
+            "dfcbe29589ebc28ae8c1fa4f1f400bc2aad78705",
+            "--"
+          ],
+          "output": "A\tplugins/shape-box/Box.ts\nA\tplugins/shape-box/BoxAttributes.ts\nA\tplugins/shape-box/BoxPlugin.ts\nA\tplugins/shape-box/BoxProvider.ts\nA\tplugins/shape-box/BoxTypeLabel.ts\nA\tplugins/shape-box/README.md\nA\tplugins/shape-box/index.ts\nA\tplugins/shape-box/package.json\nM\tsrc/host/CodePlugins.ts\nA\ttest/box-plugin.test.ts\n"
+        },
+        "protectedCoreAndExistingPlugins": {
+          "command": [
+            "git",
+            "diff",
+            "--name-status",
+            "--no-renames",
+            "4fe35f812f2445d0f9c6576a99f125be1688bfe2",
+            "dfcbe29589ebc28ae8c1fa4f1f400bc2aad78705",
+            "--",
+            "src/domain",
+            "src/application",
+            "src/cli",
+            "src/infrastructure",
+            "src/api",
+            "plugins",
+            ":(exclude)plugins/shape-box"
+          ],
+          "output": ""
+        },
+        "loaderAndRenderer": {
+          "command": [
+            "git",
+            "diff",
+            "--name-status",
+            "--no-renames",
+            "4fe35f812f2445d0f9c6576a99f125be1688bfe2",
+            "dfcbe29589ebc28ae8c1fa4f1f400bc2aad78705",
+            "--",
+            "src/host/PluginLoader.ts",
+            "src/application/ViewReceiver.ts"
+          ],
+          "output": ""
+        },
+        "sourceChanges": {
+          "command": [
+            "git",
+            "diff",
+            "--name-status",
+            "--no-renames",
+            "4fe35f812f2445d0f9c6576a99f125be1688bfe2",
+            "dfcbe29589ebc28ae8c1fa4f1f400bc2aad78705",
+            "--",
+            "src"
+          ],
+          "output": "M\tsrc/host/CodePlugins.ts\n"
+        },
+        "configuration": {
+          "command": [
+            "git",
+            "diff",
+            "--name-status",
+            "--no-renames",
+            "4fe35f812f2445d0f9c6576a99f125be1688bfe2",
+            "dfcbe29589ebc28ae8c1fa4f1f400bc2aad78705",
+            "--",
+            "plugins.config.json"
+          ],
+          "output": ""
+        }
+      },
+      "addedPluginFiles": [
+        "plugins/shape-box/Box.ts",
+        "plugins/shape-box/BoxAttributes.ts",
+        "plugins/shape-box/BoxPlugin.ts",
+        "plugins/shape-box/BoxProvider.ts",
+        "plugins/shape-box/BoxTypeLabel.ts",
+        "plugins/shape-box/README.md",
+        "plugins/shape-box/index.ts",
+        "plugins/shape-box/package.json"
+      ],
+      "supportingChanges": [
+        "test/box-plugin.test.ts"
+      ],
+      "checks": {
+        "pathsExistAndContainSource": true,
+        "newPluginDidNotExistBefore": true,
+        "onlyNewPluginFilesAdded": true,
+        "coreAndExistingPluginsUnchanged": true,
+        "loaderAndRendererUnchanged": true,
+        "sourceChangeAllowanceSatisfied": true,
+        "configChangeAllowanceSatisfied": true,
+        "supportingChangesDeclared": true
+      },
+      "passed": true
+    },
+    {
+      "name": "box-config-B",
+      "requestedRef": "04b315b",
+      "commit": "04b315b69c43077b6013df7baa499bb6fe74fb8a",
+      "parent": "4fe35f812f2445d0f9c6576a99f125be1688bfe2",
+      "policy": {
+        "newPlugin": "plugins/shape-box",
+        "allowedExistingSourceChanges": [],
+        "configurationChanged": true,
+        "protectedCorePaths": [
+          "src/domain",
+          "src/application",
+          "src/cli",
+          "src/infrastructure",
+          "src/api"
+        ],
+        "protectedExistingPlugins": [
+          "plugins/builtin-commands",
+          "plugins/builtin-shapes",
+          "plugins/command-dir",
+          "plugins/command-stats"
+        ]
+      },
+      "pathExistence": {
+        "before": [
+          {
+            "path": "src/domain",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "9d19420b1a11b2d00ee26fc1ace7f0647dc4cd3f",
+            "sourceFileCount": 12,
+            "sourceFiles": [
+              "src/domain/Circle.ts",
+              "src/domain/Ellipse.ts",
+              "src/domain/Group.ts",
+              "src/domain/Line.ts",
+              "src/domain/Rect.ts",
+              "src/domain/Shape.ts",
+              "src/domain/ShapeFactory.ts",
+              "src/domain/ShapePlacements.ts",
+              "src/domain/ShapeProvider.ts",
+              "src/domain/SvgDocument.ts",
+              "src/domain/Text.ts",
+              "src/domain/Validator.ts"
+            ],
+            "sourceSha256": "70a4793de9ccd9fd75ff20cdc7ef390250c6528c31b653d664832f239f0c4488"
+          },
+          {
+            "path": "src/application",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "19ade9da8bef91b90f24f01e70120912012b9fe4",
+            "sourceFileCount": 38,
+            "sourceFiles": [
+              "src/application/AddToCommand.ts",
+              "src/application/AttributeHandler.ts",
+              "src/application/AttributeTransaction.ts",
+              "src/application/BackCommand.ts",
+              "src/application/CanvasCommand.ts",
+              "src/application/Command.ts",
+              "src/application/CommandArguments.ts",
+              "src/application/CommandExecutor.ts",
+              "src/application/CommandProvider.ts",
+              "src/application/CommandTrigger.ts",
+              "src/application/CreateCommand.ts",
+              "src/application/DeleteCommand.ts",
+              "src/application/DocumentStore.ts",
+              "src/application/EditCommand.ts",
+              "src/application/EditReceiver.ts",
+              "src/application/EditorSession.ts",
+              "src/application/ExtensionRegistry.ts",
+              "src/application/FrontCommand.ts",
+              "src/application/GroupCommand.ts",
+              "src/application/HelpCommand.ts",
+              "src/application/HelpReceiver.ts",
+              "src/application/History.ts",
+              "src/application/InitCommand.ts",
+              "src/application/MoveCommand.ts",
+              "src/application/Plugin.ts",
+              "src/application/ReadCommand.ts",
+              "src/application/RedoCommand.ts",
+              "src/application/SaveCommand.ts",
+              "src/application/ScaleCommand.ts",
+              "src/application/SetCommand.ts",
+              "src/application/ShowCommand.ts",
+              "src/application/Token.ts",
+              "src/application/TreeCommand.ts",
+              "src/application/TreeDecorator.ts",
+              "src/application/UndoCommand.ts",
+              "src/application/UndoState.ts",
+              "src/application/UngroupCommand.ts",
+              "src/application/ViewReceiver.ts"
+            ],
+            "sourceSha256": "52bd4503080dd9c4c27a9f252a9359e74d3aaeed68fa7803956ee193a5d3d01b"
+          },
+          {
+            "path": "src/cli",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "a7ae37c18faefd246478d4f625322634ade743ff",
+            "sourceFileCount": 7,
+            "sourceFiles": [
+              "src/cli/Cli.ts",
+              "src/cli/CommandArguments.ts",
+              "src/cli/CommandDispatcher.ts",
+              "src/cli/CommandFactory.ts",
+              "src/cli/CommandSource.ts",
+              "src/cli/Token.ts",
+              "src/cli/Tokenizer.ts"
+            ],
+            "sourceSha256": "6d7d22f60ae9791c2bfb4975c192d38e0cd59ceacfc95ef423bbe128c38a4b84"
+          },
+          {
+            "path": "src/infrastructure",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "2966a6f00db2db3f4733837cc3ae6e7985242db8",
+            "sourceFileCount": 2,
+            "sourceFiles": [
+              "src/infrastructure/SvgCodec.ts",
+              "src/infrastructure/SvgFileStore.ts"
+            ],
+            "sourceSha256": "c75ea48a22e4e0eedd6ad8f207b0b36ce82afccb9b4ce72e400f4536ccfdfae5"
+          },
+          {
+            "path": "src/api",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "0c107b2628b630f7c53d39354605300b48d45fdc",
+            "sourceFileCount": 1,
+            "sourceFiles": [
+              "src/api/index.ts"
+            ],
+            "sourceSha256": "86260ec065087dd4d7339df854f8b16d41c1cb82e48383f745c6e95e34e2efea"
+          },
+          {
+            "path": "plugins/builtin-commands",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "906aa6709fa42f7aa8845d46488e296c5bae297a",
+            "sourceFileCount": 3,
+            "sourceFiles": [
+              "plugins/builtin-commands/BuiltinCommandProvider.ts",
+              "plugins/builtin-commands/BuiltinCommandsPlugin.ts",
+              "plugins/builtin-commands/index.ts"
+            ],
+            "sourceSha256": "93ba5bccfb217ee1233680f70f99dfc1765ad17d318848e1662355b6b14d3661"
+          },
+          {
+            "path": "plugins/builtin-shapes",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "955c933037173e208e64e32f16afba2a1d746003",
+            "sourceFileCount": 3,
+            "sourceFiles": [
+              "plugins/builtin-shapes/BuiltinShapeProvider.ts",
+              "plugins/builtin-shapes/BuiltinShapesPlugin.ts",
+              "plugins/builtin-shapes/index.ts"
+            ],
+            "sourceSha256": "787907a528a61d1f4fe102121177ce111c9508f4a17f4443bbd7157f16141fb9"
+          },
+          {
+            "path": "plugins/command-dir",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "6f925a0b5de2ee980ea9a699b1ee5e3bbb54e6b3",
+            "sourceFileCount": 7,
+            "sourceFiles": [
+              "plugins/command-dir/DirCommand.ts",
+              "plugins/command-dir/DirPlugin.ts",
+              "plugins/command-dir/DirProvider.ts",
+              "plugins/command-dir/DirectoryReader.ts",
+              "plugins/command-dir/DirectoryReceiver.ts",
+              "plugins/command-dir/NodeDirectoryAdapter.ts",
+              "plugins/command-dir/index.ts"
+            ],
+            "sourceSha256": "817adf43b85473d2953ca7da6a406db52f574d04f428708b690a9249929288c9"
+          },
+          {
+            "path": "plugins/command-stats",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "4b8f500965b3bee5d0b3f043e4f6421ed015a1cd",
+            "sourceFileCount": 5,
+            "sourceFiles": [
+              "plugins/command-stats/StatsCommand.ts",
+              "plugins/command-stats/StatsPlugin.ts",
+              "plugins/command-stats/StatsProvider.ts",
+              "plugins/command-stats/StatsReceiver.ts",
+              "plugins/command-stats/index.ts"
+            ],
+            "sourceSha256": "6809406a709ca06c2d61531531d0663f78cb3047971129e456b79f94345f9c96"
+          }
+        ],
+        "after": [
+          {
+            "path": "src/domain",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "9d19420b1a11b2d00ee26fc1ace7f0647dc4cd3f",
+            "sourceFileCount": 12,
+            "sourceFiles": [
+              "src/domain/Circle.ts",
+              "src/domain/Ellipse.ts",
+              "src/domain/Group.ts",
+              "src/domain/Line.ts",
+              "src/domain/Rect.ts",
+              "src/domain/Shape.ts",
+              "src/domain/ShapeFactory.ts",
+              "src/domain/ShapePlacements.ts",
+              "src/domain/ShapeProvider.ts",
+              "src/domain/SvgDocument.ts",
+              "src/domain/Text.ts",
+              "src/domain/Validator.ts"
+            ],
+            "sourceSha256": "70a4793de9ccd9fd75ff20cdc7ef390250c6528c31b653d664832f239f0c4488"
+          },
+          {
+            "path": "src/application",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "19ade9da8bef91b90f24f01e70120912012b9fe4",
+            "sourceFileCount": 38,
+            "sourceFiles": [
+              "src/application/AddToCommand.ts",
+              "src/application/AttributeHandler.ts",
+              "src/application/AttributeTransaction.ts",
+              "src/application/BackCommand.ts",
+              "src/application/CanvasCommand.ts",
+              "src/application/Command.ts",
+              "src/application/CommandArguments.ts",
+              "src/application/CommandExecutor.ts",
+              "src/application/CommandProvider.ts",
+              "src/application/CommandTrigger.ts",
+              "src/application/CreateCommand.ts",
+              "src/application/DeleteCommand.ts",
+              "src/application/DocumentStore.ts",
+              "src/application/EditCommand.ts",
+              "src/application/EditReceiver.ts",
+              "src/application/EditorSession.ts",
+              "src/application/ExtensionRegistry.ts",
+              "src/application/FrontCommand.ts",
+              "src/application/GroupCommand.ts",
+              "src/application/HelpCommand.ts",
+              "src/application/HelpReceiver.ts",
+              "src/application/History.ts",
+              "src/application/InitCommand.ts",
+              "src/application/MoveCommand.ts",
+              "src/application/Plugin.ts",
+              "src/application/ReadCommand.ts",
+              "src/application/RedoCommand.ts",
+              "src/application/SaveCommand.ts",
+              "src/application/ScaleCommand.ts",
+              "src/application/SetCommand.ts",
+              "src/application/ShowCommand.ts",
+              "src/application/Token.ts",
+              "src/application/TreeCommand.ts",
+              "src/application/TreeDecorator.ts",
+              "src/application/UndoCommand.ts",
+              "src/application/UndoState.ts",
+              "src/application/UngroupCommand.ts",
+              "src/application/ViewReceiver.ts"
+            ],
+            "sourceSha256": "52bd4503080dd9c4c27a9f252a9359e74d3aaeed68fa7803956ee193a5d3d01b"
+          },
+          {
+            "path": "src/cli",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "a7ae37c18faefd246478d4f625322634ade743ff",
+            "sourceFileCount": 7,
+            "sourceFiles": [
+              "src/cli/Cli.ts",
+              "src/cli/CommandArguments.ts",
+              "src/cli/CommandDispatcher.ts",
+              "src/cli/CommandFactory.ts",
+              "src/cli/CommandSource.ts",
+              "src/cli/Token.ts",
+              "src/cli/Tokenizer.ts"
+            ],
+            "sourceSha256": "6d7d22f60ae9791c2bfb4975c192d38e0cd59ceacfc95ef423bbe128c38a4b84"
+          },
+          {
+            "path": "src/infrastructure",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "2966a6f00db2db3f4733837cc3ae6e7985242db8",
+            "sourceFileCount": 2,
+            "sourceFiles": [
+              "src/infrastructure/SvgCodec.ts",
+              "src/infrastructure/SvgFileStore.ts"
+            ],
+            "sourceSha256": "c75ea48a22e4e0eedd6ad8f207b0b36ce82afccb9b4ce72e400f4536ccfdfae5"
+          },
+          {
+            "path": "src/api",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "0c107b2628b630f7c53d39354605300b48d45fdc",
+            "sourceFileCount": 1,
+            "sourceFiles": [
+              "src/api/index.ts"
+            ],
+            "sourceSha256": "86260ec065087dd4d7339df854f8b16d41c1cb82e48383f745c6e95e34e2efea"
+          },
+          {
+            "path": "plugins/builtin-commands",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "906aa6709fa42f7aa8845d46488e296c5bae297a",
+            "sourceFileCount": 3,
+            "sourceFiles": [
+              "plugins/builtin-commands/BuiltinCommandProvider.ts",
+              "plugins/builtin-commands/BuiltinCommandsPlugin.ts",
+              "plugins/builtin-commands/index.ts"
+            ],
+            "sourceSha256": "93ba5bccfb217ee1233680f70f99dfc1765ad17d318848e1662355b6b14d3661"
+          },
+          {
+            "path": "plugins/builtin-shapes",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "955c933037173e208e64e32f16afba2a1d746003",
+            "sourceFileCount": 3,
+            "sourceFiles": [
+              "plugins/builtin-shapes/BuiltinShapeProvider.ts",
+              "plugins/builtin-shapes/BuiltinShapesPlugin.ts",
+              "plugins/builtin-shapes/index.ts"
+            ],
+            "sourceSha256": "787907a528a61d1f4fe102121177ce111c9508f4a17f4443bbd7157f16141fb9"
+          },
+          {
+            "path": "plugins/command-dir",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "6f925a0b5de2ee980ea9a699b1ee5e3bbb54e6b3",
+            "sourceFileCount": 7,
+            "sourceFiles": [
+              "plugins/command-dir/DirCommand.ts",
+              "plugins/command-dir/DirPlugin.ts",
+              "plugins/command-dir/DirProvider.ts",
+              "plugins/command-dir/DirectoryReader.ts",
+              "plugins/command-dir/DirectoryReceiver.ts",
+              "plugins/command-dir/NodeDirectoryAdapter.ts",
+              "plugins/command-dir/index.ts"
+            ],
+            "sourceSha256": "817adf43b85473d2953ca7da6a406db52f574d04f428708b690a9249929288c9"
+          },
+          {
+            "path": "plugins/command-stats",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "4b8f500965b3bee5d0b3f043e4f6421ed015a1cd",
+            "sourceFileCount": 5,
+            "sourceFiles": [
+              "plugins/command-stats/StatsCommand.ts",
+              "plugins/command-stats/StatsPlugin.ts",
+              "plugins/command-stats/StatsProvider.ts",
+              "plugins/command-stats/StatsReceiver.ts",
+              "plugins/command-stats/index.ts"
+            ],
+            "sourceSha256": "6809406a709ca06c2d61531531d0663f78cb3047971129e456b79f94345f9c96"
+          }
+        ],
+        "protectedFiles": [
+          {
+            "path": "src/host/PluginLoader.ts",
+            "before": {
+              "path": "src/host/PluginLoader.ts",
+              "exists": true,
+              "objectType": "blob",
+              "blobOid": "e43d6b5c83d5a09552be5683f093d05347bfab68",
+              "sha256": "b0f6787650c313811b7c8183c65f7f5639597502d87197130badf34ddd6d0cd9"
+            },
+            "after": {
+              "path": "src/host/PluginLoader.ts",
+              "exists": true,
+              "objectType": "blob",
+              "blobOid": "e43d6b5c83d5a09552be5683f093d05347bfab68",
+              "sha256": "b0f6787650c313811b7c8183c65f7f5639597502d87197130badf34ddd6d0cd9"
+            }
+          },
+          {
+            "path": "src/application/ViewReceiver.ts",
+            "before": {
+              "path": "src/application/ViewReceiver.ts",
+              "exists": true,
+              "objectType": "blob",
+              "blobOid": "1838542c589f08f631a173db6658315e7c510cce",
+              "sha256": "dea3b7294e801533e17fe23e5c52522cb9e64ad0e2a4e183ff5f2f9327e64be7"
+            },
+            "after": {
+              "path": "src/application/ViewReceiver.ts",
+              "exists": true,
+              "objectType": "blob",
+              "blobOid": "1838542c589f08f631a173db6658315e7c510cce",
+              "sha256": "dea3b7294e801533e17fe23e5c52522cb9e64ad0e2a4e183ff5f2f9327e64be7"
+            }
+          },
+          {
+            "path": "src/host/CodePlugins.ts",
+            "before": {
+              "path": "src/host/CodePlugins.ts",
+              "exists": true,
+              "objectType": "blob",
+              "blobOid": "f2fade0228191eda312692f03d1a731e9f9e0132",
+              "sha256": "802338fdfcaba6934fad9d04b1caf15663218533874ac192127e63274e2e5be7"
+            },
+            "after": {
+              "path": "src/host/CodePlugins.ts",
+              "exists": true,
+              "objectType": "blob",
+              "blobOid": "f2fade0228191eda312692f03d1a731e9f9e0132",
+              "sha256": "802338fdfcaba6934fad9d04b1caf15663218533874ac192127e63274e2e5be7"
+            }
+          }
+        ],
+        "newPlugin": {
+          "existsBefore": false,
+          "after": {
+            "path": "plugins/shape-box",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "1adfd83df46fbb5087496eca4f766f0625ef489a",
+            "sourceFileCount": 6,
+            "sourceFiles": [
+              "plugins/shape-box/Box.ts",
+              "plugins/shape-box/BoxAttributes.ts",
+              "plugins/shape-box/BoxPlugin.ts",
+              "plugins/shape-box/BoxProvider.ts",
+              "plugins/shape-box/BoxTypeLabel.ts",
+              "plugins/shape-box/index.ts"
+            ],
+            "sourceSha256": "7fa3e6f37d0c87019d0499c954bc16f40ad56b5273140069032d33598bd62044"
+          },
+          "manifestName": "@svgframe/plugin-shape-box",
+          "contributes": {
+            "shapes": [
+              "box"
+            ],
+            "attributes": [
+              "box-attributes"
+            ],
+            "decorators": [
+              "box-type-label"
+            ]
+          }
+        }
+      },
+      "evidence": {
+        "full": {
+          "command": [
+            "git",
+            "diff",
+            "--name-status",
+            "--no-renames",
+            "4fe35f812f2445d0f9c6576a99f125be1688bfe2",
+            "04b315b69c43077b6013df7baa499bb6fe74fb8a",
+            "--"
+          ],
+          "output": "M\tplugins.config.json\nA\tplugins/shape-box/Box.ts\nA\tplugins/shape-box/BoxAttributes.ts\nA\tplugins/shape-box/BoxPlugin.ts\nA\tplugins/shape-box/BoxProvider.ts\nA\tplugins/shape-box/BoxTypeLabel.ts\nA\tplugins/shape-box/README.md\nA\tplugins/shape-box/index.ts\nA\tplugins/shape-box/package.json\nA\ttest/box-plugin.test.ts\n"
+        },
+        "protectedCoreAndExistingPlugins": {
+          "command": [
+            "git",
+            "diff",
+            "--name-status",
+            "--no-renames",
+            "4fe35f812f2445d0f9c6576a99f125be1688bfe2",
+            "04b315b69c43077b6013df7baa499bb6fe74fb8a",
+            "--",
+            "src/domain",
+            "src/application",
+            "src/cli",
+            "src/infrastructure",
+            "src/api",
+            "plugins",
+            ":(exclude)plugins/shape-box"
+          ],
+          "output": ""
+        },
+        "loaderAndRenderer": {
+          "command": [
+            "git",
+            "diff",
+            "--name-status",
+            "--no-renames",
+            "4fe35f812f2445d0f9c6576a99f125be1688bfe2",
+            "04b315b69c43077b6013df7baa499bb6fe74fb8a",
+            "--",
+            "src/host/PluginLoader.ts",
+            "src/application/ViewReceiver.ts"
+          ],
+          "output": ""
+        },
+        "sourceChanges": {
+          "command": [
+            "git",
+            "diff",
+            "--name-status",
+            "--no-renames",
+            "4fe35f812f2445d0f9c6576a99f125be1688bfe2",
+            "04b315b69c43077b6013df7baa499bb6fe74fb8a",
+            "--",
+            "src"
+          ],
+          "output": ""
+        },
+        "configuration": {
+          "command": [
+            "git",
+            "diff",
+            "--name-status",
+            "--no-renames",
+            "4fe35f812f2445d0f9c6576a99f125be1688bfe2",
+            "04b315b69c43077b6013df7baa499bb6fe74fb8a",
+            "--",
+            "plugins.config.json"
+          ],
+          "output": "M\tplugins.config.json\n"
+        }
+      },
+      "addedPluginFiles": [
+        "plugins/shape-box/Box.ts",
+        "plugins/shape-box/BoxAttributes.ts",
+        "plugins/shape-box/BoxPlugin.ts",
+        "plugins/shape-box/BoxProvider.ts",
+        "plugins/shape-box/BoxTypeLabel.ts",
+        "plugins/shape-box/README.md",
+        "plugins/shape-box/index.ts",
+        "plugins/shape-box/package.json"
+      ],
+      "supportingChanges": [
+        "test/box-plugin.test.ts"
+      ],
+      "checks": {
+        "pathsExistAndContainSource": true,
+        "newPluginDidNotExistBefore": true,
+        "onlyNewPluginFilesAdded": true,
+        "coreAndExistingPluginsUnchanged": true,
+        "loaderAndRendererUnchanged": true,
+        "sourceChangeAllowanceSatisfied": true,
+        "configChangeAllowanceSatisfied": true,
+        "supportingChangesDeclared": true
+      },
+      "passed": true
+    },
+    {
+      "name": "tree-star",
+      "requestedRef": "fdffd8d",
+      "commit": "fdffd8de3468bc048be0bbddfa3b221101b52a3d",
+      "parent": "dfcbe29589ebc28ae8c1fa4f1f400bc2aad78705",
+      "policy": {
+        "newPlugin": "plugins/tree-star",
+        "allowedExistingSourceChanges": [
+          "src/host/CodePlugins.ts"
+        ],
+        "configurationChanged": true,
+        "protectedCorePaths": [
+          "src/domain",
+          "src/application",
+          "src/cli",
+          "src/infrastructure",
+          "src/api"
+        ],
+        "protectedExistingPlugins": [
+          "plugins/builtin-commands",
+          "plugins/builtin-shapes",
+          "plugins/command-dir",
+          "plugins/command-stats",
+          "plugins/shape-box"
+        ]
+      },
+      "pathExistence": {
+        "before": [
+          {
+            "path": "src/domain",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "9d19420b1a11b2d00ee26fc1ace7f0647dc4cd3f",
+            "sourceFileCount": 12,
+            "sourceFiles": [
+              "src/domain/Circle.ts",
+              "src/domain/Ellipse.ts",
+              "src/domain/Group.ts",
+              "src/domain/Line.ts",
+              "src/domain/Rect.ts",
+              "src/domain/Shape.ts",
+              "src/domain/ShapeFactory.ts",
+              "src/domain/ShapePlacements.ts",
+              "src/domain/ShapeProvider.ts",
+              "src/domain/SvgDocument.ts",
+              "src/domain/Text.ts",
+              "src/domain/Validator.ts"
+            ],
+            "sourceSha256": "70a4793de9ccd9fd75ff20cdc7ef390250c6528c31b653d664832f239f0c4488"
+          },
+          {
+            "path": "src/application",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "19ade9da8bef91b90f24f01e70120912012b9fe4",
+            "sourceFileCount": 38,
+            "sourceFiles": [
+              "src/application/AddToCommand.ts",
+              "src/application/AttributeHandler.ts",
+              "src/application/AttributeTransaction.ts",
+              "src/application/BackCommand.ts",
+              "src/application/CanvasCommand.ts",
+              "src/application/Command.ts",
+              "src/application/CommandArguments.ts",
+              "src/application/CommandExecutor.ts",
+              "src/application/CommandProvider.ts",
+              "src/application/CommandTrigger.ts",
+              "src/application/CreateCommand.ts",
+              "src/application/DeleteCommand.ts",
+              "src/application/DocumentStore.ts",
+              "src/application/EditCommand.ts",
+              "src/application/EditReceiver.ts",
+              "src/application/EditorSession.ts",
+              "src/application/ExtensionRegistry.ts",
+              "src/application/FrontCommand.ts",
+              "src/application/GroupCommand.ts",
+              "src/application/HelpCommand.ts",
+              "src/application/HelpReceiver.ts",
+              "src/application/History.ts",
+              "src/application/InitCommand.ts",
+              "src/application/MoveCommand.ts",
+              "src/application/Plugin.ts",
+              "src/application/ReadCommand.ts",
+              "src/application/RedoCommand.ts",
+              "src/application/SaveCommand.ts",
+              "src/application/ScaleCommand.ts",
+              "src/application/SetCommand.ts",
+              "src/application/ShowCommand.ts",
+              "src/application/Token.ts",
+              "src/application/TreeCommand.ts",
+              "src/application/TreeDecorator.ts",
+              "src/application/UndoCommand.ts",
+              "src/application/UndoState.ts",
+              "src/application/UngroupCommand.ts",
+              "src/application/ViewReceiver.ts"
+            ],
+            "sourceSha256": "52bd4503080dd9c4c27a9f252a9359e74d3aaeed68fa7803956ee193a5d3d01b"
+          },
+          {
+            "path": "src/cli",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "a7ae37c18faefd246478d4f625322634ade743ff",
+            "sourceFileCount": 7,
+            "sourceFiles": [
+              "src/cli/Cli.ts",
+              "src/cli/CommandArguments.ts",
+              "src/cli/CommandDispatcher.ts",
+              "src/cli/CommandFactory.ts",
+              "src/cli/CommandSource.ts",
+              "src/cli/Token.ts",
+              "src/cli/Tokenizer.ts"
+            ],
+            "sourceSha256": "6d7d22f60ae9791c2bfb4975c192d38e0cd59ceacfc95ef423bbe128c38a4b84"
+          },
+          {
+            "path": "src/infrastructure",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "2966a6f00db2db3f4733837cc3ae6e7985242db8",
+            "sourceFileCount": 2,
+            "sourceFiles": [
+              "src/infrastructure/SvgCodec.ts",
+              "src/infrastructure/SvgFileStore.ts"
+            ],
+            "sourceSha256": "c75ea48a22e4e0eedd6ad8f207b0b36ce82afccb9b4ce72e400f4536ccfdfae5"
+          },
+          {
+            "path": "src/api",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "0c107b2628b630f7c53d39354605300b48d45fdc",
+            "sourceFileCount": 1,
+            "sourceFiles": [
+              "src/api/index.ts"
+            ],
+            "sourceSha256": "86260ec065087dd4d7339df854f8b16d41c1cb82e48383f745c6e95e34e2efea"
+          },
+          {
+            "path": "plugins/builtin-commands",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "906aa6709fa42f7aa8845d46488e296c5bae297a",
+            "sourceFileCount": 3,
+            "sourceFiles": [
+              "plugins/builtin-commands/BuiltinCommandProvider.ts",
+              "plugins/builtin-commands/BuiltinCommandsPlugin.ts",
+              "plugins/builtin-commands/index.ts"
+            ],
+            "sourceSha256": "93ba5bccfb217ee1233680f70f99dfc1765ad17d318848e1662355b6b14d3661"
+          },
+          {
+            "path": "plugins/builtin-shapes",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "955c933037173e208e64e32f16afba2a1d746003",
+            "sourceFileCount": 3,
+            "sourceFiles": [
+              "plugins/builtin-shapes/BuiltinShapeProvider.ts",
+              "plugins/builtin-shapes/BuiltinShapesPlugin.ts",
+              "plugins/builtin-shapes/index.ts"
+            ],
+            "sourceSha256": "787907a528a61d1f4fe102121177ce111c9508f4a17f4443bbd7157f16141fb9"
+          },
+          {
+            "path": "plugins/command-dir",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "6f925a0b5de2ee980ea9a699b1ee5e3bbb54e6b3",
+            "sourceFileCount": 7,
+            "sourceFiles": [
+              "plugins/command-dir/DirCommand.ts",
+              "plugins/command-dir/DirPlugin.ts",
+              "plugins/command-dir/DirProvider.ts",
+              "plugins/command-dir/DirectoryReader.ts",
+              "plugins/command-dir/DirectoryReceiver.ts",
+              "plugins/command-dir/NodeDirectoryAdapter.ts",
+              "plugins/command-dir/index.ts"
+            ],
+            "sourceSha256": "817adf43b85473d2953ca7da6a406db52f574d04f428708b690a9249929288c9"
+          },
+          {
+            "path": "plugins/command-stats",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "4b8f500965b3bee5d0b3f043e4f6421ed015a1cd",
+            "sourceFileCount": 5,
+            "sourceFiles": [
+              "plugins/command-stats/StatsCommand.ts",
+              "plugins/command-stats/StatsPlugin.ts",
+              "plugins/command-stats/StatsProvider.ts",
+              "plugins/command-stats/StatsReceiver.ts",
+              "plugins/command-stats/index.ts"
+            ],
+            "sourceSha256": "6809406a709ca06c2d61531531d0663f78cb3047971129e456b79f94345f9c96"
+          },
+          {
+            "path": "plugins/shape-box",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "1adfd83df46fbb5087496eca4f766f0625ef489a",
+            "sourceFileCount": 6,
+            "sourceFiles": [
+              "plugins/shape-box/Box.ts",
+              "plugins/shape-box/BoxAttributes.ts",
+              "plugins/shape-box/BoxPlugin.ts",
+              "plugins/shape-box/BoxProvider.ts",
+              "plugins/shape-box/BoxTypeLabel.ts",
+              "plugins/shape-box/index.ts"
+            ],
+            "sourceSha256": "7fa3e6f37d0c87019d0499c954bc16f40ad56b5273140069032d33598bd62044"
+          }
+        ],
+        "after": [
+          {
+            "path": "src/domain",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "9d19420b1a11b2d00ee26fc1ace7f0647dc4cd3f",
+            "sourceFileCount": 12,
+            "sourceFiles": [
+              "src/domain/Circle.ts",
+              "src/domain/Ellipse.ts",
+              "src/domain/Group.ts",
+              "src/domain/Line.ts",
+              "src/domain/Rect.ts",
+              "src/domain/Shape.ts",
+              "src/domain/ShapeFactory.ts",
+              "src/domain/ShapePlacements.ts",
+              "src/domain/ShapeProvider.ts",
+              "src/domain/SvgDocument.ts",
+              "src/domain/Text.ts",
+              "src/domain/Validator.ts"
+            ],
+            "sourceSha256": "70a4793de9ccd9fd75ff20cdc7ef390250c6528c31b653d664832f239f0c4488"
+          },
+          {
+            "path": "src/application",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "19ade9da8bef91b90f24f01e70120912012b9fe4",
+            "sourceFileCount": 38,
+            "sourceFiles": [
+              "src/application/AddToCommand.ts",
+              "src/application/AttributeHandler.ts",
+              "src/application/AttributeTransaction.ts",
+              "src/application/BackCommand.ts",
+              "src/application/CanvasCommand.ts",
+              "src/application/Command.ts",
+              "src/application/CommandArguments.ts",
+              "src/application/CommandExecutor.ts",
+              "src/application/CommandProvider.ts",
+              "src/application/CommandTrigger.ts",
+              "src/application/CreateCommand.ts",
+              "src/application/DeleteCommand.ts",
+              "src/application/DocumentStore.ts",
+              "src/application/EditCommand.ts",
+              "src/application/EditReceiver.ts",
+              "src/application/EditorSession.ts",
+              "src/application/ExtensionRegistry.ts",
+              "src/application/FrontCommand.ts",
+              "src/application/GroupCommand.ts",
+              "src/application/HelpCommand.ts",
+              "src/application/HelpReceiver.ts",
+              "src/application/History.ts",
+              "src/application/InitCommand.ts",
+              "src/application/MoveCommand.ts",
+              "src/application/Plugin.ts",
+              "src/application/ReadCommand.ts",
+              "src/application/RedoCommand.ts",
+              "src/application/SaveCommand.ts",
+              "src/application/ScaleCommand.ts",
+              "src/application/SetCommand.ts",
+              "src/application/ShowCommand.ts",
+              "src/application/Token.ts",
+              "src/application/TreeCommand.ts",
+              "src/application/TreeDecorator.ts",
+              "src/application/UndoCommand.ts",
+              "src/application/UndoState.ts",
+              "src/application/UngroupCommand.ts",
+              "src/application/ViewReceiver.ts"
+            ],
+            "sourceSha256": "52bd4503080dd9c4c27a9f252a9359e74d3aaeed68fa7803956ee193a5d3d01b"
+          },
+          {
+            "path": "src/cli",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "a7ae37c18faefd246478d4f625322634ade743ff",
+            "sourceFileCount": 7,
+            "sourceFiles": [
+              "src/cli/Cli.ts",
+              "src/cli/CommandArguments.ts",
+              "src/cli/CommandDispatcher.ts",
+              "src/cli/CommandFactory.ts",
+              "src/cli/CommandSource.ts",
+              "src/cli/Token.ts",
+              "src/cli/Tokenizer.ts"
+            ],
+            "sourceSha256": "6d7d22f60ae9791c2bfb4975c192d38e0cd59ceacfc95ef423bbe128c38a4b84"
+          },
+          {
+            "path": "src/infrastructure",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "2966a6f00db2db3f4733837cc3ae6e7985242db8",
+            "sourceFileCount": 2,
+            "sourceFiles": [
+              "src/infrastructure/SvgCodec.ts",
+              "src/infrastructure/SvgFileStore.ts"
+            ],
+            "sourceSha256": "c75ea48a22e4e0eedd6ad8f207b0b36ce82afccb9b4ce72e400f4536ccfdfae5"
+          },
+          {
+            "path": "src/api",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "0c107b2628b630f7c53d39354605300b48d45fdc",
+            "sourceFileCount": 1,
+            "sourceFiles": [
+              "src/api/index.ts"
+            ],
+            "sourceSha256": "86260ec065087dd4d7339df854f8b16d41c1cb82e48383f745c6e95e34e2efea"
+          },
+          {
+            "path": "plugins/builtin-commands",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "906aa6709fa42f7aa8845d46488e296c5bae297a",
+            "sourceFileCount": 3,
+            "sourceFiles": [
+              "plugins/builtin-commands/BuiltinCommandProvider.ts",
+              "plugins/builtin-commands/BuiltinCommandsPlugin.ts",
+              "plugins/builtin-commands/index.ts"
+            ],
+            "sourceSha256": "93ba5bccfb217ee1233680f70f99dfc1765ad17d318848e1662355b6b14d3661"
+          },
+          {
+            "path": "plugins/builtin-shapes",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "955c933037173e208e64e32f16afba2a1d746003",
+            "sourceFileCount": 3,
+            "sourceFiles": [
+              "plugins/builtin-shapes/BuiltinShapeProvider.ts",
+              "plugins/builtin-shapes/BuiltinShapesPlugin.ts",
+              "plugins/builtin-shapes/index.ts"
+            ],
+            "sourceSha256": "787907a528a61d1f4fe102121177ce111c9508f4a17f4443bbd7157f16141fb9"
+          },
+          {
+            "path": "plugins/command-dir",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "6f925a0b5de2ee980ea9a699b1ee5e3bbb54e6b3",
+            "sourceFileCount": 7,
+            "sourceFiles": [
+              "plugins/command-dir/DirCommand.ts",
+              "plugins/command-dir/DirPlugin.ts",
+              "plugins/command-dir/DirProvider.ts",
+              "plugins/command-dir/DirectoryReader.ts",
+              "plugins/command-dir/DirectoryReceiver.ts",
+              "plugins/command-dir/NodeDirectoryAdapter.ts",
+              "plugins/command-dir/index.ts"
+            ],
+            "sourceSha256": "817adf43b85473d2953ca7da6a406db52f574d04f428708b690a9249929288c9"
+          },
+          {
+            "path": "plugins/command-stats",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "4b8f500965b3bee5d0b3f043e4f6421ed015a1cd",
+            "sourceFileCount": 5,
+            "sourceFiles": [
+              "plugins/command-stats/StatsCommand.ts",
+              "plugins/command-stats/StatsPlugin.ts",
+              "plugins/command-stats/StatsProvider.ts",
+              "plugins/command-stats/StatsReceiver.ts",
+              "plugins/command-stats/index.ts"
+            ],
+            "sourceSha256": "6809406a709ca06c2d61531531d0663f78cb3047971129e456b79f94345f9c96"
+          },
+          {
+            "path": "plugins/shape-box",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "1adfd83df46fbb5087496eca4f766f0625ef489a",
+            "sourceFileCount": 6,
+            "sourceFiles": [
+              "plugins/shape-box/Box.ts",
+              "plugins/shape-box/BoxAttributes.ts",
+              "plugins/shape-box/BoxPlugin.ts",
+              "plugins/shape-box/BoxProvider.ts",
+              "plugins/shape-box/BoxTypeLabel.ts",
+              "plugins/shape-box/index.ts"
+            ],
+            "sourceSha256": "7fa3e6f37d0c87019d0499c954bc16f40ad56b5273140069032d33598bd62044"
+          }
+        ],
+        "protectedFiles": [
+          {
+            "path": "src/host/PluginLoader.ts",
+            "before": {
+              "path": "src/host/PluginLoader.ts",
+              "exists": true,
+              "objectType": "blob",
+              "blobOid": "e43d6b5c83d5a09552be5683f093d05347bfab68",
+              "sha256": "b0f6787650c313811b7c8183c65f7f5639597502d87197130badf34ddd6d0cd9"
+            },
+            "after": {
+              "path": "src/host/PluginLoader.ts",
+              "exists": true,
+              "objectType": "blob",
+              "blobOid": "e43d6b5c83d5a09552be5683f093d05347bfab68",
+              "sha256": "b0f6787650c313811b7c8183c65f7f5639597502d87197130badf34ddd6d0cd9"
+            }
+          },
+          {
+            "path": "src/application/ViewReceiver.ts",
+            "before": {
+              "path": "src/application/ViewReceiver.ts",
+              "exists": true,
+              "objectType": "blob",
+              "blobOid": "1838542c589f08f631a173db6658315e7c510cce",
+              "sha256": "dea3b7294e801533e17fe23e5c52522cb9e64ad0e2a4e183ff5f2f9327e64be7"
+            },
+            "after": {
+              "path": "src/application/ViewReceiver.ts",
+              "exists": true,
+              "objectType": "blob",
+              "blobOid": "1838542c589f08f631a173db6658315e7c510cce",
+              "sha256": "dea3b7294e801533e17fe23e5c52522cb9e64ad0e2a4e183ff5f2f9327e64be7"
+            }
+          },
+          {
+            "path": "src/host/CodePlugins.ts",
+            "before": {
+              "path": "src/host/CodePlugins.ts",
+              "exists": true,
+              "objectType": "blob",
+              "blobOid": "268861300cde24622e1024c77d27ff573cd5494c",
+              "sha256": "ecc4459603ed22cd2b00871a797942d9431b8a6daea28aebfa36770d5432d24c"
+            },
+            "after": {
+              "path": "src/host/CodePlugins.ts",
+              "exists": true,
+              "objectType": "blob",
+              "blobOid": "2744a634295588fb24e2d6f473ce145d89474117",
+              "sha256": "d6722023e33add912a87d16f61c0ddec6124e2d85beecad79d5cc133c5426565"
+            }
+          }
+        ],
+        "newPlugin": {
+          "existsBefore": false,
+          "after": {
+            "path": "plugins/tree-star",
+            "exists": true,
+            "objectType": "tree",
+            "treeOid": "717a4f8f9549bb80b848a86c74a572432f9f84e9",
+            "sourceFileCount": 3,
+            "sourceFiles": [
+              "plugins/tree-star/ModifiedStar.ts",
+              "plugins/tree-star/TreeStarPlugin.ts",
+              "plugins/tree-star/index.ts"
+            ],
+            "sourceSha256": "4b3244faeba43c2999e583ae1f43aab14477deb59c765bd2c814df05641ca703"
+          },
+          "manifestName": "@svgframe/plugin-tree-star",
+          "contributes": {
+            "decorators": [
+              "modified-star"
+            ]
+          }
+        }
+      },
+      "evidence": {
+        "full": {
+          "command": [
+            "git",
+            "diff",
+            "--name-status",
+            "--no-renames",
+            "dfcbe29589ebc28ae8c1fa4f1f400bc2aad78705",
+            "fdffd8de3468bc048be0bbddfa3b221101b52a3d",
+            "--"
+          ],
+          "output": "M\tplugins.config.json\nA\tplugins/tree-star/ModifiedStar.ts\nA\tplugins/tree-star/README.md\nA\tplugins/tree-star/TreeStarPlugin.ts\nA\tplugins/tree-star/index.ts\nA\tplugins/tree-star/package.json\nM\tsrc/host/CodePlugins.ts\nA\ttest/tree-star.test.ts\n"
+        },
+        "protectedCoreAndExistingPlugins": {
+          "command": [
+            "git",
+            "diff",
+            "--name-status",
+            "--no-renames",
+            "dfcbe29589ebc28ae8c1fa4f1f400bc2aad78705",
+            "fdffd8de3468bc048be0bbddfa3b221101b52a3d",
+            "--",
+            "src/domain",
+            "src/application",
+            "src/cli",
+            "src/infrastructure",
+            "src/api",
+            "plugins",
+            ":(exclude)plugins/tree-star"
+          ],
+          "output": ""
+        },
+        "loaderAndRenderer": {
+          "command": [
+            "git",
+            "diff",
+            "--name-status",
+            "--no-renames",
+            "dfcbe29589ebc28ae8c1fa4f1f400bc2aad78705",
+            "fdffd8de3468bc048be0bbddfa3b221101b52a3d",
+            "--",
+            "src/host/PluginLoader.ts",
+            "src/application/ViewReceiver.ts"
+          ],
+          "output": ""
+        },
+        "sourceChanges": {
+          "command": [
+            "git",
+            "diff",
+            "--name-status",
+            "--no-renames",
+            "dfcbe29589ebc28ae8c1fa4f1f400bc2aad78705",
+            "fdffd8de3468bc048be0bbddfa3b221101b52a3d",
+            "--",
+            "src"
+          ],
+          "output": "M\tsrc/host/CodePlugins.ts\n"
+        },
+        "configuration": {
+          "command": [
+            "git",
+            "diff",
+            "--name-status",
+            "--no-renames",
+            "dfcbe29589ebc28ae8c1fa4f1f400bc2aad78705",
+            "fdffd8de3468bc048be0bbddfa3b221101b52a3d",
+            "--",
+            "plugins.config.json"
+          ],
+          "output": "M\tplugins.config.json\n"
+        }
+      },
+      "addedPluginFiles": [
+        "plugins/tree-star/ModifiedStar.ts",
+        "plugins/tree-star/README.md",
+        "plugins/tree-star/TreeStarPlugin.ts",
+        "plugins/tree-star/index.ts",
+        "plugins/tree-star/package.json"
+      ],
+      "supportingChanges": [
+        "test/tree-star.test.ts"
+      ],
+      "checks": {
+        "pathsExistAndContainSource": true,
+        "newPluginDidNotExistBefore": true,
+        "onlyNewPluginFilesAdded": true,
+        "coreAndExistingPluginsUnchanged": true,
+        "loaderAndRendererUnchanged": true,
+        "sourceChangeAllowanceSatisfied": true,
+        "configChangeAllowanceSatisfied": true,
+        "supportingChangesDeclared": true
+      },
+      "passed": true
+    }
+  ],
+  "passed": true
+}

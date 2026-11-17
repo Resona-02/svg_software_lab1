@@ -1,0 +1,50 @@
+[DIR]  docs
+[DIR]  plugins
+[FILE]  .hidden
+[FILE]  other.svg
+[FILE]  package.json
+[FILE]  snapshot.svg
+canvas 800x600 created
+(total 0, containers 0)
+g#flowchart created
+box#n1 created (g#n1 + rect#n1-rect + text#n1-label) in g#flowchart
+circle#c1 created
+rect: 1  text: 1  circle: 1  (total 3, containers 2)
+saved to snapshot.svg (5 elements)
+[DIR]  docs
+[DIR]  plugins
+[FILE]  .hidden
+[FILE]  other.svg
+[FILE]  package.json
+[FILE]  snapshot.svg
+box#n1 label updated: "开始 v2"
+rect: 1  text: 1  circle: 1  (total 3, containers 2)
+[DIR]  docs
+[DIR]  plugins
+[FILE]  .hidden
+[FILE]  other.svg
+[FILE]  package.json
+[FILE]  snapshot.svg
+box#n1 label restored: "开始"
+svg (800x600)
+├── g#flowchart
+│   └── g#n1 (box)
+│       ├── rect#n1-rect x=120 y=100 w=160 h=60 fill=#4a90d9
+│       └── text#n1-label (140,135) "开始"
+└── circle#c1 cx=400 cy=150 r=20 fill=red
+box#n1 label updated: "开始 v2"
+svg (800x600) *
+├── g#flowchart *
+│   └── g#n1 (box) *
+│       ├── rect#n1-rect x=120 y=100 w=160 h=60 fill=#4a90d9
+│       └── text#n1-label (140,135) "开始 v2" *
+└── circle#c1 cx=400 cy=150 r=20 fill=red
+warning: assigned id rect1 to unnamed <rect>
+read other.svg (7 elements)
+rect: 2  text: 1  circle: 2  ellipse: 1  (total 6, containers 1)
+[DIR]  docs
+[DIR]  plugins
+[FILE]  .hidden
+[FILE]  other.svg
+[FILE]  package.json
+[FILE]  snapshot.svg

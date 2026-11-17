@@ -1,0 +1,1524 @@
+{
+  "methodology": "TypeScript AST; CC = body-bearing function count + specified decision nodes",
+  "compilerVersion": "7.0.2",
+  "baseline": {
+    "label": "final",
+    "sourceDigest": "7f73a9aa8cab323c39138c5ec1a2d71d82cdbd16bb156c68f656f1c5e78765db",
+    "totals": {
+      "core": {
+        "files": 50,
+        "lines": 2013,
+        "nonBlankLines": 1758,
+        "functions": 333,
+        "decisions": 254,
+        "complexity": 587
+      },
+      "composition": {
+        "files": 1,
+        "lines": 9,
+        "nonBlankLines": 8,
+        "functions": 0,
+        "decisions": 0,
+        "complexity": 0
+      },
+      "plugins": {
+        "files": 0,
+        "lines": 0,
+        "nonBlankLines": 0,
+        "functions": 0,
+        "decisions": 0,
+        "complexity": 0
+      }
+    },
+    "files": [
+      {
+        "path": "src/application/AddToCommand.ts",
+        "category": "core",
+        "responsibility": "AddToCommand：封装请求参数并将执行交给接收者",
+        "lines": 16,
+        "nonBlankLines": 13,
+        "functions": 3,
+        "decisions": 0,
+        "complexity": 3
+      },
+      {
+        "path": "src/application/BackCommand.ts",
+        "category": "core",
+        "responsibility": "BackCommand：封装请求参数并将执行交给接收者",
+        "lines": 16,
+        "nonBlankLines": 13,
+        "functions": 3,
+        "decisions": 0,
+        "complexity": 3
+      },
+      {
+        "path": "src/application/CanvasCommand.ts",
+        "category": "core",
+        "responsibility": "CanvasCommand：封装请求参数并将执行交给接收者",
+        "lines": 10,
+        "nonBlankLines": 8,
+        "functions": 2,
+        "decisions": 0,
+        "complexity": 2
+      },
+      {
+        "path": "src/application/Command.ts",
+        "category": "core",
+        "responsibility": "所有入口共用的请求接口；文件命令允许异步执行。",
+        "lines": 4,
+        "nonBlankLines": 4,
+        "functions": 0,
+        "decisions": 0,
+        "complexity": 0
+      },
+      {
+        "path": "src/application/CommandExecutor.ts",
+        "category": "core",
+        "responsibility": "Invoker：统一执行与历史迁移；异步命令等待期间拒绝其他入口，结束后可重试。",
+        "lines": 50,
+        "nonBlankLines": 44,
+        "functions": 6,
+        "decisions": 5,
+        "complexity": 11
+      },
+      {
+        "path": "src/application/CommandTrigger.ts",
+        "category": "core",
+        "responsibility": "可供菜单、右键菜单、工具栏等入口复用的触发器；不认识接收者。",
+        "lines": 11,
+        "nonBlankLines": 9,
+        "functions": 2,
+        "decisions": 0,
+        "complexity": 2
+      },
+      {
+        "path": "src/application/CreateCommand.ts",
+        "category": "core",
+        "responsibility": "CreateCommand：封装请求参数并将执行交给接收者",
+        "lines": 18,
+        "nonBlankLines": 15,
+        "functions": 3,
+        "decisions": 0,
+        "complexity": 3
+      },
+      {
+        "path": "src/application/DeleteCommand.ts",
+        "category": "core",
+        "responsibility": "DeleteCommand：封装请求参数并将执行交给接收者",
+        "lines": 16,
+        "nonBlankLines": 13,
+        "functions": 3,
+        "decisions": 0,
+        "complexity": 3
+      },
+      {
+        "path": "src/application/DocumentStore.ts",
+        "category": "core",
+        "responsibility": "文件访问端口：应用层不关心 SVG 解析和磁盘读写。",
+        "lines": 7,
+        "nonBlankLines": 6,
+        "functions": 0,
+        "decisions": 0,
+        "complexity": 0
+      },
+      {
+        "path": "src/application/EditCommand.ts",
+        "category": "core",
+        "responsibility": "命令只绑定接收者和请求参数。旧状态由接收者填写，命令不解释它。",
+        "lines": 19,
+        "nonBlankLines": 14,
+        "functions": 2,
+        "decisions": 0,
+        "complexity": 2
+      },
+      {
+        "path": "src/application/EditReceiver.ts",
+        "category": "core",
+        "responsibility": "编辑业务接收者：组织领域对象、局部撤销记录、原子回滚和操作反馈。",
+        "lines": 126,
+        "nonBlankLines": 110,
+        "functions": 39,
+        "decisions": 6,
+        "complexity": 45
+      },
+      {
+        "path": "src/application/EditorSession.ts",
+        "category": "core",
+        "responsibility": "当前文档的生命周期，以及编辑与文件操作之间的历史边界。",
+        "lines": 90,
+        "nonBlankLines": 76,
+        "functions": 13,
+        "decisions": 7,
+        "complexity": 20
+      },
+      {
+        "path": "src/application/FrontCommand.ts",
+        "category": "core",
+        "responsibility": "FrontCommand：封装请求参数并将执行交给接收者",
+        "lines": 16,
+        "nonBlankLines": 13,
+        "functions": 3,
+        "decisions": 0,
+        "complexity": 3
+      },
+      {
+        "path": "src/application/GroupCommand.ts",
+        "category": "core",
+        "responsibility": "GroupCommand：封装请求参数并将执行交给接收者",
+        "lines": 17,
+        "nonBlankLines": 14,
+        "functions": 3,
+        "decisions": 0,
+        "complexity": 3
+      },
+      {
+        "path": "src/application/HelpCommand.ts",
+        "category": "core",
+        "responsibility": "HelpCommand：封装请求参数并将执行交给接收者",
+        "lines": 10,
+        "nonBlankLines": 8,
+        "functions": 2,
+        "decisions": 0,
+        "complexity": 2
+      },
+      {
+        "path": "src/application/HelpReceiver.ts",
+        "category": "core",
+        "responsibility": "帮助展示的接收者：只保存命令说明，不引用创建命令的 Client。",
+        "lines": 12,
+        "nonBlankLines": 10,
+        "functions": 2,
+        "decisions": 0,
+        "complexity": 2
+      },
+      {
+        "path": "src/application/History.ts",
+        "category": "core",
+        "responsibility": "只保存命令和迁移两个栈；不调用命令，执行时序由 CommandExecutor 负责。",
+        "lines": 53,
+        "nonBlankLines": 44,
+        "functions": 9,
+        "decisions": 5,
+        "complexity": 14
+      },
+      {
+        "path": "src/application/InitCommand.ts",
+        "category": "core",
+        "responsibility": "InitCommand：封装请求参数并将执行交给接收者",
+        "lines": 10,
+        "nonBlankLines": 8,
+        "functions": 2,
+        "decisions": 0,
+        "complexity": 2
+      },
+      {
+        "path": "src/application/MoveCommand.ts",
+        "category": "core",
+        "responsibility": "MoveCommand：封装请求参数并将执行交给接收者",
+        "lines": 16,
+        "nonBlankLines": 13,
+        "functions": 3,
+        "decisions": 0,
+        "complexity": 3
+      },
+      {
+        "path": "src/application/ReadCommand.ts",
+        "category": "core",
+        "responsibility": "ReadCommand：封装请求参数并将执行交给接收者",
+        "lines": 10,
+        "nonBlankLines": 8,
+        "functions": 2,
+        "decisions": 0,
+        "complexity": 2
+      },
+      {
+        "path": "src/application/RedoCommand.ts",
+        "category": "core",
+        "responsibility": "RedoCommand：封装请求参数并将执行交给接收者",
+        "lines": 10,
+        "nonBlankLines": 8,
+        "functions": 2,
+        "decisions": 0,
+        "complexity": 2
+      },
+      {
+        "path": "src/application/SaveCommand.ts",
+        "category": "core",
+        "responsibility": "SaveCommand：封装请求参数并将执行交给接收者",
+        "lines": 10,
+        "nonBlankLines": 8,
+        "functions": 2,
+        "decisions": 0,
+        "complexity": 2
+      },
+      {
+        "path": "src/application/ScaleCommand.ts",
+        "category": "core",
+        "responsibility": "ScaleCommand：封装请求参数并将执行交给接收者",
+        "lines": 16,
+        "nonBlankLines": 13,
+        "functions": 3,
+        "decisions": 0,
+        "complexity": 3
+      },
+      {
+        "path": "src/application/SetCommand.ts",
+        "category": "core",
+        "responsibility": "SetCommand：封装请求参数并将执行交给接收者",
+        "lines": 16,
+        "nonBlankLines": 13,
+        "functions": 3,
+        "decisions": 0,
+        "complexity": 3
+      },
+      {
+        "path": "src/application/ShowCommand.ts",
+        "category": "core",
+        "responsibility": "ShowCommand：封装请求参数并将执行交给接收者",
+        "lines": 10,
+        "nonBlankLines": 8,
+        "functions": 2,
+        "decisions": 0,
+        "complexity": 2
+      },
+      {
+        "path": "src/application/TreeCommand.ts",
+        "category": "core",
+        "responsibility": "TreeCommand：封装请求参数并将执行交给接收者",
+        "lines": 10,
+        "nonBlankLines": 8,
+        "functions": 2,
+        "decisions": 0,
+        "complexity": 2
+      },
+      {
+        "path": "src/application/UndoCommand.ts",
+        "category": "core",
+        "responsibility": "UndoCommand：封装请求参数并将执行交给接收者",
+        "lines": 10,
+        "nonBlankLines": 8,
+        "functions": 2,
+        "decisions": 0,
+        "complexity": 2
+      },
+      {
+        "path": "src/application/UndoState.ts",
+        "category": "core",
+        "responsibility": "单条编辑的局部撤销记录。没有文档副本，也不保存执行后状态。",
+        "lines": 36,
+        "nonBlankLines": 32,
+        "functions": 4,
+        "decisions": 4,
+        "complexity": 8
+      },
+      {
+        "path": "src/application/UngroupCommand.ts",
+        "category": "core",
+        "responsibility": "UngroupCommand：封装请求参数并将执行交给接收者",
+        "lines": 16,
+        "nonBlankLines": 13,
+        "functions": 3,
+        "decisions": 0,
+        "complexity": 3
+      },
+      {
+        "path": "src/application/ViewReceiver.ts",
+        "category": "core",
+        "responsibility": "通过统一的 Shape 接口渲染，不按图形类型分派。",
+        "lines": 39,
+        "nonBlankLines": 36,
+        "functions": 7,
+        "decisions": 6,
+        "complexity": 13
+      },
+      {
+        "path": "src/cli/Cli.ts",
+        "category": "core",
+        "responsibility": "支持交互终端，也支持通过标准输入回放命令文件。EOF 结束会话。",
+        "lines": 27,
+        "nonBlankLines": 25,
+        "functions": 2,
+        "decisions": 6,
+        "complexity": 8
+      },
+      {
+        "path": "src/cli/CommandArguments.ts",
+        "category": "core",
+        "responsibility": "参数校验集中在边界；领域模型仍会校验业务不变量。",
+        "lines": 41,
+        "nonBlankLines": 33,
+        "functions": 9,
+        "decisions": 8,
+        "complexity": 17
+      },
+      {
+        "path": "src/cli/CommandDispatcher.ts",
+        "category": "core",
+        "responsibility": "CLI 入口：取得抽象命令、委托执行器、格式化错误，不接触业务接收者。",
+        "lines": 17,
+        "nonBlankLines": 15,
+        "functions": 2,
+        "decisions": 3,
+        "complexity": 5
+      },
+      {
+        "path": "src/cli/CommandFactory.ts",
+        "category": "core",
+        "responsibility": "CommandFactory：根据输入创建对象并隐藏具体构造选择",
+        "lines": 131,
+        "nonBlankLines": 126,
+        "functions": 23,
+        "decisions": 8,
+        "complexity": 31
+      },
+      {
+        "path": "src/cli/CommandSource.ts",
+        "category": "core",
+        "responsibility": "定义 CommandSource 的公开协作契约",
+        "lines": 5,
+        "nonBlankLines": 4,
+        "functions": 0,
+        "decisions": 0,
+        "complexity": 0
+      },
+      {
+        "path": "src/cli/Token.ts",
+        "category": "core",
+        "responsibility": "quoted 用来区分文本中的 \"in\" 和 create 的归属子句。",
+        "lines": 5,
+        "nonBlankLines": 5,
+        "functions": 0,
+        "decisions": 0,
+        "complexity": 0
+      },
+      {
+        "path": "src/cli/Tokenizer.ts",
+        "category": "core",
+        "responsibility": "只处理词法，不执行命令；# 仅在整行开头表示注释。",
+        "lines": 34,
+        "nonBlankLines": 33,
+        "functions": 1,
+        "decisions": 11,
+        "complexity": 12
+      },
+      {
+        "path": "src/domain/Circle.ts",
+        "category": "core",
+        "responsibility": "封装圆形的几何、属性、序列化信息及局部恢复操作",
+        "lines": 60,
+        "nonBlankLines": 50,
+        "functions": 11,
+        "decisions": 4,
+        "complexity": 15
+      },
+      {
+        "path": "src/domain/Ellipse.ts",
+        "category": "core",
+        "responsibility": "封装椭圆的几何、属性、序列化信息及局部恢复操作",
+        "lines": 66,
+        "nonBlankLines": 56,
+        "functions": 11,
+        "decisions": 5,
+        "complexity": 16
+      },
+      {
+        "path": "src/domain/Group.ts",
+        "category": "core",
+        "responsibility": "组合节点把统一操作递归交给子节点，不按具体类型分派。",
+        "lines": 68,
+        "nonBlankLines": 58,
+        "functions": 16,
+        "decisions": 13,
+        "complexity": 29
+      },
+      {
+        "path": "src/domain/Line.ts",
+        "category": "core",
+        "responsibility": "封装直线的几何、属性、序列化信息及局部恢复操作",
+        "lines": 76,
+        "nonBlankLines": 66,
+        "functions": 11,
+        "decisions": 5,
+        "complexity": 16
+      },
+      {
+        "path": "src/domain/Rect.ts",
+        "category": "core",
+        "responsibility": "封装矩形的几何、属性、序列化信息及局部恢复操作",
+        "lines": 66,
+        "nonBlankLines": 56,
+        "functions": 11,
+        "decisions": 5,
+        "complexity": 16
+      },
+      {
+        "path": "src/domain/Shape.ts",
+        "category": "core",
+        "responsibility": "Composite 的共同接口：调用方无需根据图形类型决定如何编辑。",
+        "lines": 127,
+        "nonBlankLines": 112,
+        "functions": 21,
+        "decisions": 25,
+        "complexity": 46
+      },
+      {
+        "path": "src/domain/ShapeFactory.ts",
+        "category": "core",
+        "responsibility": "ShapeFactory：根据输入创建对象并隐藏具体构造选择",
+        "lines": 72,
+        "nonBlankLines": 67,
+        "functions": 10,
+        "decisions": 9,
+        "complexity": 19
+      },
+      {
+        "path": "src/domain/ShapePlacements.ts",
+        "category": "core",
+        "responsibility": "只保留移动节点的引用、旧父节点和旧下标，不复制兄弟节点或子树。",
+        "lines": 22,
+        "nonBlankLines": 19,
+        "functions": 4,
+        "decisions": 2,
+        "complexity": 6
+      },
+      {
+        "path": "src/domain/SvgDocument.ts",
+        "category": "core",
+        "responsibility": "聚合根负责文档级不变量：唯一 id、树结构、层叠顺序与画布。",
+        "lines": 163,
+        "nonBlankLines": 145,
+        "functions": 30,
+        "decisions": 31,
+        "complexity": 61
+      },
+      {
+        "path": "src/domain/Text.ts",
+        "category": "core",
+        "responsibility": "封装文字的几何、属性、序列化信息及局部恢复操作",
+        "lines": 64,
+        "nonBlankLines": 54,
+        "functions": 11,
+        "decisions": 3,
+        "complexity": 14
+      },
+      {
+        "path": "src/domain/Validator.ts",
+        "category": "core",
+        "responsibility": "集中表达数值约束；几何行为仍由各图形自己负责。",
+        "lines": 39,
+        "nonBlankLines": 34,
+        "functions": 6,
+        "decisions": 8,
+        "complexity": 14
+      },
+      {
+        "path": "src/infrastructure/SvgCodec.ts",
+        "category": "core",
+        "responsibility": "Converts between SVG XML and the object model; file access stays in SvgFileStore.",
+        "lines": 197,
+        "nonBlankLines": 180,
+        "functions": 18,
+        "decisions": 73,
+        "complexity": 91
+      },
+      {
+        "path": "src/infrastructure/SvgFileStore.ts",
+        "category": "core",
+        "responsibility": "File-system adapter; writes are replaced atomically only after serialization succeeds.",
+        "lines": 33,
+        "nonBlankLines": 30,
+        "functions": 4,
+        "decisions": 2,
+        "complexity": 6
+      },
+      {
+        "path": "src/main.ts",
+        "category": "composition",
+        "responsibility": "启动宿主并将依赖装配到 CLI 入口",
+        "lines": 9,
+        "nonBlankLines": 8,
+        "functions": 0,
+        "decisions": 0,
+        "complexity": 0
+      }
+    ]
+  },
+  "target": {
+    "label": "p2",
+    "sourceDigest": "e9863211408545f6dabcacf45b27ac0d342bfec18befd6ee3394c83971d1d2db",
+    "totals": {
+      "core": {
+        "files": 60,
+        "lines": 2209,
+        "nonBlankLines": 1937,
+        "functions": 339,
+        "decisions": 304,
+        "complexity": 643
+      },
+      "composition": {
+        "files": 5,
+        "lines": 220,
+        "nonBlankLines": 203,
+        "functions": 17,
+        "decisions": 44,
+        "complexity": 61
+      },
+      "plugins": {
+        "files": 27,
+        "lines": 516,
+        "nonBlankLines": 464,
+        "functions": 88,
+        "decisions": 60,
+        "complexity": 148
+      }
+    },
+    "files": [
+      {
+        "path": "plugins/builtin-commands/BuiltinCommandProvider.ts",
+        "category": "plugins",
+        "responsibility": "把内置命令的参数契约与构造方式作为注册实例提供。",
+        "lines": 14,
+        "nonBlankLines": 12,
+        "functions": 2,
+        "decisions": 0,
+        "complexity": 2
+      },
+      {
+        "path": "plugins/builtin-commands/BuiltinCommandsPlugin.ts",
+        "category": "plugins",
+        "responsibility": "默认命令以同一注册协议装配，参数语义沿用 Phase 1。",
+        "lines": 98,
+        "nonBlankLines": 96,
+        "functions": 22,
+        "decisions": 6,
+        "complexity": 28
+      },
+      {
+        "path": "plugins/builtin-commands/index.ts",
+        "category": "plugins",
+        "responsibility": "集中导出该模块允许使用的公开契约或插件入口",
+        "lines": 3,
+        "nonBlankLines": 3,
+        "functions": 0,
+        "decisions": 0,
+        "complexity": 0
+      },
+      {
+        "path": "plugins/builtin-shapes/BuiltinShapeProvider.ts",
+        "category": "plugins",
+        "responsibility": "Each instance describes one built-in type through the same provider contract.",
+        "lines": 32,
+        "nonBlankLines": 29,
+        "functions": 4,
+        "decisions": 11,
+        "complexity": 15
+      },
+      {
+        "path": "plugins/builtin-shapes/BuiltinShapesPlugin.ts",
+        "category": "plugins",
+        "responsibility": "BuiltinShapesPlugin：注册该插件提供的扩展实例",
+        "lines": 19,
+        "nonBlankLines": 18,
+        "functions": 8,
+        "decisions": 0,
+        "complexity": 8
+      },
+      {
+        "path": "plugins/builtin-shapes/index.ts",
+        "category": "plugins",
+        "responsibility": "集中导出该模块允许使用的公开契约或插件入口",
+        "lines": 3,
+        "nonBlankLines": 3,
+        "functions": 0,
+        "decisions": 0,
+        "complexity": 0
+      },
+      {
+        "path": "plugins/command-dir/DirCommand.ts",
+        "category": "plugins",
+        "responsibility": "DirCommand：封装请求参数并将执行交给接收者",
+        "lines": 10,
+        "nonBlankLines": 8,
+        "functions": 2,
+        "decisions": 0,
+        "complexity": 2
+      },
+      {
+        "path": "plugins/command-dir/DirPlugin.ts",
+        "category": "plugins",
+        "responsibility": "DirPlugin：注册该插件提供的扩展实例",
+        "lines": 9,
+        "nonBlankLines": 8,
+        "functions": 1,
+        "decisions": 0,
+        "complexity": 1
+      },
+      {
+        "path": "plugins/command-dir/DirProvider.ts",
+        "category": "plugins",
+        "responsibility": "DirProvider：实现扩展对象的构造契约",
+        "lines": 16,
+        "nonBlankLines": 13,
+        "functions": 2,
+        "decisions": 0,
+        "complexity": 2
+      },
+      {
+        "path": "plugins/command-dir/DirectoryReader.ts",
+        "category": "plugins",
+        "responsibility": "定义 DirectoryEntry、DirectoryReader 的公开协作契约",
+        "lines": 11,
+        "nonBlankLines": 9,
+        "functions": 0,
+        "decisions": 0,
+        "complexity": 0
+      },
+      {
+        "path": "plugins/command-dir/DirectoryReceiver.ts",
+        "category": "plugins",
+        "responsibility": "Owns display policy; the injected reader owns access to the external system.",
+        "lines": 32,
+        "nonBlankLines": 30,
+        "functions": 6,
+        "decisions": 6,
+        "complexity": 12
+      },
+      {
+        "path": "plugins/command-dir/NodeDirectoryAdapter.ts",
+        "category": "plugins",
+        "responsibility": "Object adapter from Node's directory entries to the command's own contract.",
+        "lines": 20,
+        "nonBlankLines": 17,
+        "functions": 3,
+        "decisions": 3,
+        "complexity": 6
+      },
+      {
+        "path": "plugins/command-dir/index.ts",
+        "category": "plugins",
+        "responsibility": "集中导出该模块允许使用的公开契约或插件入口",
+        "lines": 5,
+        "nonBlankLines": 4,
+        "functions": 0,
+        "decisions": 0,
+        "complexity": 0
+      },
+      {
+        "path": "plugins/command-stats/StatsCommand.ts",
+        "category": "plugins",
+        "responsibility": "StatsCommand：封装请求参数并将执行交给接收者",
+        "lines": 10,
+        "nonBlankLines": 8,
+        "functions": 2,
+        "decisions": 0,
+        "complexity": 2
+      },
+      {
+        "path": "plugins/command-stats/StatsPlugin.ts",
+        "category": "plugins",
+        "responsibility": "StatsPlugin：注册该插件提供的扩展实例",
+        "lines": 8,
+        "nonBlankLines": 7,
+        "functions": 1,
+        "decisions": 0,
+        "complexity": 1
+      },
+      {
+        "path": "plugins/command-stats/StatsProvider.ts",
+        "category": "plugins",
+        "responsibility": "StatsProvider：实现扩展对象的构造契约",
+        "lines": 13,
+        "nonBlankLines": 11,
+        "functions": 1,
+        "decisions": 0,
+        "complexity": 1
+      },
+      {
+        "path": "plugins/command-stats/StatsReceiver.ts",
+        "category": "plugins",
+        "responsibility": "Count the public tree in document order without modifying the session.",
+        "lines": 22,
+        "nonBlankLines": 20,
+        "functions": 3,
+        "decisions": 3,
+        "complexity": 6
+      },
+      {
+        "path": "plugins/command-stats/index.ts",
+        "category": "plugins",
+        "responsibility": "集中导出该模块允许使用的公开契约或插件入口",
+        "lines": 5,
+        "nonBlankLines": 4,
+        "functions": 0,
+        "decisions": 0,
+        "complexity": 0
+      },
+      {
+        "path": "plugins/shape-box/Box.ts",
+        "category": "plugins",
+        "responsibility": "A composite owns its required parts; ordinary tree operations cannot dismantle it.",
+        "lines": 49,
+        "nonBlankLines": 40,
+        "functions": 13,
+        "decisions": 7,
+        "complexity": 20
+      },
+      {
+        "path": "plugins/shape-box/BoxAttributes.ts",
+        "category": "plugins",
+        "responsibility": "The handler exposes box semantics while transaction bookkeeping stays in core.",
+        "lines": 31,
+        "nonBlankLines": 29,
+        "functions": 4,
+        "decisions": 6,
+        "complexity": 10
+      },
+      {
+        "path": "plugins/shape-box/BoxPlugin.ts",
+        "category": "plugins",
+        "responsibility": "BoxPlugin：注册该插件提供的扩展实例",
+        "lines": 19,
+        "nonBlankLines": 18,
+        "functions": 1,
+        "decisions": 6,
+        "complexity": 7
+      },
+      {
+        "path": "plugins/shape-box/BoxProvider.ts",
+        "category": "plugins",
+        "responsibility": "Creates and reconstructs box through the shape-provider contract only.",
+        "lines": 26,
+        "nonBlankLines": 23,
+        "functions": 4,
+        "decisions": 2,
+        "complexity": 6
+      },
+      {
+        "path": "plugins/shape-box/BoxTypeLabel.ts",
+        "category": "plugins",
+        "responsibility": "Independent type label; it neither inspects nor configures other decorators.",
+        "lines": 8,
+        "nonBlankLines": 7,
+        "functions": 1,
+        "decisions": 1,
+        "complexity": 2
+      },
+      {
+        "path": "plugins/shape-box/index.ts",
+        "category": "plugins",
+        "responsibility": "集中导出该模块允许使用的公开契约或插件入口",
+        "lines": 4,
+        "nonBlankLines": 4,
+        "functions": 0,
+        "decisions": 0,
+        "complexity": 0
+      },
+      {
+        "path": "plugins/tree-star/ModifiedStar.ts",
+        "category": "plugins",
+        "responsibility": "Compares content with the last successful save/read, including descendants.",
+        "lines": 39,
+        "nonBlankLines": 34,
+        "functions": 7,
+        "decisions": 9,
+        "complexity": 16
+      },
+      {
+        "path": "plugins/tree-star/TreeStarPlugin.ts",
+        "category": "plugins",
+        "responsibility": "TreeStarPlugin：注册该插件提供的扩展实例",
+        "lines": 6,
+        "nonBlankLines": 5,
+        "functions": 1,
+        "decisions": 0,
+        "complexity": 1
+      },
+      {
+        "path": "plugins/tree-star/index.ts",
+        "category": "plugins",
+        "responsibility": "集中导出该模块允许使用的公开契约或插件入口",
+        "lines": 4,
+        "nonBlankLines": 4,
+        "functions": 0,
+        "decisions": 0,
+        "complexity": 0
+      },
+      {
+        "path": "src/api/index.ts",
+        "category": "core",
+        "responsibility": "集中导出该模块允许使用的公开契约或插件入口",
+        "lines": 44,
+        "nonBlankLines": 44,
+        "functions": 0,
+        "decisions": 0,
+        "complexity": 0
+      },
+      {
+        "path": "src/application/AddToCommand.ts",
+        "category": "core",
+        "responsibility": "AddToCommand：封装请求参数并将执行交给接收者",
+        "lines": 16,
+        "nonBlankLines": 13,
+        "functions": 3,
+        "decisions": 0,
+        "complexity": 3
+      },
+      {
+        "path": "src/application/AttributeHandler.ts",
+        "category": "core",
+        "responsibility": "Mutations recorded through this port participate in one set transaction.",
+        "lines": 19,
+        "nonBlankLines": 18,
+        "functions": 0,
+        "decisions": 0,
+        "complexity": 0
+      },
+      {
+        "path": "src/application/AttributeTransaction.ts",
+        "category": "core",
+        "responsibility": "受限的属性事务：先登记补偿，再修改目标或后代；不复制整棵树。",
+        "lines": 20,
+        "nonBlankLines": 17,
+        "functions": 3,
+        "decisions": 4,
+        "complexity": 7
+      },
+      {
+        "path": "src/application/BackCommand.ts",
+        "category": "core",
+        "responsibility": "BackCommand：封装请求参数并将执行交给接收者",
+        "lines": 16,
+        "nonBlankLines": 13,
+        "functions": 3,
+        "decisions": 0,
+        "complexity": 3
+      },
+      {
+        "path": "src/application/CanvasCommand.ts",
+        "category": "core",
+        "responsibility": "CanvasCommand：封装请求参数并将执行交给接收者",
+        "lines": 10,
+        "nonBlankLines": 8,
+        "functions": 2,
+        "decisions": 0,
+        "complexity": 2
+      },
+      {
+        "path": "src/application/Command.ts",
+        "category": "core",
+        "responsibility": "所有入口共用的请求接口；文件命令允许异步执行。",
+        "lines": 4,
+        "nonBlankLines": 4,
+        "functions": 0,
+        "decisions": 0,
+        "complexity": 0
+      },
+      {
+        "path": "src/application/CommandArguments.ts",
+        "category": "core",
+        "responsibility": "参数校验集中在边界；领域模型仍会校验业务不变量。",
+        "lines": 41,
+        "nonBlankLines": 33,
+        "functions": 9,
+        "decisions": 8,
+        "complexity": 17
+      },
+      {
+        "path": "src/application/CommandExecutor.ts",
+        "category": "core",
+        "responsibility": "Invoker：统一执行与历史迁移；异步命令等待期间拒绝其他入口，结束后可重试。",
+        "lines": 50,
+        "nonBlankLines": 44,
+        "functions": 6,
+        "decisions": 5,
+        "complexity": 11
+      },
+      {
+        "path": "src/application/CommandProvider.ts",
+        "category": "core",
+        "responsibility": "定义 CommandProvider 的公开协作契约",
+        "lines": 9,
+        "nonBlankLines": 8,
+        "functions": 0,
+        "decisions": 0,
+        "complexity": 0
+      },
+      {
+        "path": "src/application/CommandTrigger.ts",
+        "category": "core",
+        "responsibility": "可供菜单、右键菜单、工具栏等入口复用的触发器；不认识接收者。",
+        "lines": 11,
+        "nonBlankLines": 9,
+        "functions": 2,
+        "decisions": 0,
+        "complexity": 2
+      },
+      {
+        "path": "src/application/CreateCommand.ts",
+        "category": "core",
+        "responsibility": "CreateCommand：封装请求参数并将执行交给接收者",
+        "lines": 18,
+        "nonBlankLines": 15,
+        "functions": 3,
+        "decisions": 0,
+        "complexity": 3
+      },
+      {
+        "path": "src/application/DeleteCommand.ts",
+        "category": "core",
+        "responsibility": "DeleteCommand：封装请求参数并将执行交给接收者",
+        "lines": 16,
+        "nonBlankLines": 13,
+        "functions": 3,
+        "decisions": 0,
+        "complexity": 3
+      },
+      {
+        "path": "src/application/DocumentStore.ts",
+        "category": "core",
+        "responsibility": "文件访问端口：应用层不关心 SVG 解析和磁盘读写。",
+        "lines": 7,
+        "nonBlankLines": 6,
+        "functions": 0,
+        "decisions": 0,
+        "complexity": 0
+      },
+      {
+        "path": "src/application/EditCommand.ts",
+        "category": "core",
+        "responsibility": "命令只绑定接收者和请求参数。旧状态由接收者填写，命令不解释它。",
+        "lines": 19,
+        "nonBlankLines": 14,
+        "functions": 2,
+        "decisions": 0,
+        "complexity": 2
+      },
+      {
+        "path": "src/application/EditReceiver.ts",
+        "category": "core",
+        "responsibility": "编辑业务接收者：组织领域对象、局部撤销记录、原子回滚和操作反馈。",
+        "lines": 156,
+        "nonBlankLines": 141,
+        "functions": 44,
+        "decisions": 13,
+        "complexity": 57
+      },
+      {
+        "path": "src/application/EditorSession.ts",
+        "category": "core",
+        "responsibility": "当前文档的生命周期，以及编辑与文件操作之间的历史边界。",
+        "lines": 104,
+        "nonBlankLines": 89,
+        "functions": 14,
+        "decisions": 7,
+        "complexity": 21
+      },
+      {
+        "path": "src/application/ExtensionRegistry.ts",
+        "category": "core",
+        "responsibility": "One activation is a transaction: consumers only see successfully validated plugins.",
+        "lines": 127,
+        "nonBlankLines": 118,
+        "functions": 16,
+        "decisions": 44,
+        "complexity": 60
+      },
+      {
+        "path": "src/application/FrontCommand.ts",
+        "category": "core",
+        "responsibility": "FrontCommand：封装请求参数并将执行交给接收者",
+        "lines": 16,
+        "nonBlankLines": 13,
+        "functions": 3,
+        "decisions": 0,
+        "complexity": 3
+      },
+      {
+        "path": "src/application/GroupCommand.ts",
+        "category": "core",
+        "responsibility": "GroupCommand：封装请求参数并将执行交给接收者",
+        "lines": 17,
+        "nonBlankLines": 14,
+        "functions": 3,
+        "decisions": 0,
+        "complexity": 3
+      },
+      {
+        "path": "src/application/HelpCommand.ts",
+        "category": "core",
+        "responsibility": "HelpCommand：封装请求参数并将执行交给接收者",
+        "lines": 10,
+        "nonBlankLines": 8,
+        "functions": 2,
+        "decisions": 0,
+        "complexity": 2
+      },
+      {
+        "path": "src/application/HelpReceiver.ts",
+        "category": "core",
+        "responsibility": "帮助展示的接收者：只保存命令说明，不引用创建命令的 Client。",
+        "lines": 12,
+        "nonBlankLines": 10,
+        "functions": 2,
+        "decisions": 0,
+        "complexity": 2
+      },
+      {
+        "path": "src/application/History.ts",
+        "category": "core",
+        "responsibility": "只保存命令和迁移两个栈；不调用命令，执行时序由 CommandExecutor 负责。",
+        "lines": 53,
+        "nonBlankLines": 44,
+        "functions": 9,
+        "decisions": 5,
+        "complexity": 14
+      },
+      {
+        "path": "src/application/InitCommand.ts",
+        "category": "core",
+        "responsibility": "InitCommand：封装请求参数并将执行交给接收者",
+        "lines": 10,
+        "nonBlankLines": 8,
+        "functions": 2,
+        "decisions": 0,
+        "complexity": 2
+      },
+      {
+        "path": "src/application/MoveCommand.ts",
+        "category": "core",
+        "responsibility": "MoveCommand：封装请求参数并将执行交给接收者",
+        "lines": 16,
+        "nonBlankLines": 13,
+        "functions": 3,
+        "decisions": 0,
+        "complexity": 3
+      },
+      {
+        "path": "src/application/Plugin.ts",
+        "category": "core",
+        "responsibility": "定义 ExtensionSet、PluginContext、Plugin、PluginManifest 的公开协作契约",
+        "lines": 29,
+        "nonBlankLines": 28,
+        "functions": 0,
+        "decisions": 0,
+        "complexity": 0
+      },
+      {
+        "path": "src/application/ReadCommand.ts",
+        "category": "core",
+        "responsibility": "ReadCommand：封装请求参数并将执行交给接收者",
+        "lines": 10,
+        "nonBlankLines": 8,
+        "functions": 2,
+        "decisions": 0,
+        "complexity": 2
+      },
+      {
+        "path": "src/application/RedoCommand.ts",
+        "category": "core",
+        "responsibility": "RedoCommand：封装请求参数并将执行交给接收者",
+        "lines": 10,
+        "nonBlankLines": 8,
+        "functions": 2,
+        "decisions": 0,
+        "complexity": 2
+      },
+      {
+        "path": "src/application/SaveCommand.ts",
+        "category": "core",
+        "responsibility": "SaveCommand：封装请求参数并将执行交给接收者",
+        "lines": 10,
+        "nonBlankLines": 8,
+        "functions": 2,
+        "decisions": 0,
+        "complexity": 2
+      },
+      {
+        "path": "src/application/ScaleCommand.ts",
+        "category": "core",
+        "responsibility": "ScaleCommand：封装请求参数并将执行交给接收者",
+        "lines": 16,
+        "nonBlankLines": 13,
+        "functions": 3,
+        "decisions": 0,
+        "complexity": 3
+      },
+      {
+        "path": "src/application/SetCommand.ts",
+        "category": "core",
+        "responsibility": "SetCommand：封装请求参数并将执行交给接收者",
+        "lines": 16,
+        "nonBlankLines": 13,
+        "functions": 3,
+        "decisions": 0,
+        "complexity": 3
+      },
+      {
+        "path": "src/application/ShowCommand.ts",
+        "category": "core",
+        "responsibility": "ShowCommand：封装请求参数并将执行交给接收者",
+        "lines": 10,
+        "nonBlankLines": 8,
+        "functions": 2,
+        "decisions": 0,
+        "complexity": 2
+      },
+      {
+        "path": "src/application/Token.ts",
+        "category": "core",
+        "responsibility": "quoted 用来区分文本中的 \"in\" 和 create 的归属子句。",
+        "lines": 5,
+        "nonBlankLines": 5,
+        "functions": 0,
+        "decisions": 0,
+        "complexity": 0
+      },
+      {
+        "path": "src/application/TreeCommand.ts",
+        "category": "core",
+        "responsibility": "TreeCommand：封装请求参数并将执行交给接收者",
+        "lines": 10,
+        "nonBlankLines": 8,
+        "functions": 2,
+        "decisions": 0,
+        "complexity": 2
+      },
+      {
+        "path": "src/application/TreeDecorator.ts",
+        "category": "core",
+        "responsibility": "定义 TreeRow、TreeDecorator 的公开协作契约",
+        "lines": 14,
+        "nonBlankLines": 13,
+        "functions": 0,
+        "decisions": 0,
+        "complexity": 0
+      },
+      {
+        "path": "src/application/UndoCommand.ts",
+        "category": "core",
+        "responsibility": "UndoCommand：封装请求参数并将执行交给接收者",
+        "lines": 10,
+        "nonBlankLines": 8,
+        "functions": 2,
+        "decisions": 0,
+        "complexity": 2
+      },
+      {
+        "path": "src/application/UndoState.ts",
+        "category": "core",
+        "responsibility": "单条编辑的局部撤销记录。没有文档副本，也不保存执行后状态。",
+        "lines": 36,
+        "nonBlankLines": 32,
+        "functions": 4,
+        "decisions": 4,
+        "complexity": 8
+      },
+      {
+        "path": "src/application/UngroupCommand.ts",
+        "category": "core",
+        "responsibility": "UngroupCommand：封装请求参数并将执行交给接收者",
+        "lines": 16,
+        "nonBlankLines": 13,
+        "functions": 3,
+        "decisions": 0,
+        "complexity": 3
+      },
+      {
+        "path": "src/application/ViewReceiver.ts",
+        "category": "core",
+        "responsibility": "通过统一的 Shape 接口渲染，不按图形类型分派。",
+        "lines": 49,
+        "nonBlankLines": 45,
+        "functions": 9,
+        "decisions": 7,
+        "complexity": 16
+      },
+      {
+        "path": "src/cli/Cli.ts",
+        "category": "core",
+        "responsibility": "支持交互终端，也支持通过标准输入回放命令文件。EOF 结束会话。",
+        "lines": 27,
+        "nonBlankLines": 25,
+        "functions": 2,
+        "decisions": 6,
+        "complexity": 8
+      },
+      {
+        "path": "src/cli/CommandArguments.ts",
+        "category": "core",
+        "responsibility": "声明模块导出与装配数据",
+        "lines": 1,
+        "nonBlankLines": 1,
+        "functions": 0,
+        "decisions": 0,
+        "complexity": 0
+      },
+      {
+        "path": "src/cli/CommandDispatcher.ts",
+        "category": "core",
+        "responsibility": "CLI 入口：取得抽象命令、委托执行器、格式化错误，不接触业务接收者。",
+        "lines": 17,
+        "nonBlankLines": 15,
+        "functions": 2,
+        "decisions": 3,
+        "complexity": 5
+      },
+      {
+        "path": "src/cli/CommandFactory.ts",
+        "category": "core",
+        "responsibility": "Parses input against the registered providers without knowing concrete commands.",
+        "lines": 19,
+        "nonBlankLines": 17,
+        "functions": 2,
+        "decisions": 2,
+        "complexity": 4
+      },
+      {
+        "path": "src/cli/CommandSource.ts",
+        "category": "core",
+        "responsibility": "定义 CommandSource 的公开协作契约",
+        "lines": 5,
+        "nonBlankLines": 4,
+        "functions": 0,
+        "decisions": 0,
+        "complexity": 0
+      },
+      {
+        "path": "src/cli/Token.ts",
+        "category": "core",
+        "responsibility": "声明模块导出与装配数据",
+        "lines": 1,
+        "nonBlankLines": 1,
+        "functions": 0,
+        "decisions": 0,
+        "complexity": 0
+      },
+      {
+        "path": "src/cli/Tokenizer.ts",
+        "category": "core",
+        "responsibility": "只处理词法，不执行命令；# 仅在整行开头表示注释。",
+        "lines": 34,
+        "nonBlankLines": 33,
+        "functions": 1,
+        "decisions": 11,
+        "complexity": 12
+      },
+      {
+        "path": "src/domain/Circle.ts",
+        "category": "core",
+        "responsibility": "封装圆形的几何、属性、序列化信息及局部恢复操作",
+        "lines": 60,
+        "nonBlankLines": 50,
+        "functions": 11,
+        "decisions": 4,
+        "complexity": 15
+      },
+      {
+        "path": "src/domain/Ellipse.ts",
+        "category": "core",
+        "responsibility": "封装椭圆的几何、属性、序列化信息及局部恢复操作",
+        "lines": 66,
+        "nonBlankLines": 56,
+        "functions": 11,
+        "decisions": 5,
+        "complexity": 16
+      },
+      {
+        "path": "src/domain/Group.ts",
+        "category": "core",
+        "responsibility": "组合节点把统一操作递归交给子节点，不按具体类型分派。",
+        "lines": 77,
+        "nonBlankLines": 65,
+        "functions": 19,
+        "decisions": 14,
+        "complexity": 33
+      },
+      {
+        "path": "src/domain/Line.ts",
+        "category": "core",
+        "responsibility": "封装直线的几何、属性、序列化信息及局部恢复操作",
+        "lines": 76,
+        "nonBlankLines": 66,
+        "functions": 11,
+        "decisions": 5,
+        "complexity": 16
+      },
+      {
+        "path": "src/domain/Rect.ts",
+        "category": "core",
+        "responsibility": "封装矩形的几何、属性、序列化信息及局部恢复操作",
+        "lines": 66,
+        "nonBlankLines": 56,
+        "functions": 11,
+        "decisions": 5,
+        "complexity": 16
+      },
+      {
+        "path": "src/domain/Shape.ts",
+        "category": "core",
+        "responsibility": "Composite 的共同接口：调用方无需根据图形类型决定如何编辑。",
+        "lines": 132,
+        "nonBlankLines": 117,
+        "functions": 24,
+        "decisions": 26,
+        "complexity": 50
+      },
+      {
+        "path": "src/domain/ShapeFactory.ts",
+        "category": "core",
+        "responsibility": "Dispatches through the injected catalog; providers own format-specific reconstruction.",
+        "lines": 29,
+        "nonBlankLines": 25,
+        "functions": 4,
+        "decisions": 5,
+        "complexity": 9
+      },
+      {
+        "path": "src/domain/ShapePlacements.ts",
+        "category": "core",
+        "responsibility": "只保留移动节点的引用、旧父节点和旧下标，不复制兄弟节点或子树。",
+        "lines": 22,
+        "nonBlankLines": 19,
+        "functions": 4,
+        "decisions": 2,
+        "complexity": 6
+      },
+      {
+        "path": "src/domain/ShapeProvider.ts",
+        "category": "core",
+        "responsibility": "定义 SvgShapeData、ShapeProvider 的公开协作契约",
+        "lines": 16,
+        "nonBlankLines": 14,
+        "functions": 0,
+        "decisions": 0,
+        "complexity": 0
+      },
+      {
+        "path": "src/domain/SvgDocument.ts",
+        "category": "core",
+        "responsibility": "聚合根负责文档级不变量：唯一 id、树结构、层叠顺序与画布。",
+        "lines": 165,
+        "nonBlankLines": 147,
+        "functions": 30,
+        "decisions": 32,
+        "complexity": 62
+      },
+      {
+        "path": "src/domain/Text.ts",
+        "category": "core",
+        "responsibility": "封装文字的几何、属性、序列化信息及局部恢复操作",
+        "lines": 64,
+        "nonBlankLines": 54,
+        "functions": 11,
+        "decisions": 3,
+        "complexity": 14
+      },
+      {
+        "path": "src/domain/Validator.ts",
+        "category": "core",
+        "responsibility": "集中表达数值约束；几何行为仍由各图形自己负责。",
+        "lines": 39,
+        "nonBlankLines": 34,
+        "functions": 6,
+        "decisions": 8,
+        "complexity": 14
+      },
+      {
+        "path": "src/host/CodePlugins.ts",
+        "category": "composition",
+        "responsibility": "Method A: the only assembly file changed when adding optional plugins.",
+        "lines": 15,
+        "nonBlankLines": 14,
+        "functions": 0,
+        "decisions": 0,
+        "complexity": 0
+      },
+      {
+        "path": "src/host/Host.ts",
+        "category": "composition",
+        "responsibility": "Selects assembly mode before exposing the unchanged line-oriented CLI.",
+        "lines": 15,
+        "nonBlankLines": 14,
+        "functions": 2,
+        "decisions": 5,
+        "complexity": 7
+      },
+      {
+        "path": "src/host/PluginLoader.ts",
+        "category": "composition",
+        "responsibility": "提供 CodePluginEntry、ConfigPluginEntry、PluginLoader 的类型定义与实现",
+        "lines": 146,
+        "nonBlankLines": 136,
+        "functions": 10,
+        "decisions": 39,
+        "complexity": 49
+      },
+      {
+        "path": "src/host/Runtime.ts",
+        "category": "composition",
+        "responsibility": "Composition root shared by the CLI and integration tests.",
+        "lines": 41,
+        "nonBlankLines": 37,
+        "functions": 5,
+        "decisions": 0,
+        "complexity": 5
+      },
+      {
+        "path": "src/infrastructure/SvgCodec.ts",
+        "category": "core",
+        "responsibility": "Converts between SVG XML and the object model; file access stays in SvgFileStore.",
+        "lines": 198,
+        "nonBlankLines": 181,
+        "functions": 18,
+        "decisions": 74,
+        "complexity": 92
+      },
+      {
+        "path": "src/infrastructure/SvgFileStore.ts",
+        "category": "core",
+        "responsibility": "File-system adapter; writes are replaced atomically only after serialization succeeds.",
+        "lines": 33,
+        "nonBlankLines": 30,
+        "functions": 4,
+        "decisions": 2,
+        "complexity": 6
+      },
+      {
+        "path": "src/main.ts",
+        "category": "composition",
+        "responsibility": "启动宿主并将依赖装配到 CLI 入口",
+        "lines": 3,
+        "nonBlankLines": 2,
+        "functions": 0,
+        "decisions": 0,
+        "complexity": 0
+      }
+    ]
+  },
+  "changes": {
+    "core": {
+      "files": 10,
+      "lines": 196,
+      "nonBlankLines": 179,
+      "functions": 6,
+      "decisions": 50,
+      "complexity": 56
+    },
+    "composition": {
+      "files": 4,
+      "lines": 211,
+      "nonBlankLines": 195,
+      "functions": 17,
+      "decisions": 44,
+      "complexity": 61
+    },
+    "plugins": {
+      "files": 27,
+      "lines": 516,
+      "nonBlankLines": 464,
+      "functions": 88,
+      "decisions": 60,
+      "complexity": 148
+    }
+  }
+}

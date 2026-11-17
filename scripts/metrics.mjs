@@ -32,6 +32,21 @@ function isDecision(node) {
   return ts.isBinaryExpression(node) && [ts.SyntaxKind.AmpersandAmpersandToken, ts.SyntaxKind.BarBarToken, ts.SyntaxKind.QuestionQuestionToken].includes(node.operatorToken.kind);
 }
 
+function fallbackResponsibility(path, declarations, names) {
+  const label = names.join('、');
+  if (path === 'src/main.ts') return '启动宿主并将依赖装配到 CLI 入口';
+  if (path.endsWith('/index.ts')) return '集中导出该模块允许使用的公开契约或插件入口';
+  if (declarations.length && declarations.every(ts.isInterfaceDeclaration)) return `定义 ${label} 的公开协作契约`;
+  const primary = names.at(-1) ?? '';
+  if (primary.endsWith('Command')) return `${primary}：封装请求参数并将执行交给接收者`;
+  if (primary.endsWith('Plugin')) return `${primary}：注册该插件提供的扩展实例`;
+  if (primary.endsWith('Provider')) return `${primary}：实现扩展对象的构造契约`;
+  if (primary.endsWith('Factory')) return `${primary}：根据输入创建对象并隐藏具体构造选择`;
+  const shapes = { Circle: '圆形', Ellipse: '椭圆', Line: '直线', Rect: '矩形', Text: '文字' };
+  if (path.startsWith('src/domain/') && shapes[primary]) return `封装${shapes[primary]}的几何、属性、序列化信息及局部恢复操作`;
+  return label ? `提供 ${label} 的类型定义与实现` : '声明模块导出与装配数据';
+}
+
 function analyze(path, text, source) {
   let functions = 0;
   let decisions = 0;
@@ -49,19 +64,19 @@ function analyze(path, text, source) {
     .filter(value => value.startsWith('/**'))[0];
   const responsibility = comment
     ? comment.replace(/^\/\*\*|\*\/$/g, '').replace(/^\s*\*\s?/gm, '').replace(/\s+/g, ' ').trim()
-    : names.length ? names.join('、') : '模块导出与装配声明';
+    : fallbackResponsibility(path, declarations, names);
   const lines = text.replace(/\r\n/g, '\n').replace(/\n$/, '').split('\n');
   return { path, category: categoryOf(path), responsibility, lines: text.length ? lines.length : 0,
     nonBlankLines: lines.filter(line => line.trim()).length, functions, decisions, complexity: functions + decisions };
 }
 
 function readRevision(ref, label) {
-  git('rev-parse', '--verify', `${ref}^{commit}`);
-  const files = git('ls-tree', '-r', '--name-only', ref).trim().split('\n').filter(path => categoryOf(path)).sort();
+  const revision = git('rev-parse', '--verify', `${ref}^{commit}`).trim();
+  const files = git('ls-tree', '-r', '--name-only', '-z', revision).split('\0').filter(path => categoryOf(path)).sort();
   if (!files.length) throw new Error(`no CLI TypeScript source files at ${ref}`);
   const hash = createHash('sha256');
   const sources = Object.fromEntries(files.map(path => {
-    const text = git('show', `${ref}:${path}`);
+    const text = git('show', `${revision}:${path}`);
     hash.update(path).update('\0').update(text).update('\0');
     return [path, text];
   }));

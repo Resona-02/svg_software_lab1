@@ -1,0 +1,39 @@
+{
+  "baseline": "final",
+  "comparison": "raw stdout/stderr and saved SVG bytes; no whitespace or line-ending normalization",
+  "workingDirectory": "one temporary path reset to the same fixtures before each run; logs are outside it",
+  "checks": [
+    {
+      "check": "final vs builtin-only / cli-1",
+      "stdoutSha256": "b88124fcf3f8cafeb8515ac776b0eb83d4d4eee73ef99ab52bf53d691ac4e462",
+      "stdoutBytes": 1151,
+      "savedFiles": {
+        "demo.svg": "0529729734219a8518893cd1bd03afb5c0b894b8e0268114e7f3e074e7ba534a"
+      }
+    },
+    {
+      "check": "A vs B / cli-1",
+      "stdoutSha256": "c4b0bd1668e9bf93cf4fe0065da368bf8e5854a8e06e312e321654adc37ff688",
+      "stdoutBytes": 1163,
+      "savedFiles": {
+        "demo.svg": "0529729734219a8518893cd1bd03afb5c0b894b8e0268114e7f3e074e7ba534a"
+      }
+    },
+    {
+      "check": "A vs B / cli-box",
+      "stdoutSha256": "abbf4b50167e0f53ed293ff163333423e3c02097f134cc358d75db8c700efc43",
+      "stdoutBytes": 807,
+      "savedFiles": {
+        "flowchart-box.svg": "fdbede10578ab97b97943777e7348930200ae979682780c44e115c808eb32780"
+      }
+    },
+    {
+      "check": "A vs B / cli-commands",
+      "stdoutSha256": "5b4e987a8b05eed31d11e2859babb7009d197eef45230f8ec205122fe33d0533",
+      "stdoutBytes": 1421,
+      "savedFiles": {
+        "snapshot.svg": "9a682d9474f69ffbcf0de4c21004430bbcd50d2c46f1f8dcd71a832e27eb9060"
+      }
+    }
+  ]
+}

@@ -1,122 +1,66 @@
-# SVG 命令行编辑器
+# SVG 插件式 CLI · Phase 2
 
-## 1. 仓库地址
+在 [Resona-02/svg_software_lab1](https://github.com/Resona-02/svg_software_lab1) 的 Phase 1 基础上重构。保留原有图形、编辑和局部撤销机制，通过四个扩展点加入 `stats`、`dir`、`box` 和未保存星号标签。
 
-高级软件开发 Lab1 Phase 1，TypeScript 实现，支持 `rect / circle / ellipse / line / text / g`、组合编辑和撤销重做。
+本轮实现范围是 **Phase 2 第二部分的 CLI**。最新版在 `phase2-cli` 分支，发布标签为 `p2`；`final` 保留 Phase 1 验收版本，`main` 保留原有版本。VSCode 扩展与 DSH 插件不包含在本次实现中。
 
-- GitHub：[Resona-02/svg_software_lab1](https://github.com/Resona-02/svg_software_lab1)
-- **最新实现请看 main**；`final` 是最初验收版本，早于本次 Command 重构。
-- 根目录与 `doc/` 目录均提供本说明。
+## 启动
 
-## 2. 启动与验收
-
-需要 Node.js 22 或更新版本：
+需要 Node.js 22.12+（CI 使用 Node 24）：
 
 ```sh
 git clone git@github.com:Resona-02/svg_software_lab1.git
 cd svg_software_lab1
+git checkout phase2-cli
 npm ci
 npm run cli
 ```
 
-出现 `svg>` 后输入，`help` 查看用法，`Ctrl+D` 退出：
+交互输入，`help` 查看命令，`Ctrl+D` 退出：
 
 ```text
+dir
 init 800 600
-create rect r1 10 20 100 50 red
-move r1 30 0
+create box n1 120 100 160 60 "开始"
+create box n2 520 100 160 60 "处理数据"
+create line arrow1 280 130 520 130 black
+group flowchart n1 n2 arrow1
+set n2 fill #f5a623
+set n2 label "处理数据 v2"
 undo
-redo
-save demo.svg
+stats
+tree
+save flowchart.svg
 ```
 
-保存的 SVG 可用浏览器打开。运行类型检查和自动测试：
+保存的 SVG 可在浏览器中打开。原 Phase 1 [流程图示例](examples/flowchart.commands) 仍可执行。
+
+## 两种装配
+
+```sh
+npm run build
+node dist/src/main.js                              # A：顶层代码装配
+node dist/src/main.js --config plugins.config.json # B：读取配置装配
+node dist/src/main.js --builtin-only               # 禁用所有可选插件，保留 Phase 1
+```
+
+默认 A/B 的插件集合和顺序相同。配置中的 `enabled: false` 跳过对应插件；相对路径以配置文件所在目录为基准。禁用 box 后读入已有 box 会降级成普通分组。
+
+## 验证与设计记录
 
 ```sh
 npm run check
 npm test
+npm run verify
+npm run verify:extensions
+npm run metrics
 ```
 
-### Demo 预览
+- [设计与使用说明](doc/README.md)：扩展点、前后依赖图、模式角色、接口契约。
+- [四条 ADR](doc/adr/001-attribute-transactions.md)：属性事务、复合图形读回、dirty 语义、加载原子性。
+- [可回放会话与预期输出](doc/transcript/README.md)：原 Phase 1 兼容性、box、stats/dir，两种装配逐字节比较。
+- [Git 扩展证据](doc/extension-proof.md)：box 的 A/B 独立接入提交，及标签新增时核心零改动。
+- [验收记录](doc/verification.md)：198 项测试及类型检查通过。
+- [自动生成的指标](docs/metrics/report.md)：从 `final` 与 `p2` 的 Git 源码读取，按内核／装配处／插件拆分。
 
-下面的流程图由程序执行示例命令后保存为 SVG，可直接在 README 中预览：
-
-![SVG 编辑器生成的两节点流程图](examples/flowchart.svg)
-
-复现：`npm run cli < examples/flowchart.commands`。示例包含创建图形、嵌套分组、移动、撤销及修改文字；[查看命令脚本](examples/flowchart.commands) · [查看 SVG](examples/flowchart.svg)。
-
-## 3. Command 如何体现在各模块中
-
-**入口请求执行，命令只转发，接收者完成业务。** 各模块的职责如下：
-
-| 模块 / 类 | 职责与设计理由 |
-| --- | --- |
-| `cli/CommandFactory`（Client） | 解析文字、创建命令并绑定接收者。集中管理命令名称，不执行业务 |
-| `cli/CommandDispatcher`（CLI 入口） | 只取得抽象 `Command` 并交给执行器，处理输出错误；不依赖文档或接收者 |
-| `application/Command`、具体 `*Command` | 保存请求参数和接收者；`execute()` / `undo()` 只有转发调用，不查图形、不计算、不编排业务 |
-| `application/CommandExecutor`（Invoker） | 统一执行所有命令；调用 execute/undo/redo，成功后通知 `History` 迁移命令；文件与显示命令也从这里调度 |
-| `application/History` | 只保存命令对象、维护两个栈及历史屏障；不调用命令，也不操作业务对象 |
-| `application/EditReceiver`（Receiver） | 查找对象、组织编辑、记录局部旧状态、处理失败回滚与反馈；`UndoState` 保存每条编辑的恢复操作 |
-| `application/EditorSession`、`ViewReceiver`、`HelpReceiver` | 分别处理文档生命周期、图形展示和帮助说明；帮助接收者不引用 Client，历史请求由会话转交执行器 |
-| `domain` | `SvgDocument` 管唯一 id 与树规则；各 `Shape` 子类维护私有几何字段；`Group` 通过 Composite 递归操作孩子；`ShapePlacements` 记录受影响节点的旧位置 |
-| `infrastructure` | `SvgFileStore` 实现 `DocumentStore` 接口，`SvgCodec` 处理 XML；接收者不用了解磁盘与 XML 细节 |
-| `main.ts` | 集中组装会话、接收者、命令工厂、执行器和 CLI |
-
-移动命令的执行方法只有这一句：
-
-```ts
-return this.receiver.move(this.state, this.id, this.dx, this.dy);
-```
-
-`state` 是每条命令持有的局部撤销记录，由接收者填写和恢复；命令本身不解释或修改这些状态。
-
-**五个角色：** Command 是统一接口，ConcreteCommand 是具体 `*Command`，Client 是 `main.ts` 与 CommandFactory，Invoker 是 CommandExecutor，Receiver 是各业务接收者；领域对象封装具体规则。
-
-**协作时序：** 创建阶段由 Client 组装接收者与命令，不修改文档；执行阶段为 `入口 → CommandExecutor → Command.execute() → Receiver → 领域对象`，此时不再调用 Client。
-
-依赖规则：CLI 依赖应用层；应用层依赖领域层和自己声明的存储接口；基础设施实现接口并依赖领域模型；领域层独立，避免界面或文件实现影响业务规则。
-
-```plantuml
-@startuml
-[cli] --> [application]
-[application] --> [domain]
-[infrastructure] --> [application] : 实现 DocumentStore
-[infrastructure] --> [domain]
-@enduml
-```
-
-本阶段交付 CLI；`CommandTrigger` 只持有 `Command` 和执行器，测试用三个触发器模拟主菜单、右键菜单和工具栏，共用一个 SaveCommand。未实现 GUI 界面。
-
-**撤销只记录本次操作需要的旧状态，不保存整份文档或执行后快照：**
-
-| 编辑 | 保存什么以便 undo |
-| --- | --- |
-| move | 仅保存旧坐标：矩形/文字为 x、y，圆/椭圆为 cx、cy，线段为两端点坐标；由各图形通过 rememberPosition 封装数值与恢复行为 |
-| scale | 保存旧坐标及尺寸；Group 仍通过 Composite 逐个委托受影响后代记录和恢复 |
-| set | 该对象该属性的旧值，包括“原本未设置” |
-| create / delete | 新建或被删对象的引用；删除还记录旧父节点、旧下标。删除子树时保留原对象，不复制 |
-| group / ungroup | 受影响节点的旧父节点、旧下标；解组另记录直接子节点可能改变的继承样式 |
-| addto / front / back | 被移动节点的旧父节点、旧下标 |
-
-**栈时序：** 新编辑执行成功后 push 到 undo 并清空 redo；undo 取最近命令调用 undo，成功后从 undo 转入 redo；redo 取最近命令再次 execute，成功后从 redo 转回 undo。先 peek 查看栈顶，操作成功后再迁移，避免失败命令污染历史。
-
-失败时逆序执行本条编辑的局部恢复操作；成功后才入历史。undo 后的新编辑清空 redo。成功 init/read/save 或调整画布尺寸按作业要求清空并锁定历史，下一次成功编辑解锁；查询不入栈。保存文件时的临时文档副本用于隔离写入，不进入撤销历史。
-
-历史内存随**实际受影响的数据量**增长；移动仅保留旧坐标数值，不记录尺寸、样式或文字，也不建立几何属性字典。例如矩形移动从记录 x/y/width/height 减少为 x/y。删除大子树仍需保留该子树，整体移动大组仍需记住各节点的旧坐标。新增编辑时添加接收者方法、薄命令类和工厂注册即可；新增图形通过 Shape 子类和 ShapeFactory 扩展。
-
-## 4. 测试与修改记录
-
-2026-10-21 验证：类型检查通过，**86 项测试通过，0 项失败**；模块依赖检查与命令转发约束通过。
-
-| 测试场景 | 促成的改进或验证 |
-| --- | --- |
-| 原版本整份文档快照、命令内组织业务 | 改为接收者处理业务与局部撤销；架构测试约束所有命令执行方法只做转发 |
-| 禁止文档和图形 clone 后执行全部编辑与撤销重做；检查对象引用 | 确认历史不依赖文档复制，也不会替换未编辑对象 |
-| 五种叶子图形和嵌套 Group 的位置恢复；禁止 move 采集完整几何状态 | 将移动记录细化到旧坐标；验证尺寸、文字、样式不被覆盖，以及失败回滚和浮点精度 |
-| 文档增加 1,000 个无关图形，单目标移动 100 次 | 验证每次只采集目标旧几何状态；不随无关图形数量扩张撤销记录 |
-| 三个模拟入口、CLI 全部命令、重复 redo | 验证统一执行器、接收者绑定，以及 redo 真正重新执行 |
-| 创建后禁用 Client、跟踪调用顺序与栈迁移、模拟 undo 失败 | 帮助命令改绑独立接收者；execute/undo/redo 集中到执行器，History 只管存储；验证后进先出及失败不丢历史 |
-| 跨父节点分组、解组继承样式、浮点值恢复、编辑及重做中途溢出 | 验证原位置与属性精确恢复、失败原子性及两个历史栈保持正确 |
-| 根 id 冲突、非法数值、中文与 XML、文件写入失败 | 保留原有修复与回归测试，确保重构不破坏既有功能 |
-
-主要修改：将业务编排移入接收者；将 execute/undo/redo 调用集中到执行器；为帮助命令提供独立接收者；将整份文档快照改为局部撤销记录，并进一步让移动只保存旧坐标。各次修改均补充回归测试，Git 保留提交记录。当前不是完整 SVG/CSS 引擎，不实现本阶段之外的 box 和插件加载器。GitHub Actions 使用同样的类型检查和测试，远程结果以 Actions 页面为准。
+所有插件经同一路径暂存注册、校验清单，再原子发布。插件错误不会终止 CLI；失败属性编辑会整体恢复，并保留 undo/redo。插件在同一进程运行，必须遵守公开接口的副作用约束。
