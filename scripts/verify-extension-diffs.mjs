@@ -29,6 +29,17 @@ function commit(ref) {
   return value;
 }
 
+function demonstrationBranch(name) {
+  // A full CI checkout fetches other branches as remote-tracking refs without
+  // creating matching local branches. Resolve the exact ref; never accept a tag
+  // or silently substitute the expected commit when the branch is missing.
+  const candidates = [`refs/heads/${name}`, `refs/remotes/origin/${name}`];
+  const existing = new Set(git('for-each-ref', '--format=%(refname)', ...candidates).trim().split('\n'));
+  const selected = candidates.find(ref => existing.has(ref));
+  assert(selected, `missing demonstration branch: ${name}; fetch origin/${name}`);
+  return commit(selected);
+}
+
 function pathType(revision, path, expected) {
   let actual;
   try { actual = git('cat-file', '-t', `${revision}:${path}`).trim(); }
@@ -135,7 +146,7 @@ function verify(item) {
 // Resolve and validate every revision and path before replacing the report. A missing
 // ref/path, unexpected source edit or empty source tree makes the script fail.
 const results = cases.map(verify);
-const branch = commit('phase2-box-config');
+const branch = demonstrationBranch('phase2-box-config');
 assert.equal(branch, results.find(result => result.name === 'box-config-B').commit,
   'phase2-box-config no longer points to the verified B demonstration commit');
 const report = {

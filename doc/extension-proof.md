@@ -8,6 +8,8 @@ node scripts/verify-extension-diffs.mjs
 
 产物是 `docs/metrics/extension-diffs.json`。也可传入一个输出路径，例如 `node scripts/verify-extension-diffs.mjs /private/tmp/extension-diffs.json`，然后逐字节比较两份报告。报告不含时间戳，重复运行结果稳定。脚本遇到缺失提交、缺失路径、空源码目录或越界修改会失败，不会生成“空 diff 即通过”的假证据。
 
+需要完整 Git 历史及 B 演示分支。脚本优先检查本地 `refs/heads/phase2-box-config`；本地分支不存在时检查 `refs/remotes/origin/phase2-box-config`，适用于 CI 只检出当前分支的情况。无论使用哪一个引用，其实际提交都必须等于表中的 B 提交；两个引用都缺失时直接失败。报告保留逻辑分支名与完整提交哈希，因此本地和 CI 的输出一致。
+
 | 扩展证明 | 接入提交 | 允许的既有运行源码改动 |
 |---|---|---|
 | box 方式 A：代码装配 | `dfcbe29589ebc28ae8c1fa4f1f400bc2aad78705` | 仅 `src/host/CodePlugins.ts` |
