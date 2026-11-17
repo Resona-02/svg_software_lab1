@@ -17,6 +17,11 @@ export abstract class Shape {
 
   get id(): string { return this.#id; }
   abstract get tag(): string;
+  get kind(): string { return this.tag; }
+  creationMessage(parentId?: string): string {
+    return `${this.kind}#${this.id} created${parentId ? ` in g#${parentId}` : ''}`;
+  }
+  movementSummary(): string { return this.summary(); }
   get parent(): Group | null { return this.#parent; }
   get children(): readonly Shape[] { return []; }
   get text(): string | undefined { return undefined; }

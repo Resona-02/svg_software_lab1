@@ -7,7 +7,7 @@ import { SvgCodec } from './SvgCodec.js';
 
 /** File-system adapter; writes are replaced atomically only after serialization succeeds. */
 export class SvgFileStore implements DocumentStore {
-  constructor(private readonly codec = new SvgCodec()) {}
+  constructor(private readonly codec: SvgCodec) {}
 
   async read(path: string): Promise<{ document: SvgDocument; warnings: string[] }> {
     let xml: string;

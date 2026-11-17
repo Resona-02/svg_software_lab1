@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { EditorSession } from '../src/application/EditorSession.js';
+import { EditorSession } from './helpers/TestRuntime.js';
 import { CommandFactory } from '../src/cli/CommandFactory.js';
 import { CommandTrigger } from '../src/application/CommandTrigger.js';
 import { EditCommand } from '../src/application/EditCommand.js';

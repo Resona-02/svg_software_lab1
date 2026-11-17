@@ -4,13 +4,13 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { mock, test } from 'node:test';
 import { CreateCommand } from '../src/application/CreateCommand.js';
-import { EditorSession } from '../src/application/EditorSession.js';
+import { EditorSession } from './helpers/TestRuntime.js';
 import { MoveCommand } from '../src/application/MoveCommand.js';
 import { SetCommand } from '../src/application/SetCommand.js';
-import { ShapeFactory } from '../src/domain/ShapeFactory.js';
+import { ShapeFactory } from './helpers/TestRuntime.js';
 import { SvgDocument } from '../src/domain/SvgDocument.js';
-import { SvgCodec } from '../src/infrastructure/SvgCodec.js';
-import { SvgFileStore } from '../src/infrastructure/SvgFileStore.js';
+import { SvgCodec } from './helpers/TestRuntime.js';
+import { SvgFileStore } from './helpers/TestRuntime.js';
 
 test('assignment other.svg imports seven elements with the required missing-id warning', async () => {
   const xml = await readFile('test/fixtures/other.svg', 'utf8');

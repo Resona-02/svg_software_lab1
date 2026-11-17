@@ -7,9 +7,9 @@ import { Ellipse } from '../src/domain/Ellipse.js';
 import { Line } from '../src/domain/Line.js';
 import { Text } from '../src/domain/Text.js';
 import { Group } from '../src/domain/Group.js';
-import { EditorSession } from '../src/application/EditorSession.js';
+import { EditorSession } from './helpers/TestRuntime.js';
 import { MoveCommand } from '../src/application/MoveCommand.js';
-import { SvgCodec } from '../src/infrastructure/SvgCodec.js';
+import { SvgCodec } from './helpers/TestRuntime.js';
 import { MemoryDocumentStore } from './helpers/MemoryDocumentStore.js';
 
 test('position undo restores only coordinates for each leaf type', async t => {

@@ -3,7 +3,7 @@ import test from 'node:test';
 import { CommandTrigger } from '../src/application/CommandTrigger.js';
 import { CreateCommand } from '../src/application/CreateCommand.js';
 import { DeleteCommand } from '../src/application/DeleteCommand.js';
-import { EditorSession } from '../src/application/EditorSession.js';
+import { EditorSession } from './helpers/TestRuntime.js';
 import { MoveCommand } from '../src/application/MoveCommand.js';
 import { SaveCommand } from '../src/application/SaveCommand.js';
 import { SetCommand } from '../src/application/SetCommand.js';

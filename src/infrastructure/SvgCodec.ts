@@ -1,6 +1,5 @@
 import { DOMImplementation, DOMParser, XMLSerializer } from '@xmldom/xmldom';
 import type { Document, Element, Node } from '@xmldom/xmldom';
-import { Group } from '../domain/Group.js';
 import { Shape } from '../domain/Shape.js';
 import { ShapeFactory } from '../domain/ShapeFactory.js';
 import { SvgDocument } from '../domain/SvgDocument.js';
@@ -9,7 +8,7 @@ import { SvgDocument } from '../domain/SvgDocument.js';
 export class SvgCodec {
   private readonly namespace = 'http://www.w3.org/2000/svg';
 
-  constructor(private readonly factory = new ShapeFactory()) {}
+  constructor(private readonly factory: ShapeFactory) {}
 
   decode(xml: string): { document: SvgDocument; warnings: string[] } {
     const parsed = this.parseXml(xml);
@@ -129,11 +128,13 @@ export class SvgCodec {
       usedIds.add(id);
       warnings.push(`warning: assigned id ${id} to unnamed <${type}>`);
     }
-    const shape = this.factory.fromSvg(type, id, attributes, element.textContent ?? '');
-    if (shape instanceof Group) {
-      for (const child of this.elementChildren(element)) {
-        shape.insert(this.decodeShape(child, usedIds, warnings));
-      }
+    const children: Shape[] = [];
+    for (let child = element.firstChild; child; child = child.nextSibling) {
+      if (child.nodeType === 1) children.push(this.decodeShape(child as Element, usedIds, warnings));
+    }
+    const shape = this.factory.fromSvg(type, id, attributes, element.textContent ?? '', children);
+    if (shape.isContainer()) {
+      this.elementChildren(element);
     } else {
       for (let node = element.firstChild; node; node = node.nextSibling) {
         if (node.nodeType === 8) continue;

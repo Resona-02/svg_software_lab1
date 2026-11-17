@@ -4,7 +4,7 @@ import { AddToCommand } from '../src/application/AddToCommand.js';
 import { BackCommand } from '../src/application/BackCommand.js';
 import { CreateCommand } from '../src/application/CreateCommand.js';
 import { DeleteCommand } from '../src/application/DeleteCommand.js';
-import { EditorSession } from '../src/application/EditorSession.js';
+import { EditorSession } from './helpers/TestRuntime.js';
 import { FrontCommand } from '../src/application/FrontCommand.js';
 import { GroupCommand } from '../src/application/GroupCommand.js';
 import { MoveCommand } from '../src/application/MoveCommand.js';

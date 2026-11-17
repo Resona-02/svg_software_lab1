@@ -1,12 +1,12 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { EditorSession } from '../src/application/EditorSession.js';
+import { EditorSession } from './helpers/TestRuntime.js';
 import { CommandTrigger } from '../src/application/CommandTrigger.js';
 import { CommandFactory } from '../src/cli/CommandFactory.js';
 import { CommandDispatcher } from '../src/cli/CommandDispatcher.js';
 import { SvgDocument } from '../src/domain/SvgDocument.js';
 import { Rect } from '../src/domain/Rect.js';
-import { SvgCodec } from '../src/infrastructure/SvgCodec.js';
+import { SvgCodec } from './helpers/TestRuntime.js';
 import { MemoryDocumentStore } from './helpers/MemoryDocumentStore.js';
 
 function deferred() {

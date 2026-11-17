@@ -69,3 +69,20 @@ test('History stores commands but only CommandExecutor invokes historical comman
       `${file}: input handling must not bind or use business receivers`);
   }
 });
+
+
+test('core depends on contracts, optional plugins depend on the public API only', () => {
+  const files = readdirSync('src', { recursive: true }).map(String).filter(file => file.endsWith('.ts'));
+  for (const file of files.filter(file => !file.startsWith('host/') && file !== 'main.ts')) {
+    const source = readFileSync(join('src', file), 'utf8');
+    assert.doesNotMatch(source, /from ['"][^'"]*plugins\//, `${file}: core cannot import a plugin`);
+    assert.doesNotMatch(source, /['"](?:box|modified-star|box-type-label|stats|dir)['"]/, `${file}: optional names stay outside core`);
+  }
+  const plugins = readdirSync('plugins', { recursive: true }).map(String).filter(file => file.endsWith('.ts'));
+  for (const file of plugins) {
+    const source = readFileSync(join('plugins', file), 'utf8');
+    for (const declaration of source.matchAll(/from ['"]([^'"]*src\/[^'"]+)['"]/g)) {
+      assert.ok(declaration[1].endsWith('/src/api/index.js'), `${file}: import the public API, not internal modules`);
+    }
+  }
+});

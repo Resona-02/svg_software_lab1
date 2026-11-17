@@ -5,7 +5,7 @@ import { Ellipse } from "../src/domain/Ellipse.js";
 import { Group } from "../src/domain/Group.js";
 import { Line } from "../src/domain/Line.js";
 import { Rect } from "../src/domain/Rect.js";
-import { ShapeFactory } from "../src/domain/ShapeFactory.js";
+import { ShapeFactory } from './helpers/TestRuntime.js';
 import { SvgDocument } from "../src/domain/SvgDocument.js";
 import { Text } from "../src/domain/Text.js";
 

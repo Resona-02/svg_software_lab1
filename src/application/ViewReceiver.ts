@@ -9,10 +9,10 @@ export class ViewReceiver {
     const lines: string[] = [];
     if (id !== undefined) {
       const shape = document.find(id);
-      lines.push(shape.summary());
+      lines.push(this.decorate(shape, shape.summary()));
       this.children(shape, '', lines);
     } else {
-      lines.push(`svg (${document.width}x${document.height})`);
+      lines.push(this.decorate(document.root, `svg (${document.width}x${document.height})`));
       this.children(document.root, '', lines);
     }
     return lines.join('\n');
@@ -29,10 +29,20 @@ export class ViewReceiver {
     return lines.join('\n');
   }
 
+  private decorate(shape: Shape, base: string): string {
+    const document = this.session.document;
+    const labels = [...this.session.extensions.decorators.values()].map(decorator => {
+      const label = decorator.decorate({ shape, isRoot: shape === document.root, document, saved: this.session.saved });
+      if (typeof label !== 'string') throw new Error(`invalid tree decorator result: ${decorator.name}`);
+      return label;
+    }).filter(Boolean);
+    return [base, ...labels].join(' ');
+  }
+
   private children(parent: Shape, prefix: string, lines: string[]): void {
     parent.children.forEach((child, index) => {
       const last = index === parent.children.length - 1;
-      lines.push(`${prefix}${last ? '└── ' : '├── '}${child.summary()}`);
+      lines.push(`${prefix}${last ? '└── ' : '├── '}${this.decorate(child, child.summary())}`);
       this.children(child, `${prefix}${last ? '    ' : '│   '}`, lines);
     });
   }

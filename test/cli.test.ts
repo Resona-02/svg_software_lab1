@@ -5,8 +5,8 @@ import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { Readable, Writable } from 'node:stream';
-import { EditorSession } from '../src/application/EditorSession.js';
-import { SvgFileStore } from '../src/infrastructure/SvgFileStore.js';
+import { EditorSession } from './helpers/TestRuntime.js';
+import { SvgFileStore } from './helpers/TestRuntime.js';
 import { CommandFactory } from '../src/cli/CommandFactory.js';
 import { CommandDispatcher } from '../src/cli/CommandDispatcher.js';
 import { Tokenizer } from '../src/cli/Tokenizer.js';
@@ -145,7 +145,7 @@ test('piped CLI continues after an error, handles EOF and emits no interactive p
 });
 
 test('compiled entry point executes a complete script as a separate process', () => {
-  const result = spawnSync(process.execPath, ['dist/src/main.js'], {
+  const result = spawnSync(process.execPath, ['dist/src/main.js', '--builtin-only'], {
     cwd: resolve('.'), encoding: 'utf8',
     input: 'init 20 30\ncreate text t 1 2 "中文"\ntree\n',
     timeout: 10000,

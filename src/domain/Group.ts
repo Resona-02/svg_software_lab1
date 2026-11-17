@@ -22,14 +22,23 @@ export class Group extends Shape {
       throw new Error(`invalid child index: ${index}`);
     }
     const oldIndex = shape.parent === this ? this.#children.indexOf(shape) : -1;
-    shape.parent?.remove(shape);
+    if (shape.parent === this) this.detach(shape);
+    else shape.parent?.remove(shape);
     // index 基于移除前的序列；末尾插入和同组重排仍保持直观语义。
     const targetIndex = oldIndex >= 0 && oldIndex < index ? index - 1 : index;
     this.#children.splice(targetIndex, 0, shape);
     shape.setParent(this);
   }
 
+  assertCanDetach(_shape: Shape): void {}
+  assertCanUngroup(): void {}
+
   remove(shape: Shape): number {
+    this.assertCanDetach(shape);
+    return this.detach(shape);
+  }
+
+  private detach(shape: Shape): number {
     const index = this.#children.indexOf(shape);
     if (index < 0) throw new Error(`no such child: ${shape.id}`);
     this.#children.splice(index, 1);

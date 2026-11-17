@@ -79,6 +79,7 @@ export class SvgDocument {
     if (ids.length === 0) throw new Error("group requires at least one shape");
     if (new Set(ids).size !== ids.length) throw new Error("group ids must be distinct");
     const selected = new Set(ids.map(id => this.find(id)));
+    for (const shape of selected) shape.parent!.assertCanDetach(shape);
     for (const shape of selected) {
       for (let ancestor = shape.parent; ancestor !== null && ancestor !== this.#root; ancestor = ancestor.parent) {
         if (selected.has(ancestor)) {
@@ -99,6 +100,7 @@ export class SvgDocument {
 
   ungroup(id: string): void {
     const group = this.find(id).asContainer();
+    group.assertCanUngroup();
     const parent = group.parent!;
     if (parent === this.#root) throw new Error(`cannot ungroup top-level container: ${id}`);
     const attributes = group.attributes();
