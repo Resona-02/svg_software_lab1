@@ -1,0 +1,397 @@
+{
+  "runtime": {
+    "cordis": "4.1.0",
+    "tools": "0.2.2-rc.5",
+    "executor": "official native",
+    "apiKeysRequired": false,
+    "modelCallsMade": false,
+    "sessionLogPersisted": false
+  },
+  "calls": [
+    {
+      "tool": "svg_create",
+      "args": {
+        "width": 900,
+        "height": 300
+      },
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "type": "text",
+            "text": "canvas 900x300 created\nrevision=1; undo=0; redo=0\nsvg (900x300) *"
+          }
+        ],
+        "value": {
+          "revision": 1,
+          "message": "canvas 900x300 created",
+          "tree": "svg (900x300) *",
+          "details": "",
+          "elements": 0,
+          "undoCount": 0,
+          "redoCount": 0
+        }
+      }
+    },
+    {
+      "tool": "svg_edit",
+      "args": {
+        "operation": "create",
+        "args": [
+          "box",
+          "submit",
+          "60",
+          "100",
+          "180",
+          "60",
+          "提交申请"
+        ]
+      },
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "type": "text",
+            "text": "box#submit created (g#submit + rect#submit-rect + text#submit-label)\nrevision=2; undo=1; redo=0\nsvg (900x300) *\n└── g#submit (box) *\n    ├── rect#submit-rect x=60 y=100 w=180 h=60 fill=#4a90d9 *\n    └── text#submit-label (80,135) \"提交申请\" *"
+          }
+        ],
+        "value": {
+          "revision": 2,
+          "message": "box#submit created (g#submit + rect#submit-rect + text#submit-label)",
+          "tree": "svg (900x300) *\n└── g#submit (box) *\n    ├── rect#submit-rect x=60 y=100 w=180 h=60 fill=#4a90d9 *\n    └── text#submit-label (80,135) \"提交申请\" *",
+          "details": "",
+          "elements": 3,
+          "undoCount": 1,
+          "redoCount": 0
+        }
+      }
+    },
+    {
+      "tool": "svg_edit",
+      "args": {
+        "operation": "create",
+        "args": [
+          "box",
+          "review",
+          "350",
+          "100",
+          "180",
+          "60",
+          "审批"
+        ]
+      },
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "type": "text",
+            "text": "box#review created (g#review + rect#review-rect + text#review-label)\nrevision=3; undo=2; redo=0\nsvg (900x300) *\n├── g#submit (box) *\n│   ├── rect#submit-rect x=60 y=100 w=180 h=60 fill=#4a90d9 *\n│   └── text#submit-label (80,135) \"提交申请\" *\n└── g#review (box) *\n    ├── rect#review-rect x=350 y=100 w=180 h=60 fill=#4a90d9 *\n    └── text#review-label (370,135) \"审批\" *"
+          }
+        ],
+        "value": {
+          "revision": 3,
+          "message": "box#review created (g#review + rect#review-rect + text#review-label)",
+          "tree": "svg (900x300) *\n├── g#submit (box) *\n│   ├── rect#submit-rect x=60 y=100 w=180 h=60 fill=#4a90d9 *\n│   └── text#submit-label (80,135) \"提交申请\" *\n└── g#review (box) *\n    ├── rect#review-rect x=350 y=100 w=180 h=60 fill=#4a90d9 *\n    └── text#review-label (370,135) \"审批\" *",
+          "details": "",
+          "elements": 6,
+          "undoCount": 2,
+          "redoCount": 0
+        }
+      }
+    },
+    {
+      "tool": "svg_edit",
+      "args": {
+        "operation": "create",
+        "args": [
+          "box",
+          "archive",
+          "640",
+          "100",
+          "180",
+          "60",
+          "归档"
+        ]
+      },
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "type": "text",
+            "text": "box#archive created (g#archive + rect#archive-rect + text#archive-label)\nrevision=4; undo=3; redo=0\nsvg (900x300) *\n├── g#submit (box) *\n│   ├── rect#submit-rect x=60 y=100 w=180 h=60 fill=#4a90d9 *\n│   └── text#submit-label (80,135) \"提交申请\" *\n├── g#review (box) *\n│   ├── rect#review-rect x=350 y=100 w=180 h=60 fill=#4a90d9 *\n│   └── text#review-label (370,135) \"审批\" *\n└── g#archive (box) *\n    ├── rect#archive-rect x=640 y=100 w=180 h=60 fill=#4a90d9 *\n    └── text#archive-label (660,135) \"归档\" *"
+          }
+        ],
+        "value": {
+          "revision": 4,
+          "message": "box#archive created (g#archive + rect#archive-rect + text#archive-label)",
+          "tree": "svg (900x300) *\n├── g#submit (box) *\n│   ├── rect#submit-rect x=60 y=100 w=180 h=60 fill=#4a90d9 *\n│   └── text#submit-label (80,135) \"提交申请\" *\n├── g#review (box) *\n│   ├── rect#review-rect x=350 y=100 w=180 h=60 fill=#4a90d9 *\n│   └── text#review-label (370,135) \"审批\" *\n└── g#archive (box) *\n    ├── rect#archive-rect x=640 y=100 w=180 h=60 fill=#4a90d9 *\n    └── text#archive-label (660,135) \"归档\" *",
+          "details": "",
+          "elements": 9,
+          "undoCount": 3,
+          "redoCount": 0
+        }
+      }
+    },
+    {
+      "tool": "svg_edit",
+      "args": {
+        "operation": "create",
+        "args": [
+          "line",
+          "submit-review",
+          "240",
+          "130",
+          "350",
+          "130",
+          "#334155"
+        ]
+      },
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "type": "text",
+            "text": "line#submit-review created\nrevision=5; undo=4; redo=0\nsvg (900x300) *\n├── g#submit (box) *\n│   ├── rect#submit-rect x=60 y=100 w=180 h=60 fill=#4a90d9 *\n│   └── text#submit-label (80,135) \"提交申请\" *\n├── g#review (box) *\n│   ├── rect#review-rect x=350 y=100 w=180 h=60 fill=#4a90d9 *\n│   └── text#review-label (370,135) \"审批\" *\n├── g#archive (box) *\n│   ├── rect#archive-rect x=640 y=100 w=180 h=60 fill=#4a90d9 *\n│   └── text#archive-label (660,135) \"归档\" *\n└── line#submit-review (240,130) -> (350,130) stroke=#334155 *"
+          }
+        ],
+        "value": {
+          "revision": 5,
+          "message": "line#submit-review created",
+          "tree": "svg (900x300) *\n├── g#submit (box) *\n│   ├── rect#submit-rect x=60 y=100 w=180 h=60 fill=#4a90d9 *\n│   └── text#submit-label (80,135) \"提交申请\" *\n├── g#review (box) *\n│   ├── rect#review-rect x=350 y=100 w=180 h=60 fill=#4a90d9 *\n│   └── text#review-label (370,135) \"审批\" *\n├── g#archive (box) *\n│   ├── rect#archive-rect x=640 y=100 w=180 h=60 fill=#4a90d9 *\n│   └── text#archive-label (660,135) \"归档\" *\n└── line#submit-review (240,130) -> (350,130) stroke=#334155 *",
+          "details": "",
+          "elements": 10,
+          "undoCount": 4,
+          "redoCount": 0
+        }
+      }
+    },
+    {
+      "tool": "svg_edit",
+      "args": {
+        "operation": "create",
+        "args": [
+          "line",
+          "review-archive",
+          "530",
+          "130",
+          "640",
+          "130",
+          "#334155"
+        ]
+      },
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "type": "text",
+            "text": "line#review-archive created\nrevision=6; undo=5; redo=0\nsvg (900x300) *\n├── g#submit (box) *\n│   ├── rect#submit-rect x=60 y=100 w=180 h=60 fill=#4a90d9 *\n│   └── text#submit-label (80,135) \"提交申请\" *\n├── g#review (box) *\n│   ├── rect#review-rect x=350 y=100 w=180 h=60 fill=#4a90d9 *\n│   └── text#review-label (370,135) \"审批\" *\n├── g#archive (box) *\n│   ├── rect#archive-rect x=640 y=100 w=180 h=60 fill=#4a90d9 *\n│   └── text#archive-label (660,135) \"归档\" *\n├── line#submit-review (240,130) -> (350,130) stroke=#334155 *\n└── line#review-archive (530,130) -> (640,130) stroke=#334155 *"
+          }
+        ],
+        "value": {
+          "revision": 6,
+          "message": "line#review-archive created",
+          "tree": "svg (900x300) *\n├── g#submit (box) *\n│   ├── rect#submit-rect x=60 y=100 w=180 h=60 fill=#4a90d9 *\n│   └── text#submit-label (80,135) \"提交申请\" *\n├── g#review (box) *\n│   ├── rect#review-rect x=350 y=100 w=180 h=60 fill=#4a90d9 *\n│   └── text#review-label (370,135) \"审批\" *\n├── g#archive (box) *\n│   ├── rect#archive-rect x=640 y=100 w=180 h=60 fill=#4a90d9 *\n│   └── text#archive-label (660,135) \"归档\" *\n├── line#submit-review (240,130) -> (350,130) stroke=#334155 *\n└── line#review-archive (530,130) -> (640,130) stroke=#334155 *",
+          "details": "",
+          "elements": 11,
+          "undoCount": 5,
+          "redoCount": 0
+        }
+      }
+    },
+    {
+      "tool": "svg_edit",
+      "args": {
+        "operation": "group",
+        "args": [
+          "approval",
+          "submit",
+          "review",
+          "archive",
+          "submit-review",
+          "review-archive"
+        ]
+      },
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "type": "text",
+            "text": "g#approval created with 5 children\nrevision=7; undo=6; redo=0\nsvg (900x300) *\n└── g#approval *\n    ├── g#submit (box) *\n    │   ├── rect#submit-rect x=60 y=100 w=180 h=60 fill=#4a90d9 *\n    │   └── text#submit-label (80,135) \"提交申请\" *\n    ├── g#review (box) *\n    │   ├── rect#review-rect x=350 y=100 w=180 h=60 fill=#4a90d9 *\n    │   └── text#review-label (370,135) \"审批\" *\n    ├── g#archive (box) *\n    │   ├── rect#archive-rect x=640 y=100 w=180 h=60 fill=#4a90d9 *\n    │   └── text#archive-label (660,135) \"归档\" *\n    ├── line#submit-review (240,130) -> (350,130) stroke=#334155 *\n    └── line#review-archive (530,130) -> (640,130) stroke=#334155 *"
+          }
+        ],
+        "value": {
+          "revision": 7,
+          "message": "g#approval created with 5 children",
+          "tree": "svg (900x300) *\n└── g#approval *\n    ├── g#submit (box) *\n    │   ├── rect#submit-rect x=60 y=100 w=180 h=60 fill=#4a90d9 *\n    │   └── text#submit-label (80,135) \"提交申请\" *\n    ├── g#review (box) *\n    │   ├── rect#review-rect x=350 y=100 w=180 h=60 fill=#4a90d9 *\n    │   └── text#review-label (370,135) \"审批\" *\n    ├── g#archive (box) *\n    │   ├── rect#archive-rect x=640 y=100 w=180 h=60 fill=#4a90d9 *\n    │   └── text#archive-label (660,135) \"归档\" *\n    ├── line#submit-review (240,130) -> (350,130) stroke=#334155 *\n    └── line#review-archive (530,130) -> (640,130) stroke=#334155 *",
+          "details": "",
+          "elements": 12,
+          "undoCount": 6,
+          "redoCount": 0
+        }
+      }
+    },
+    {
+      "tool": "svg_edit",
+      "args": {
+        "operation": "set",
+        "args": [
+          "review",
+          "label",
+          "人工审批"
+        ]
+      },
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "type": "text",
+            "text": "box#review label updated: \"人工审批\"\nrevision=8; undo=7; redo=0\nsvg (900x300) *\n└── g#approval *\n    ├── g#submit (box) *\n    │   ├── rect#submit-rect x=60 y=100 w=180 h=60 fill=#4a90d9 *\n    │   └── text#submit-label (80,135) \"提交申请\" *\n    ├── g#review (box) *\n    │   ├── rect#review-rect x=350 y=100 w=180 h=60 fill=#4a90d9 *\n    │   └── text#review-label (370,135) \"人工审批\" *\n    ├── g#archive (box) *\n    │   ├── rect#archive-rect x=640 y=100 w=180 h=60 fill=#4a90d9 *\n    │   └── text#archive-label (660,135) \"归档\" *\n    ├── line#submit-review (240,130) -> (350,130) stroke=#334155 *\n    └── line#review-archive (530,130) -> (640,130) stroke=#334155 *"
+          }
+        ],
+        "value": {
+          "revision": 8,
+          "message": "box#review label updated: \"人工审批\"",
+          "tree": "svg (900x300) *\n└── g#approval *\n    ├── g#submit (box) *\n    │   ├── rect#submit-rect x=60 y=100 w=180 h=60 fill=#4a90d9 *\n    │   └── text#submit-label (80,135) \"提交申请\" *\n    ├── g#review (box) *\n    │   ├── rect#review-rect x=350 y=100 w=180 h=60 fill=#4a90d9 *\n    │   └── text#review-label (370,135) \"人工审批\" *\n    ├── g#archive (box) *\n    │   ├── rect#archive-rect x=640 y=100 w=180 h=60 fill=#4a90d9 *\n    │   └── text#archive-label (660,135) \"归档\" *\n    ├── line#submit-review (240,130) -> (350,130) stroke=#334155 *\n    └── line#review-archive (530,130) -> (640,130) stroke=#334155 *",
+          "details": "",
+          "elements": 12,
+          "undoCount": 7,
+          "redoCount": 0
+        }
+      }
+    },
+    {
+      "tool": "svg_edit",
+      "args": {
+        "operation": "set",
+        "args": [
+          "review",
+          "fill",
+          "#f5a623"
+        ]
+      },
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "type": "text",
+            "text": "box#review fill propagated to review-rect\nrevision=9; undo=8; redo=0\nsvg (900x300) *\n└── g#approval *\n    ├── g#submit (box) *\n    │   ├── rect#submit-rect x=60 y=100 w=180 h=60 fill=#4a90d9 *\n    │   └── text#submit-label (80,135) \"提交申请\" *\n    ├── g#review (box) *\n    │   ├── rect#review-rect x=350 y=100 w=180 h=60 fill=#f5a623 *\n    │   └── text#review-label (370,135) \"人工审批\" *\n    ├── g#archive (box) *\n    │   ├── rect#archive-rect x=640 y=100 w=180 h=60 fill=#4a90d9 *\n    │   └── text#archive-label (660,135) \"归档\" *\n    ├── line#submit-review (240,130) -> (350,130) stroke=#334155 *\n    └── line#review-archive (530,130) -> (640,130) stroke=#334155 *"
+          }
+        ],
+        "value": {
+          "revision": 9,
+          "message": "box#review fill propagated to review-rect",
+          "tree": "svg (900x300) *\n└── g#approval *\n    ├── g#submit (box) *\n    │   ├── rect#submit-rect x=60 y=100 w=180 h=60 fill=#4a90d9 *\n    │   └── text#submit-label (80,135) \"提交申请\" *\n    ├── g#review (box) *\n    │   ├── rect#review-rect x=350 y=100 w=180 h=60 fill=#f5a623 *\n    │   └── text#review-label (370,135) \"人工审批\" *\n    ├── g#archive (box) *\n    │   ├── rect#archive-rect x=640 y=100 w=180 h=60 fill=#4a90d9 *\n    │   └── text#archive-label (660,135) \"归档\" *\n    ├── line#submit-review (240,130) -> (350,130) stroke=#334155 *\n    └── line#review-archive (530,130) -> (640,130) stroke=#334155 *",
+          "details": "",
+          "elements": 12,
+          "undoCount": 8,
+          "redoCount": 0
+        }
+      }
+    },
+    {
+      "tool": "svg_edit",
+      "args": {
+        "operation": "move",
+        "args": [
+          "review",
+          "0",
+          "30"
+        ]
+      },
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "type": "text",
+            "text": "box#review moved by (0,30)\nrevision=10; undo=9; redo=0\nsvg (900x300) *\n└── g#approval *\n    ├── g#submit (box) *\n    │   ├── rect#submit-rect x=60 y=100 w=180 h=60 fill=#4a90d9 *\n    │   └── text#submit-label (80,135) \"提交申请\" *\n    ├── g#review (box) *\n    │   ├── rect#review-rect x=350 y=130 w=180 h=60 fill=#f5a623 *\n    │   └── text#review-label (370,165) \"人工审批\" *\n    ├── g#archive (box) *\n    │   ├── rect#archive-rect x=640 y=100 w=180 h=60 fill=#4a90d9 *\n    │   └── text#archive-label (660,135) \"归档\" *\n    ├── line#submit-review (240,130) -> (350,130) stroke=#334155 *\n    └── line#review-archive (530,130) -> (640,130) stroke=#334155 *"
+          }
+        ],
+        "value": {
+          "revision": 10,
+          "message": "box#review moved by (0,30)",
+          "tree": "svg (900x300) *\n└── g#approval *\n    ├── g#submit (box) *\n    │   ├── rect#submit-rect x=60 y=100 w=180 h=60 fill=#4a90d9 *\n    │   └── text#submit-label (80,135) \"提交申请\" *\n    ├── g#review (box) *\n    │   ├── rect#review-rect x=350 y=130 w=180 h=60 fill=#f5a623 *\n    │   └── text#review-label (370,165) \"人工审批\" *\n    ├── g#archive (box) *\n    │   ├── rect#archive-rect x=640 y=100 w=180 h=60 fill=#4a90d9 *\n    │   └── text#archive-label (660,135) \"归档\" *\n    ├── line#submit-review (240,130) -> (350,130) stroke=#334155 *\n    └── line#review-archive (530,130) -> (640,130) stroke=#334155 *",
+          "details": "",
+          "elements": 12,
+          "undoCount": 9,
+          "redoCount": 0
+        }
+      }
+    },
+    {
+      "tool": "svg_history",
+      "args": {
+        "action": "undo"
+      },
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "type": "text",
+            "text": "box#review moved back by (0,-30)\nrevision=11; undo=8; redo=1\nsvg (900x300) *\n└── g#approval *\n    ├── g#submit (box) *\n    │   ├── rect#submit-rect x=60 y=100 w=180 h=60 fill=#4a90d9 *\n    │   └── text#submit-label (80,135) \"提交申请\" *\n    ├── g#review (box) *\n    │   ├── rect#review-rect x=350 y=100 w=180 h=60 fill=#f5a623 *\n    │   └── text#review-label (370,135) \"人工审批\" *\n    ├── g#archive (box) *\n    │   ├── rect#archive-rect x=640 y=100 w=180 h=60 fill=#4a90d9 *\n    │   └── text#archive-label (660,135) \"归档\" *\n    ├── line#submit-review (240,130) -> (350,130) stroke=#334155 *\n    └── line#review-archive (530,130) -> (640,130) stroke=#334155 *"
+          }
+        ],
+        "value": {
+          "revision": 11,
+          "message": "box#review moved back by (0,-30)",
+          "tree": "svg (900x300) *\n└── g#approval *\n    ├── g#submit (box) *\n    │   ├── rect#submit-rect x=60 y=100 w=180 h=60 fill=#4a90d9 *\n    │   └── text#submit-label (80,135) \"提交申请\" *\n    ├── g#review (box) *\n    │   ├── rect#review-rect x=350 y=100 w=180 h=60 fill=#f5a623 *\n    │   └── text#review-label (370,135) \"人工审批\" *\n    ├── g#archive (box) *\n    │   ├── rect#archive-rect x=640 y=100 w=180 h=60 fill=#4a90d9 *\n    │   └── text#archive-label (660,135) \"归档\" *\n    ├── line#submit-review (240,130) -> (350,130) stroke=#334155 *\n    └── line#review-archive (530,130) -> (640,130) stroke=#334155 *",
+          "details": "",
+          "elements": 12,
+          "undoCount": 8,
+          "redoCount": 1
+        }
+      }
+    },
+    {
+      "tool": "svg_inspect",
+      "args": {
+        "id": "review"
+      },
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "type": "text",
+            "text": "SVG inspected\nrevision=11; undo=8; redo=1\ng#review (box) *\n├── rect#review-rect x=350 y=100 w=180 h=60 fill=#f5a623 *\n└── text#review-label (370,135) \"人工审批\" *\ng#review  parent=g#approval\n  data-kind=box"
+          }
+        ],
+        "value": {
+          "revision": 11,
+          "message": "SVG inspected",
+          "tree": "g#review (box) *\n├── rect#review-rect x=350 y=100 w=180 h=60 fill=#f5a623 *\n└── text#review-label (370,135) \"人工审批\" *",
+          "details": "g#review  parent=g#approval\n  data-kind=box",
+          "elements": 12,
+          "undoCount": 8,
+          "redoCount": 1
+        }
+      }
+    },
+    {
+      "tool": "svg_export",
+      "args": {},
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "type": "text",
+            "text": "SVG exported as text; use the host file tool to persist it\nrevision=11; undo=8; redo=1\nsvg (900x300) *\n└── g#approval *\n    ├── g#submit (box) *\n    │   ├── rect#submit-rect x=60 y=100 w=180 h=60 fill=#4a90d9 *\n    │   └── text#submit-label (80,135) \"提交申请\" *\n    ├── g#review (box) *\n    │   ├── rect#review-rect x=350 y=100 w=180 h=60 fill=#f5a623 *\n    │   └── text#review-label (370,135) \"人工审批\" *\n    ├── g#archive (box) *\n    │   ├── rect#archive-rect x=640 y=100 w=180 h=60 fill=#4a90d9 *\n    │   └── text#archive-label (660,135) \"归档\" *\n    ├── line#submit-review (240,130) -> (350,130) stroke=#334155 *\n    └── line#review-archive (530,130) -> (640,130) stroke=#334155 *"
+          },
+          {
+            "type": "text",
+            "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 900 300\" width=\"900\" height=\"300\">\n  <g id=\"approval\">\n    <g id=\"submit\" data-kind=\"box\">\n      <rect id=\"submit-rect\" x=\"60\" y=\"100\" width=\"180\" height=\"60\" fill=\"#4a90d9\"/>\n      <text id=\"submit-label\" x=\"80\" y=\"135\">提交申请</text>\n    </g>\n    <g id=\"review\" data-kind=\"box\">\n      <rect id=\"review-rect\" x=\"350\" y=\"100\" width=\"180\" height=\"60\" fill=\"#f5a623\"/>\n      <text id=\"review-label\" x=\"370\" y=\"135\">人工审批</text>\n    </g>\n    <g id=\"archive\" data-kind=\"box\">\n      <rect id=\"archive-rect\" x=\"640\" y=\"100\" width=\"180\" height=\"60\" fill=\"#4a90d9\"/>\n      <text id=\"archive-label\" x=\"660\" y=\"135\">归档</text>\n    </g>\n    <line id=\"submit-review\" x1=\"240\" y1=\"130\" x2=\"350\" y2=\"130\" stroke=\"#334155\"/>\n    <line id=\"review-archive\" x1=\"530\" y1=\"130\" x2=\"640\" y2=\"130\" stroke=\"#334155\"/>\n  </g>\n</svg>\n"
+          }
+        ],
+        "value": {
+          "revision": 11,
+          "message": "SVG exported as text; use the host file tool to persist it",
+          "tree": "svg (900x300) *\n└── g#approval *\n    ├── g#submit (box) *\n    │   ├── rect#submit-rect x=60 y=100 w=180 h=60 fill=#4a90d9 *\n    │   └── text#submit-label (80,135) \"提交申请\" *\n    ├── g#review (box) *\n    │   ├── rect#review-rect x=350 y=100 w=180 h=60 fill=#f5a623 *\n    │   └── text#review-label (370,135) \"人工审批\" *\n    ├── g#archive (box) *\n    │   ├── rect#archive-rect x=640 y=100 w=180 h=60 fill=#4a90d9 *\n    │   └── text#archive-label (660,135) \"归档\" *\n    ├── line#submit-review (240,130) -> (350,130) stroke=#334155 *\n    └── line#review-archive (530,130) -> (640,130) stroke=#334155 *",
+          "details": "",
+          "elements": 12,
+          "undoCount": 8,
+          "redoCount": 1,
+          "svg": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 900 300\" width=\"900\" height=\"300\">\n  <g id=\"approval\">\n    <g id=\"submit\" data-kind=\"box\">\n      <rect id=\"submit-rect\" x=\"60\" y=\"100\" width=\"180\" height=\"60\" fill=\"#4a90d9\"/>\n      <text id=\"submit-label\" x=\"80\" y=\"135\">提交申请</text>\n    </g>\n    <g id=\"review\" data-kind=\"box\">\n      <rect id=\"review-rect\" x=\"350\" y=\"100\" width=\"180\" height=\"60\" fill=\"#f5a623\"/>\n      <text id=\"review-label\" x=\"370\" y=\"135\">人工审批</text>\n    </g>\n    <g id=\"archive\" data-kind=\"box\">\n      <rect id=\"archive-rect\" x=\"640\" y=\"100\" width=\"180\" height=\"60\" fill=\"#4a90d9\"/>\n      <text id=\"archive-label\" x=\"660\" y=\"135\">归档</text>\n    </g>\n    <line id=\"submit-review\" x1=\"240\" y1=\"130\" x2=\"350\" y2=\"130\" stroke=\"#334155\"/>\n    <line id=\"review-archive\" x1=\"530\" y1=\"130\" x2=\"640\" y2=\"130\" stroke=\"#334155\"/>\n  </g>\n</svg>\n",
+          "mimeType": "image/svg+xml"
+        }
+      }
+    }
+  ]
+}

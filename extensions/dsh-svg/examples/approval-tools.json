@@ -1,0 +1,15 @@
+[
+  { "tool": "svg_create", "args": { "width": 900, "height": 300 } },
+  { "tool": "svg_edit", "args": { "operation": "create", "args": ["box", "submit", "60", "100", "180", "60", "提交申请"] } },
+  { "tool": "svg_edit", "args": { "operation": "create", "args": ["box", "review", "350", "100", "180", "60", "审批"] } },
+  { "tool": "svg_edit", "args": { "operation": "create", "args": ["box", "archive", "640", "100", "180", "60", "归档"] } },
+  { "tool": "svg_edit", "args": { "operation": "create", "args": ["line", "submit-review", "240", "130", "350", "130", "#334155"] } },
+  { "tool": "svg_edit", "args": { "operation": "create", "args": ["line", "review-archive", "530", "130", "640", "130", "#334155"] } },
+  { "tool": "svg_edit", "args": { "operation": "group", "args": ["approval", "submit", "review", "archive", "submit-review", "review-archive"] } },
+  { "tool": "svg_edit", "args": { "operation": "set", "args": ["review", "label", "人工审批"] } },
+  { "tool": "svg_edit", "args": { "operation": "set", "args": ["review", "fill", "#f5a623"] } },
+  { "tool": "svg_edit", "args": { "operation": "move", "args": ["review", "0", "30"] } },
+  { "tool": "svg_history", "args": { "action": "undo" } },
+  { "tool": "svg_inspect", "args": { "id": "review" } },
+  { "tool": "svg_export", "args": {} }
+]

@@ -1,0 +1,49 @@
+{
+  "name": "dsh-svg-workbench",
+  "version": "0.1.0",
+  "description": "Session-isolated SVG editing tools for DeepSeek Harness, reusing the Phase 2 SVG core",
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "README.md",
+    "cordis.patch.yml",
+    "examples",
+    "THIRD_PARTY_NOTICES.md"
+  ],
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=24.9",
+    "dsh": "0.2.2-rc.5"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "tsc --noEmit",
+    "test": "npm run build && node --test test/*.test.mjs",
+    "demo": "npm run build && node scripts/demo.mjs",
+    "package": "npm run build && node scripts/package.mjs",
+    "verify:package": "node scripts/verify-package.mjs"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "~4.1.0",
+    "@deepseek-ai/dsh-tools": "0.2.2-rc.5",
+    "@deepseek-ai/dsh-llm": "0.2.2-rc.5"
+  },
+  "devDependencies": {
+    "@deepseek-ai/cordis": "4.1.0",
+    "@deepseek-ai/dsh-tool-executor-native": "0.2.2-rc.5",
+    "@deepseek-ai/dsh-tool-testkit": "0.2.2-rc.5",
+    "@deepseek-ai/dsh-tools": "0.2.2-rc.5",
+    "@types/node": "^26.6.5",
+    "esbuild": "0.25.12",
+    "typescript": "^7.0.2",
+    "@deepseek-ai/dsh-llm": "0.2.2-rc.5"
+  },
+  "private": true,
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

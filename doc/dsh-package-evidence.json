@@ -1,0 +1,18 @@
+{
+  "kind": "real-dsh-packed-bundle",
+  "sdk": {
+    "cordis": "4.1.0",
+    "dsh": "0.2.2-rc.5"
+  },
+  "packageSha256": "72cf3cfe3bf98f2c2aaa70eec21018aab8821cbe047ba15e4b4ca3e05a080aee",
+  "isolation": "Package extracted outside repository sources; host SDK peers supplied separately",
+  "checks": [
+    "bundle manifest and patch",
+    "real host registration",
+    "create canvas",
+    "create box",
+    "export SVG text and composite marker",
+    "unload unregisters tools"
+  ],
+  "passed": true
+}
