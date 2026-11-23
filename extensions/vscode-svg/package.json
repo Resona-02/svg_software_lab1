@@ -1,0 +1,46 @@
+{
+  "name": "svg-software-lab",
+  "displayName": "SVG Software Lab",
+  "description": "SVG Explorer badges and native source outline for the software design lab.",
+  "version": "0.1.0",
+  "publisher": "resona-lab",
+  "license": "UNLICENSED",
+  "private": true,
+  "engines": {
+    "vscode": "^1.95.0",
+    "node": ">=22.12"
+  },
+  "categories": [
+    "Programming Languages",
+    "Other"
+  ],
+  "main": "./dist/extension.cjs",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "scripts": {
+    "compile": "tsc -p . && node scripts/bundle.cjs",
+    "check": "tsc -p . --noEmit",
+    "test": "npm run compile --silent && node --test dist/test/*.test.js",
+    "test:host": "npm run compile --silent && node scripts/test-host.cjs",
+    "package": "npm run compile --silent && vsce package --no-dependencies -o svg-software-lab-0.1.0.vsix",
+    "test:vsix": "npm run compile --silent && node scripts/verify-vsix.cjs"
+  },
+  "contributes": {},
+  "dependencies": {
+    "@xmldom/xmldom": "0.9.12"
+  },
+  "devDependencies": {
+    "@types/node": "24.10.0",
+    "@types/vscode": "1.95.0",
+    "@vscode/test-electron": "2.5.2",
+    "@vscode/vsce": "4.1.1",
+    "esbuild": "0.27.0",
+    "typescript": "7.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Resona-02/svg_software_lab1.git",
+    "directory": "extensions/vscode-svg"
+  }
+}

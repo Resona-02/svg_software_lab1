@@ -4,3 +4,10 @@ coverage/
 .DS_Store
 /*.pdf
 *.tmp
+
+# Extension packages and downloaded editor test runtimes
+*.vsix
+.vscode-test/
+
+# Reproducible course delivery archives
+/artifacts/

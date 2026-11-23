@@ -1,0 +1,70 @@
+{
+  "kind": "packaged-vsix-real-vscode-extension-host",
+  "packageSha256": "74071b8982f354f7579dc3239e269cf3ecb241f6f3ef520d5603e3733ab5293e",
+  "entryPoint": "./dist/extension.cjs",
+  "packagedWithoutNodeModules": true,
+  "directProviderChecks": "source-compiled providers tested against real workspace.fs; document-symbol command executes the registered entry under test",
+  "vscodeVersion": "1.146.0",
+  "extension": "resona-lab.svg-software-lab",
+  "isolation": "temporary workspace copy, profile and extensions directory; no model or network calls from the extension",
+  "registration": "actual activation, document symbol command and decoration API with real workspace.fs",
+  "checks": [
+    {
+      "name": "VSCode discovers and activates the development extension",
+      "passed": true
+    },
+    {
+      "name": "VSCode executes the requested extension directory rather than a globally installed copy",
+      "passed": true
+    },
+    {
+      "name": "the loaded VSIX contains a standalone bundle without node_modules or compiled test sources",
+      "passed": true
+    },
+    {
+      "name": "real document symbol command returns SVG root, nested groups, leaves and elements without IDs",
+      "passed": true
+    },
+    {
+      "name": "native symbol selection ranges point at the opening tag in the correct source line",
+      "passed": true
+    },
+    {
+      "name": "unsaved text edits are visible on the next native Outline query",
+      "passed": true
+    },
+    {
+      "name": "incomplete XML returns an empty outline without crashing the Extension Host",
+      "passed": true
+    },
+    {
+      "name": "restoring valid content restores the native outline after malformed input",
+      "passed": true
+    },
+    {
+      "name": "SVG files receive [] while names and bytes stay unchanged",
+      "passed": true
+    },
+    {
+      "name": "ordinary files, ordinary directories, .svg directories and missing paths have no badge",
+      "passed": true
+    },
+    {
+      "name": "case-insensitive SVG filename matching uses the real workspace filesystem",
+      "passed": true
+    },
+    {
+      "name": "cancelled decoration and symbol queries return without results",
+      "passed": true
+    },
+    {
+      "name": "temporary provider registration and disposal use actual host lifecycles",
+      "passed": true
+    },
+    {
+      "name": "tests leave the SVG source file unchanged on disk",
+      "passed": true
+    }
+  ],
+  "passed": true
+}
