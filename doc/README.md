@@ -1,8 +1,8 @@
-# Phase 1 → Phase 2：插件式 CLI 设计与验收
+# Phase 2 作业索引与 CLI 设计
 
 ## 1. 范围、基线与运行
 
-本次完成作业第二部分的 CLI。沿用原仓库 main 的 `bacf584`，保留此前 Command 重构与缺陷修复；作业要求的兼容性对照仍是 `final`。`p2` 是本轮 CLI 发布快照，不表示 VSCode 和 DSH 两部分已完成。
+当前 phase2-complete / p2-complete 同时交付 [VSCode 实践](vscode.md)、本页的插件式 CLI 和 [DSH 插件](dsh.md)。下文保留 CLI 架构与验收说明。沿用原仓库 main 的 `bacf584`，保留此前 Command 重构与缺陷修复；作业要求的兼容性对照仍是 `final`。`p2` 仍是原 CLI 发布快照，后续两部分在 `p2-complete` 中提供；历史标签不重写。
 
 启动方法见[根 README](../README.md)。默认启用四个可选插件包，`--builtin-only` 关闭它们；内置六类图形及全部 Phase 1 命令始终可用。`--config <file>` 选择配置装配，不先装默认可选插件，避免重复注册。`help` 来自实际注册的命令列表。
 
@@ -130,4 +130,4 @@ npm run metrics
 
 指标从 Git 中读取源码，用 TypeScript AST 计算同一口径的函数体与分支总量；按内核、装配处、插件拆分，排除依赖、构建产物和测试。首次框架报告与最终报告都在 [docs/metrics](../docs/metrics/README.md)，可从明确提交重新生成。
 
-这仍是课程范围的 SVG 编辑器，并非完整 SVG/CSS 引擎。树标签当前采用直接内容比较，深链大树的最坏成本在插件 README 中说明。插件是受信任的进程内代码，事务不承诺隔离绕过公开写入口的任意副作用。未实现本轮范围以外的 VSCode/DSH 功能、插件在线安装、热卸载或多人协同。
+这仍是课程范围的 SVG 编辑器，并非完整 SVG/CSS 引擎。树标签当前采用直接内容比较，深链大树的最坏成本在插件 README 中说明。插件是受信任的进程内代码，事务不承诺隔离绕过公开写入口的任意副作用。CLI 本身不实现插件在线安装、热卸载或多人协同；VSCode 与 DSH 的独立宿主能力及其边界见各自文档。

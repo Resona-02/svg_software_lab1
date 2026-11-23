@@ -1,0 +1,130 @@
+{
+  "methodology": "TypeScript AST; CC = body-bearing function count + specified decision nodes; extensions only, separate from CLI",
+  "compilerVersion": "7.0.2",
+  "label": "p2-complete",
+  "sourcePaths": [
+    "extensions/vscode-svg/src",
+    "extensions/dsh-svg/src"
+  ],
+  "sourceDigest": "74b703c979cc46200a93db733736d0207fcd2d6eb61fd367e481352acdd96c66",
+  "totals": {
+    "vscode-svg": {
+      "files": 5,
+      "lines": 217,
+      "nonBlankLines": 203,
+      "functions": 18,
+      "decisions": 56,
+      "complexity": 74
+    },
+    "dsh-svg": {
+      "files": 5,
+      "lines": 231,
+      "nonBlankLines": 212,
+      "functions": 47,
+      "decisions": 21,
+      "complexity": 68
+    }
+  },
+  "files": [
+    {
+      "path": "extensions/dsh-svg/src/SvgEditor.ts",
+      "category": "dsh-svg",
+      "responsibility": "DSH composition root reuses Phase 2 contracts, commands, codec and plugins.",
+      "lines": 74,
+      "nonBlankLines": 65,
+      "functions": 10,
+      "decisions": 7,
+      "complexity": 17
+    },
+    {
+      "path": "extensions/dsh-svg/src/SvgMemoryStore.ts",
+      "category": "dsh-svg",
+      "responsibility": "Import uses the existing document-store boundary; no tool reads arbitrary files.",
+      "lines": 13,
+      "nonBlankLines": 12,
+      "functions": 4,
+      "decisions": 0,
+      "complexity": 4
+    },
+    {
+      "path": "extensions/dsh-svg/src/SvgSessions.ts",
+      "category": "dsh-svg",
+      "responsibility": "Agent identity owns an isolated, serial editor; plugin unload drops every session.",
+      "lines": 43,
+      "nonBlankLines": 39,
+      "functions": 5,
+      "decisions": 10,
+      "complexity": 15
+    },
+    {
+      "path": "extensions/dsh-svg/src/SvgToolError.ts",
+      "category": "dsh-svg",
+      "responsibility": "Stable error identity retained by DSH's official tool execution pipeline.",
+      "lines": 9,
+      "nonBlankLines": 8,
+      "functions": 1,
+      "decisions": 0,
+      "complexity": 1
+    },
+    {
+      "path": "extensions/dsh-svg/src/index.ts",
+      "category": "dsh-svg",
+      "responsibility": "Host adapter: Cordis owns registration lifetime; SVG core owns all editing rules.",
+      "lines": 92,
+      "nonBlankLines": 88,
+      "functions": 27,
+      "decisions": 4,
+      "complexity": 31
+    },
+    {
+      "path": "extensions/vscode-svg/src/SvgDocumentSymbols.ts",
+      "category": "vscode-svg",
+      "responsibility": "Adapts editor-independent source ranges to the native Outline protocol.",
+      "lines": 23,
+      "nonBlankLines": 20,
+      "functions": 5,
+      "decisions": 3,
+      "complexity": 8
+    },
+    {
+      "path": "extensions/vscode-svg/src/SvgFileDecorations.ts",
+      "category": "vscode-svg",
+      "responsibility": "File identity stays with the host; this provider only supplies a visual badge.",
+      "lines": 35,
+      "nonBlankLines": 31,
+      "functions": 6,
+      "decisions": 6,
+      "complexity": 12
+    },
+    {
+      "path": "extensions/vscode-svg/src/extension.ts",
+      "category": "vscode-svg",
+      "responsibility": "Composition root: register capabilities, let VSCode own rendering and queries.",
+      "lines": 16,
+      "nonBlankLines": 15,
+      "functions": 1,
+      "decisions": 0,
+      "complexity": 1
+    },
+    {
+      "path": "extensions/vscode-svg/src/outline/OutlineNode.ts",
+      "category": "vscode-svg",
+      "responsibility": "An editor-neutral symbol; all offsets use JavaScript / VSCode UTF-16 units.",
+      "lines": 10,
+      "nonBlankLines": 10,
+      "functions": 0,
+      "decisions": 0,
+      "complexity": 0
+    },
+    {
+      "path": "extensions/vscode-svg/src/outline/SvgOutlineParser.ts",
+      "category": "vscode-svg",
+      "responsibility": "Strict XML validation plus source spans; malformed edits produce an empty outline.",
+      "lines": 133,
+      "nonBlankLines": 127,
+      "functions": 6,
+      "decisions": 47,
+      "complexity": 53
+    }
+  ]
+}

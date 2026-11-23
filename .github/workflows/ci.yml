@@ -19,3 +19,50 @@ jobs:
       - run: npm run verify
       - run: npm run verify:extensions
       - run: node scripts/metrics.mjs final HEAD /tmp/svg-cli-metrics ci
+
+  vscode:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: extensions/vscode-svg/package-lock.json
+      - run: npm --prefix extensions/vscode-svg ci
+      - run: npm --prefix extensions/vscode-svg run check
+      - run: npm --prefix extensions/vscode-svg test
+      - run: npm --prefix extensions/vscode-svg run package
+      - run: xvfb-run -a npm --prefix extensions/vscode-svg run test:vsix
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vscode-svg-extension
+          path: |
+            extensions/vscode-svg/*.vsix
+            doc/vscode-vsix-evidence.json
+
+  dsh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            extensions/dsh-svg/package-lock.json
+      - run: npm ci
+      - run: npm --prefix extensions/dsh-svg ci
+      - run: npm --prefix extensions/dsh-svg run check
+      - run: npm --prefix extensions/dsh-svg test
+      - run: npm --prefix extensions/dsh-svg run demo
+      - run: npm --prefix extensions/dsh-svg run package
+      - run: npm --prefix extensions/dsh-svg run verify:package
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dsh-svg-plugin
+          path: |
+            extensions/dsh-svg/artifacts/*.tgz
+            extensions/dsh-svg/examples/approval.svg
+            extensions/dsh-svg/examples/tool-transcript.json

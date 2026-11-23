@@ -23,3 +23,17 @@ node scripts/metrics.mjs final <框架节点提交> docs/metrics/framework frame
 圈复杂度采用明确的项目统计口径，不声称等同所有第三方工具的 McCabe 变体。文件总值为带函数体的函数基数加决策点，模块顶层没有额外基数，`&&`、`||`、`??` 计决策点。它用于解释复杂性如何从内核转移到插件；总行数增加不自动表示设计退步，也不能单凭这些数字证明低耦合。
 
 `framework/` 保存框架可扩展阶段的首次产出；根目录报告保存最终对比。`verification.json` 由独立回放脚本产生，记录实际字节比较结果。失败诊断目录 `failed-replay/` 不属于正式报告，应在排除问题后清理，不提交其临时日志。
+
+## 完整后续版本
+
+原根目录 report 仍对应不可变的 CLI 标签 `p2`。跨宿主集成新增一个公开 `src/api/integration.ts` 导出边界后，完整版本的 CLI 范围报告另存 `complete/`，比较 `final → p2-complete`；不会把扩展源码混入 CLI 增量。
+
+VSCode 与 DSH 的源码职责、行数、函数与圈复杂度各自列在 `extensions/`。这些数字同样读取 Git blob，不读取工作区，不包括 bundle、测试、依赖或安装包。
+
+```sh
+node scripts/metrics.mjs final p2-complete docs/metrics/complete p2-complete
+node scripts/metrics-extensions.mjs p2-complete docs/metrics/extensions p2-complete
+# 或 npm run metrics:complete
+```
+
+两种报告都用源码摘要核验，报告提交和标签创建后重新生成仍保持一致。

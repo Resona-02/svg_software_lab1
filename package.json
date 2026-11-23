@@ -1,9 +1,9 @@
 {
   "name": "svg-editor-cli",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "type": "module",
-  "description": "由 Phase 1 重构的插件式 SVG CLI：四个扩展点、双装配与局部撤销",
+  "description": "Lab1 Phase 2：插件式 SVG CLI、VSCode 文件标记与大纲、DSH 会话工具",
   "engines": {
     "node": ">=22.12"
   },
@@ -14,7 +14,13 @@
     "check": "tsc --noEmit",
     "verify": "node scripts/verify-phase2.mjs",
     "verify:extensions": "node scripts/verify-extension-diffs.mjs",
-    "metrics": "node scripts/metrics.mjs final p2 docs/metrics"
+    "metrics": "node scripts/metrics.mjs final p2 docs/metrics",
+    "setup:extensions": "npm --prefix extensions/vscode-svg ci && npm --prefix extensions/dsh-svg ci",
+    "check:all": "npm run check && npm --prefix extensions/vscode-svg run check && npm --prefix extensions/dsh-svg run check",
+    "test:all": "npm test && npm --prefix extensions/vscode-svg test && npm --prefix extensions/dsh-svg test",
+    "package:extensions": "npm --prefix extensions/vscode-svg run package && npm --prefix extensions/dsh-svg run package",
+    "package:assignment": "node scripts/package-assignment.mjs",
+    "metrics:complete": "node scripts/metrics.mjs final p2-complete docs/metrics/complete p2-complete && node scripts/metrics-extensions.mjs p2-complete docs/metrics/extensions p2-complete"
   },
   "dependencies": {
     "@xmldom/xmldom": "^0.9.12",
