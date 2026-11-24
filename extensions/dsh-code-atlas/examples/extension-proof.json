@@ -1,0 +1,23 @@
+{
+  "baseline": "7a5cfbf2a4f7a362aedde88e74ad06bb984bc157",
+  "extensionCommit": "552a7e75531b469a90cb5d44e33b25285a5a394c",
+  "plugin": "test-file",
+  "changedFiles": [
+    "doc/code-atlas-design.md",
+    "extensions/dsh-code-atlas/README.md",
+    "extensions/dsh-code-atlas/scripts/build.mjs",
+    "extensions/dsh-code-atlas/src/host/CodeAtlasService.ts",
+    "extensions/dsh-code-atlas/src/plugins/test-file-label.ts",
+    "extensions/dsh-code-atlas/test/plugin.test.mjs"
+  ],
+  "protectedPaths": [
+    "extensions/dsh-code-atlas/src/analysis",
+    "extensions/dsh-code-atlas/src/core",
+    "extensions/dsh-code-atlas/src/render",
+    "src",
+    "plugins"
+  ],
+  "protectedSourceChanges": 0,
+  "protectedComplexityDelta": 0,
+  "explanation": "Protected Git trees are byte-identical; only the new label implementation, composition, build entry, tests and docs change."
+}

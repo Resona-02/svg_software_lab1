@@ -44,6 +44,12 @@ node scripts/local-desktop.mjs status
 
 这些命令使用隔离的 profile、选择状态、包缓存和用户目录。关闭测试窗口后重新打开原来的 DSH Desktop，即可返回原环境。界面验收、截图和实际执行结果应以对应验收记录为准；构建成功本身不代表 Desktop 界面验收完成。
 
+验收卸载时，执行以下命令，再通过 Desktop 的正常重启操作重新加载测试 profile，确认“代码地图”入口消失。该操作只移除隔离 profile 内的插件；需要继续演示时重新执行上面的 `install`，再重启测试窗口。
+
+```bash
+node scripts/local-desktop.mjs uninstall
+```
+
 ## 在 DSH 中使用
 
 1. 在打开的工作区内创建一个有工作目录的 DSH 会话。

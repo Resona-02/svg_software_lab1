@@ -1,8 +1,8 @@
 {
   "method": "Real rc.1 LocalFileSystem and AtlasWorkbench, without a model or Desktop UI",
-  "files": 167,
-  "nodes": 1044,
-  "relations": 772,
+  "files": 170,
+  "nodes": 1069,
+  "relations": 794,
   "evidence": {
     "id": "relation:plugins/shape-box/BoxAttributes.ts:implements:260",
     "kind": "implements",

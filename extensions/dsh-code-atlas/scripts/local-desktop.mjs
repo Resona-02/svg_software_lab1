@@ -25,6 +25,7 @@ process.env.DSH_TELEMETRY_DISABLED = '1';
 
 function sanitized(line) {
   return line.replace(/\x1b\[[0-9;]*m/g, '')
+    .replace(/(https?:\/\/)[^\s/:@]+:[^\s@]+@/gi, '$1[redacted]@')
     .replace(/([?&](?:token|key|auth|access_token|secret)=)[^\s&]+/gi, '$1[redacted]')
     .replace(/(authorization\s*[:=]\s*)(?:Bearer\s+)?[^\s,}]+/gi, '$1[redacted]')
     .replace(/((?:"|')?(?:apiKey|api_key|accessToken|refreshToken|password|secret)(?:"|')?\s*[:=]\s*["'])[^"']*/gi, '$1[redacted]');
@@ -87,6 +88,9 @@ async function install(tarball) {
   if (!tarball || !tarball.endsWith('.tgz')) throw new Error('Usage: node scripts/local-desktop.mjs install /absolute/path/dsh-code-atlas-0.1.0.tgz');
   const archive = resolve(tarball);
   if (!(await stat(archive)).isFile()) throw new Error('The plugin archive must be a regular .tgz file.');
+  await packageCommand(['add', archive]);
+}
+async function packageCommand(args) {
   await init();
   const runtimeModule = await import(pathToFileURL(join(resources, 'lib/desktop-runtime-environment.js')).href);
   const electronVersion = (await run(['-p', 'process.versions.electron'], { capture: true,
@@ -98,7 +102,7 @@ async function install(tarball) {
     appExecutable: executable, pnpmBinPath: join(resources, 'node_modules/pnpm/bin/pnpm.cjs'),
     electronVersion, stateDir: join(home, 'runtime-commands'), environment: packageEnv });
   try {
-    await packagedCli(['plugin', '--profile', profile, 'add', archive,
+    await packagedCli(['plugin', '--profile', profile, ...args,
       `--store-dir=${join(home, 'pnpm-store')}`, `--config.cacheDir=${join(home, 'pnpm-cache')}`,
       '--registry=https://registry.npmjs.org', '--reporter=append-only'], { environment: packageEnv });
   } finally { runtime.dispose(); }
@@ -157,11 +161,12 @@ async function status() {
 }
 const [action = 'help', value] = process.argv.slice(2);
 try {
-  if (action === 'help') console.log('Isolated local DSH Desktop verification:\n  node scripts/local-desktop.mjs init\n  node scripts/local-desktop.mjs install <plugin.tgz>\n  node scripts/local-desktop.mjs verify [workspace]\n  node scripts/local-desktop.mjs launch [workspace]\n  node scripts/local-desktop.mjs status');
+  if (action === 'help') console.log('Isolated local DSH Desktop verification:\n  node scripts/local-desktop.mjs init\n  node scripts/local-desktop.mjs install <plugin.tgz>\n  node scripts/local-desktop.mjs uninstall\n  node scripts/local-desktop.mjs verify [workspace]\n  node scripts/local-desktop.mjs launch [workspace]\n  node scripts/local-desktop.mjs status');
   else {
     await validateInstallation();
     if (action === 'init') await init();
     else if (action === 'install') await install(value);
+    else if (action === 'uninstall') await packageCommand(['remove', 'dsh-code-atlas']);
     else if (action === 'launch') await launch(value);
     else if (action === 'verify') await verify(value);
     else if (action === 'status') await status();
