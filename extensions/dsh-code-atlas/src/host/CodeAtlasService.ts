@@ -8,6 +8,7 @@ import type { AtlasSession } from '../typert.js';
 import type { AtlasView, ReadingDirection } from '../core/types.js';
 import { AtlasWorkbench } from '../core/AtlasWorkbench.js';
 import { TypeScriptLanguageProvider } from '../analysis/index.js';
+import { testFileLabel } from '../plugins/test-file-label.js';
 import { DshCodeSource } from './DshCodeSource.js';
 
 declare module '@deepseek-ai/cordis' { interface Context { codeAtlas: CodeAtlasService } }
@@ -22,7 +23,9 @@ export class CodeAtlasService extends TypertRemoteService {
   constructor(ctx: Context) {
     super(ctx, 'codeAtlas');
     this.workbench = new AtlasWorkbench(new DshCodeSource(ctx.fs), new TypeScriptLanguageProvider());
+    const unregisterTestFileLabel = this.workbench.extensions.registerLabel(testFileLabel);
     ctx.effect(() => () => {
+      unregisterTestFileLabel();
       this.lifetime.abort(new Error('The Code Atlas plugin has been unloaded.'));
       this.watches.clear(); this.workbench.dispose();
     });

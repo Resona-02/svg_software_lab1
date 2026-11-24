@@ -6,7 +6,8 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 await mkdir(resolve(root, 'lib'), { recursive: true });
 await mkdir(resolve(root, 'artifacts'), { recursive: true });
 const entries = { 'client-controller': 'src/client/AtlasController.ts', core: 'src/core/index.ts', analysis: 'src/analysis/index.ts', index: 'src/index.ts',
-  'typert.host': 'src/typert.ts', 'typert.remote-client': 'src/typert.remote-client.ts' };
+  'typert.host': 'src/typert.ts', 'typert.remote-client': 'src/typert.remote-client.ts',
+  'test-file-label': 'src/plugins/test-file-label.ts' };
 for (const [name, path] of Object.entries(entries)) {
   if (!await access(resolve(root, path)).then(() => true, () => false)) continue;
   await build({ absWorkingDir: root, entryPoints: [path], outfile: `lib/${name}.js`, bundle: true,

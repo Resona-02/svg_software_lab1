@@ -74,12 +74,20 @@ flowchart LR
 | --- | --- | --- |
 | Adapter | Client：Workbench；Target：`CodeSource` / `LanguageProvider`；Adapter：`DshCodeSource` / `TypeScriptLanguageProvider`；Adaptee：DSH FS / TS7 API | 把外部文件接口、AST 与符号查询转换为客户端需要的快照和事实接口，隐藏兼容性知识 |
 | Strategy | Context：Workbench；Strategy：`ReadingStrategy`；ConcreteStrategy：`DependenciesFirst`、`UsersFirst` | 稳定的建视图流程委托可替换的图遍历步骤，运行时切换方向，无须重跑分析 |
-| Decorator | Component：`NodeLabelProvider`；ConcreteComponent：`BasicNodeLabel`；ConcreteDecorator：`PublicApiLabel`、`ReadLabel` | 同接口、持有上游、委托后叠加职责；标签可组合，公开 API 标签可运行时撤销 |
+| Decorator | Component：`NodeLabelProvider`；ConcreteComponent：`BasicNodeLabel`；ConcreteDecorator：`PublicApiLabel`、`ReadLabel`、`TestFileLabel` | 同接口、持有上游、委托后叠加职责；标签可组合，公开 API 标签可运行时撤销 |
 | Observer | Subject：Workbench；Observer：`subscribe()` 回调 / 原生 `watch`；界面：Controller 的订阅者及地图 / 源码视图 | 一次状态变化通知多个呈现者；保存注销函数，界面卸载、会话关闭、插件卸载时释放 |
 
 两种遍历算法分别沿出向边、入向边选择子图，真正改变阅读顺序和结果；仅改变按钮名称不算策略。标签包装者实现同一接口并持有内层对象，符合经典 Decorator 结构；普通字符串规则列表不能单独作为该结构的证明。
 
 Observer 发布的是分析 / 阅读视图变化，不是文件系统自动监听。一个订阅者异常不影响其余订阅者。原生 watch 使用取消信号，慢消费者只保留最新视图，避免队列无限积压；会话和插件生命周期都会结束流。
+
+## 独立标签插件的扩展验证
+
+基线提交为 `7a5cfbf`。此后新增 `src/plugins/test-file-label.ts`：`TestFileLabel` 实现相同的 `NodeLabelProvider` 接口、持有内层 provider，先委托再追加 `[测试文件]`；工厂 `testFileLabel` 的注册名为 `test-file`。识别 `.test` / `.spec` 的 TS / JS 后缀或完整 `__tests__` / `test` / `tests` 目录分量，支持正反斜杠、不区分大小写，并对测试文件内的声明使用同样标签。
+
+装配处只在 `CodeAtlasService` 注册工厂、卸载时注销；构建脚本增加独立测试入口 `lib/test-file-label.js`。这一标签扩展没有修改 `core/*`、`analysis/*` 或 `render/*`，也没有把测试识别分支加进核心标签类。它是当前 DSH bundle 内独立的工作台扩展模块，通过现有 `registerLabel()` 接入。
+
+`test/plugin.test.mjs` 验证路径识别及误匹配、传入同一节点与已读集合并仅委托一次、与公开 API / 已读职责组合、不修改事实、注销后恢复原标签以及再次注册。可将基线与后续扩展提交对比，检查核心零行改动；对应提交和执行记录由仓库验收记录给出。
 
 ## 与原 SVG 项目的复用边界
 
@@ -105,4 +113,4 @@ Observer 发布的是分析 / 阅读视图变化，不是文件系统自动监�
 
 验证重点包括：跨文件别名 / barrel / 路径映射、嵌套与类表达式、UTF-16 位置、损坏源码和封闭快照；两种遍历、环、截断、标签叠加、过期内容、并发刷新与关闭；原生 RPC 方法 / watch 取消、共享状态及 UI 订阅资源回收。自动化测试和真实 Desktop 验收分别记录，不能以打包或单测成功替代界面验收。
 
-第一版尚无完整调用图、跨工作区依赖解析、自动文件监听、已读状态持久化和源码编辑。扩展点独立演示应另外给出最小新增实现与内核差异证据；本设计文档不将尚未进行的演示或 UI 验收记为完成。
+第一版尚无完整调用图、跨工作区依赖解析、自动文件监听、已读状态持久化和源码编辑。独立扩展演示已包含上述 `test-file` 标签模块；本设计文档不将尚未完成的真实 UI 验收记为完成。
