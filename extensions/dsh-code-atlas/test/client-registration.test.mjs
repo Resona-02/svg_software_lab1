@@ -33,7 +33,7 @@ test('the browser bundle registers the native keyed main page and sidebar row, a
   const context = {
     remote: {
       async $mount(manifest) { mounted = true; mountedManifest = manifest; return () => { mounted = false; }; },
-      codeAtlas: { async sessions() { return []; } },
+      codeAtlas: { async sessions() { return { ok: true, value: [] }; } },
     },
     slots: {
       inject(_name, action) { disposers.push(action()); },
@@ -81,7 +81,7 @@ test('the client mounts its namespace before accessing it under real Cordis 4 de
     async $mount() {
       namespaceFiber = this.owner.plugin({ name: 'test-code-atlas-namespace', apply(ctx) {
         const namespace = new Service(ctx, 'remote.codeAtlas');
-        namespace.sessions = async () => [];
+        namespace.sessions = async () => ({ ok: true, value: [] });
       } });
       await namespaceFiber;
       return () => namespaceFiber.dispose();

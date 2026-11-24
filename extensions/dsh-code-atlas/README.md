@@ -40,7 +40,7 @@ node scripts/local-desktop.mjs launch
 node scripts/local-desktop.mjs status
 ```
 
-默认应用路径为 `/Applications/DSH Desktop.app`，可以用 `ATLAS_DSH_APP` 指定另一安装位置。脚本检查内置 DSH 必须为 `0.2.0-rc.1`。测试数据固定放在 `/private/tmp/atlas-dsh-home`，profile 名为 `code-atlas`，Electron 用户目录为该目录下的 `desktop-user-data`。`init` 可单独准备此 profile。`verify [工作区]` 从安装后的 profile 解析插件，用真实宿主服务执行扫描和协议核验，结果写入隔离目录的 `installed-verification.json`。`launch /绝对路径/工作区` 可指定其他工作区；省略时打开本仓库。
+默认应用路径为 `/Applications/DSH Desktop.app`，可以用 `ATLAS_DSH_APP` 指定另一安装位置。脚本检查内置 DSH 必须为 `0.2.0-rc.1`。测试数据固定放在 `/private/tmp/atlas-dsh-home`，profile 名为 `code-atlas`，Electron 用户目录为该目录下的 `desktop-user-data`。`init` 可单独准备此 profile。`install` 会按 SHA-256 为归档命名并保存在隔离目录，确保同版本更新也能获得正确的新包；缓存完整时可在命令末尾加 `--offline --fetch-retries=0`。`verify [工作区]` 从安装后的 profile 解析插件，用真实宿主服务执行扫描和协议核验，结果写入隔离目录的 `installed-verification.json`。`launch /绝对路径/工作区` 可指定其他工作区；省略时打开本仓库。
 
 这些命令使用隔离的 profile、选择状态、包缓存和用户目录。关闭测试窗口后重新打开原来的 DSH Desktop，即可返回原环境。界面验收、截图和实际执行结果应以对应验收记录为准；构建成功本身不代表 Desktop 界面验收完成。
 

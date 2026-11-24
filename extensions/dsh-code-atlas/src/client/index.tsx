@@ -1,6 +1,7 @@
 import type { Context } from '@deepseek-ai/cordis';
 import { AtlasController } from './AtlasController.js';
-import type { AtlasRemote } from './AtlasController.js';
+import { adaptNativeRemote } from './RemoteAdapter.js';
+import type { NativeAtlasRemote } from './RemoteAdapter.js';
 import { AtlasPage } from './AtlasPage.js';
 import { TYPERT_REMOTE } from '../typert.js';
 
@@ -11,7 +12,7 @@ export const inject = ['slots', 'layout', 'remote'];
 interface AtlasBrowserContext {
   remote: {
     $mount(manifest: typeof TYPERT_REMOTE): Promise<() => void>;
-    codeAtlas: AtlasRemote;
+    codeAtlas: NativeAtlasRemote;
   };
   slots: {
     inject(name: string, action: () => unknown): unknown;
@@ -29,7 +30,7 @@ export async function apply(context: Context): Promise<void> {
   // Remote properties as distinct services, so injecting only `remote` is insufficient.
   await context.inject(['remote.codeAtlas'], child => {
     const scoped = child as Context & AtlasBrowserContext;
-    const controller = new AtlasController(scoped.remote.codeAtlas);
+    const controller = new AtlasController(adaptNativeRemote(scoped.remote.codeAtlas));
     child.effect(() => () => controller.dispose());
     scoped.slots.inject('main', () => scoped.slots.register({
       name: 'main', key: 'code-atlas', inject: () => ({ controller }),

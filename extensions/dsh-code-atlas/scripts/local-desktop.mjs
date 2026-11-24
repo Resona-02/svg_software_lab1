@@ -1,6 +1,7 @@
 import { spawn } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { createWriteStream } from 'node:fs';
-import { access, mkdir, readFile, stat, writeFile } from 'node:fs/promises';
+import { access, copyFile, mkdir, readFile, stat, writeFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -84,11 +85,15 @@ async function init() {
   manager.selectDesktopProfile(selection, home, profile);
   console.log(`Prepared isolated Desktop profile: ${profileDir}`);
 }
-async function install(tarball) {
+async function install(tarball, extra = []) {
   if (!tarball || !tarball.endsWith('.tgz')) throw new Error('Usage: node scripts/local-desktop.mjs install /absolute/path/dsh-code-atlas-0.1.0.tgz');
   const archive = resolve(tarball);
   if (!(await stat(archive)).isFile()) throw new Error('The plugin archive must be a regular .tgz file.');
-  await packageCommand(['add', archive]);
+  const digest = createHash('sha256').update(await readFile(archive)).digest('hex');
+  const archives = join(home, 'archives'); await mkdir(archives, { recursive: true });
+  const staged = join(archives, `dsh-code-atlas-${digest}.tgz`);
+  if (!await exists(staged)) await copyFile(archive, staged);
+  await packageCommand(['add', staged, ...extra]);
 }
 async function packageCommand(args) {
   await init();
@@ -103,6 +108,7 @@ async function packageCommand(args) {
     electronVersion, stateDir: join(home, 'runtime-commands'), environment: packageEnv });
   try {
     await packagedCli(['plugin', '--profile', profile, ...args,
+      `--cpu=${process.arch}`, `--os=${process.platform}`, '--force=false',
       `--store-dir=${join(home, 'pnpm-store')}`, `--config.cacheDir=${join(home, 'pnpm-cache')}`,
       '--registry=https://registry.npmjs.org', '--reporter=append-only'], { environment: packageEnv });
   } finally { runtime.dispose(); }
@@ -159,13 +165,13 @@ async function status() {
     selected: manager.readDesktopProfileState(selection).active,
     profiles: manager.listDesktopProfiles(home).map(({ name, webCapable, problem }) => ({ name, webCapable, problem })) }, null, 2));
 }
-const [action = 'help', value] = process.argv.slice(2);
+const [action = 'help', value, ...extra] = process.argv.slice(2);
 try {
   if (action === 'help') console.log('Isolated local DSH Desktop verification:\n  node scripts/local-desktop.mjs init\n  node scripts/local-desktop.mjs install <plugin.tgz>\n  node scripts/local-desktop.mjs uninstall\n  node scripts/local-desktop.mjs verify [workspace]\n  node scripts/local-desktop.mjs launch [workspace]\n  node scripts/local-desktop.mjs status');
   else {
     await validateInstallation();
     if (action === 'init') await init();
-    else if (action === 'install') await install(value);
+    else if (action === 'install') await install(value, extra);
     else if (action === 'uninstall') await packageCommand(['remove', 'dsh-code-atlas']);
     else if (action === 'launch') await launch(value);
     else if (action === 'verify') await verify(value);
