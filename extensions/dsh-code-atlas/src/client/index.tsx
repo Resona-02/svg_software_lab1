@@ -25,14 +25,19 @@ export async function apply(context: Context): Promise<void> {
   const ctx = context as Context & AtlasBrowserContext;
   const unmount = await ctx.remote.$mount(TYPERT_REMOTE);
   context.effect(() => unmount);
-  const controller = new AtlasController(ctx.remote.codeAtlas);
-  context.effect(() => () => controller.dispose());
-  ctx.slots.inject('main', () => ctx.slots.register({
-    name: 'main', key: 'code-atlas', inject: () => ({ controller }),
-  }, AtlasPage));
-  ctx.slots.inject('sidebar.panellist', () => ctx.slots.register({
-    name: 'sidebar.panellist', id: 'code-atlas', order: 15, label: () => '代码地图',
-  }, CodeAtlasIcon));
+  // Mount first, then request its newly provided namespace. Cordis traces nested
+  // Remote properties as distinct services, so injecting only `remote` is insufficient.
+  await context.inject(['remote.codeAtlas'], child => {
+    const scoped = child as Context & AtlasBrowserContext;
+    const controller = new AtlasController(scoped.remote.codeAtlas);
+    child.effect(() => () => controller.dispose());
+    scoped.slots.inject('main', () => scoped.slots.register({
+      name: 'main', key: 'code-atlas', inject: () => ({ controller }),
+    }, AtlasPage));
+    scoped.slots.inject('sidebar.panellist', () => scoped.slots.register({
+      name: 'sidebar.panellist', id: 'code-atlas', order: 15, label: () => '代码地图',
+    }, CodeAtlasIcon));
+  });
 }
 
 function CodeAtlasIcon({ size = 20 }: { size?: number }) {

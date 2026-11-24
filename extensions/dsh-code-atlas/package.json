@@ -42,9 +42,7 @@
       "inject": [
         "@deepseek-ai/dsh-api-remotes",
         "@deepseek-ai/dsh-client-ui-layout",
-        "@deepseek-ai/dsh-client-ui-slots",
-        "@deepseek-ai/dsh-client-ui-session",
-        "@deepseek-ai/dsh-client-ui-workspace"
+        "@deepseek-ai/dsh-client-ui-sidebar"
       ]
     }
   },
@@ -55,10 +53,10 @@
   },
   "peerDependencies": {
     "@deepseek-ai/cordis": "~4.0.4",
+    "@deepseek-ai/dsh-session": "0.2.0-rc.1",
     "@deepseek-ai/dsh-tools": "0.2.0-rc.1",
     "@deepseek-ai/dsh-typert-protocol": "0.2.0-rc.1",
-    "react": "^18.3.1",
-    "@deepseek-ai/dsh-session": "0.2.0-rc.1"
+    "react": "^18.3.1"
   },
   "devDependencies": {
     "@deepseek-ai/cordis": "4.0.4",
@@ -75,6 +73,7 @@
     "@deepseek-ai/dsh-client-ui-layout": "0.2.0-rc.1",
     "@deepseek-ai/dsh-client-ui-renderer": "0.2.0-rc.1",
     "@deepseek-ai/dsh-client-ui-session": "0.2.0-rc.1",
+    "@deepseek-ai/dsh-client-ui-sidebar": "0.2.0-rc.1",
     "@deepseek-ai/dsh-client-ui-slots": "0.2.0-rc.1",
     "@deepseek-ai/dsh-client-ui-workspace": "0.2.0-rc.1",
     "@deepseek-ai/dsh-fs": "0.2.0-rc.1",
