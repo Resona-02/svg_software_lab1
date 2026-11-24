@@ -1,0 +1,5 @@
+# One dual-face package: the Host registers its service/tools, and DSH reads the
+# package's dsh.client metadata to add its browser companion to the Web roster.
+- insert:
+    - id: code-atlas
+      name: dsh-code-atlas

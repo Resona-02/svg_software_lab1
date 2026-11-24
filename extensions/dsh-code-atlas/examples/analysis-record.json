@@ -1,0 +1,31 @@
+{
+  "method": "Real rc.1 LocalFileSystem and AtlasWorkbench, without a model or Desktop UI",
+  "files": 167,
+  "nodes": 1044,
+  "relations": 772,
+  "evidence": {
+    "id": "relation:plugins/shape-box/BoxAttributes.ts:implements:260",
+    "kind": "implements",
+    "from": "symbol:plugins/shape-box/BoxAttributes.ts:class:222",
+    "to": "symbol:src/application/AttributeHandler.ts:interface:415",
+    "targetName": "AttributeHandler",
+    "resolved": true,
+    "location": {
+      "file": "plugins/shape-box/BoxAttributes.ts",
+      "start": 260,
+      "end": 276,
+      "startLine": 5,
+      "startColumn": 39,
+      "endLine": 5,
+      "endColumn": 55,
+      "fileHash": "7ce78f6711195423fba575cffe7f1bf4aa19bcc48639c2fec22d987a5e304a0b"
+    }
+  },
+  "box": {
+    "id": "symbol:plugins/shape-box/BoxAttributes.ts:class:222",
+    "file": "plugins/shape-box/BoxAttributes.ts",
+    "line": 5
+  },
+  "read": true,
+  "usersContainBox": true
+}

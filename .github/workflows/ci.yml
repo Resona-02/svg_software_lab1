@@ -66,3 +66,27 @@ jobs:
             extensions/dsh-svg/artifacts/*.tgz
             extensions/dsh-svg/examples/approval.svg
             extensions/dsh-svg/examples/tool-transcript.json
+
+  code-atlas:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            extensions/dsh-code-atlas/package-lock.json
+      - run: npm ci
+      - run: npm --prefix extensions/dsh-code-atlas ci
+      - run: npm --prefix extensions/dsh-code-atlas run check
+      - run: npm --prefix extensions/dsh-code-atlas test
+      - run: npm --prefix extensions/dsh-code-atlas run demo
+      - run: npm --prefix extensions/dsh-code-atlas run package
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dsh-code-atlas
+          path: |
+            extensions/dsh-code-atlas/artifacts/*.tgz
+            extensions/dsh-code-atlas/examples/*
