@@ -183,3 +183,13 @@ test('close during an in-flight scan prevents late publication', async () => {
   assert.throws(() => workbench.view('late'), error => error.code === 'SCAN_REQUIRED');
   workbench.dispose();
 });
+
+test('history navigation verifies source before atomically changing direction, depth and graph kind', async () => {
+  const { source, workbench } = await fixture();
+  await workbench.inspect('one', 'b.ts');
+  const before = workbench.view('one');
+  source.files.set('a.ts', 'export interface A { changed(): void }');
+  await assert.rejects(workbench.navigate('one', 'a.ts', 'users', 2, 'calls'), error => error.code === 'STALE_SOURCE');
+  assert.deepEqual(workbench.view('one'), before);
+  workbench.dispose();
+});

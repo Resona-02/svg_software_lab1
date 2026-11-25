@@ -18,6 +18,7 @@ function fixture() {
     async scan(session) { calls.push(['scan', session]); return structuredClone(value); },
     async inspect(session, id) { calls.push(['inspect', session, id]); value = { ...value, selectedId: id }; return { view: structuredClone(value), source: { node: value.snapshot.nodes.find(node => node.id === id), content: 'export interface Handler {}\n', snapshotId: value.snapshot.id } }; },
     async route(session, direction, depth) { calls.push(['route', session, direction, depth]); value = { ...value, direction, depth }; return structuredClone(value); },
+    async navigate(session, id, direction, depth, graphKind) { calls.push(['navigate', session, id, direction, depth, graphKind]); await remote.route(session, direction, depth); const result = await remote.inspect(session, id); value = { ...value, graphKind }; return { ...result, view: structuredClone(value) }; },
     async markRead(session, id, read) { calls.push(['mark', session, id, read]); value = { ...value, readIds: read ? [id] : [] }; return structuredClone(value); },
     async setPublicApiLabel(session, enabled) { calls.push(['label', session, enabled]); return structuredClone(value); },
     async exportSVG(session) { calls.push(['export', session]); return { svg: value.svg, filename: 'atlas.svg' }; },
@@ -208,4 +209,62 @@ test('changing sessions and unloading dispose the native view streams and reject
   assert.equal(controller.getSnapshot().view.snapshot.id, 'snapshot');
   controller.dispose();
   assert.equal(streams[1].stream.disposed, true);
+});
+
+test('back and forward restore selected source, route, search and source pane; a new branch removes forward history', async () => {
+  const { controller } = fixture();
+  await controller.loadSessions(); await controller.scan();
+  controller.setQuery('Box'); controller.setSourceOpen(true);
+  await controller.selectNode(implementation.id);
+  await controller.changeRoute('users', 2);
+  await controller.selectNode(contract.id);
+  controller.setQuery('Attribute'); controller.setSourceOpen(false); controller.setPane('guide');
+  await controller.navigate(-1);
+  assert.equal(controller.getSnapshot().view.selectedId, implementation.id);
+  assert.equal(controller.getSnapshot().source.node.id, implementation.id);
+  assert.equal(controller.getSnapshot().view.direction, 'users');
+  assert.equal(controller.getSnapshot().view.depth, 2);
+  assert.equal(controller.getSnapshot().sourceOpen, true);
+  assert.equal(controller.getSnapshot().query, 'Box');
+  assert.equal(controller.getSnapshot().canForward, true);
+  await controller.navigate(1); assert.equal(controller.getSnapshot().view.selectedId, contract.id);
+  assert.equal(controller.getSnapshot().query, 'Attribute'); assert.equal(controller.getSnapshot().sourceOpen, false);
+  assert.equal(controller.getSnapshot().pane, 'guide');
+  await controller.navigate(-1); await controller.changeRoute('dependencies', 1);
+  assert.equal(controller.getSnapshot().canForward, false);
+  controller.dispose();
+});
+test('failed stale back navigation does not advance its history cursor or reveal cached source', async () => {
+  const { controller, remote } = fixture();
+  await controller.loadSessions(); await controller.scan(); await controller.selectNode(implementation.id);
+  const inspect = remote.inspect;
+  remote.inspect = async () => { throw new Error('STALE_SOURCE: changed'); };
+  await controller.navigate(-1);
+  assert.equal(controller.getSnapshot().view.selectedId, implementation.id);
+  assert.equal(controller.getSnapshot().canBack, true); assert.equal(controller.getSnapshot().canForward, false);
+  assert.equal(controller.getSnapshot().source, undefined);
+  remote.inspect = inspect; await controller.navigate(-1);
+  assert.equal(controller.getSnapshot().view.selectedId, contract.id);
+  controller.dispose();
+});
+test('graph kind changes are part of navigation, with no cross-session history leakage', async () => {
+  const { controller, remote, calls } = fixture();
+  remote.graphKind = async (session, graphKind) => { calls.push(['graphKind', session, graphKind]); const value = await remote.scan(session); return { ...value, graphKind }; };
+  await controller.loadSessions(); await controller.scan(); await controller.changeGraphKind('calls');
+  await controller.navigate(-1);
+  assert(calls.some(call => call[0] === 'navigate' && call[5] === 'structure'));
+  controller.selectSession('B'); assert.equal(controller.getSnapshot().canBack, false); assert.deepEqual(controller.getSnapshot().trail, []);
+  controller.dispose();
+});
+test('cancelled or previous-session model responses cannot repopulate the workbench', async () => {
+  const { controller, remote } = fixture(); const gate = deferred();
+  remote.generateGuide = async () => gate.promise; let cancelled = 0;
+  remote.cancelGuide = async () => { cancelled++; return null; };
+  await controller.loadSessions(); await controller.scan();
+  const request = controller.generateGuide('review');
+  assert.equal(controller.getSnapshot().guideBusy, true);
+  await controller.cancelGuide(); gate.resolve(structuredClone(base)); await request;
+  assert.equal(cancelled, 1); assert.equal(controller.getSnapshot().guideBusy, false);
+  assert.equal(controller.getSnapshot().view.guide, undefined);
+  controller.dispose();
 });

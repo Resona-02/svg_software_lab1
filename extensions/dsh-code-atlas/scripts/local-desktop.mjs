@@ -86,7 +86,7 @@ async function init() {
   console.log(`Prepared isolated Desktop profile: ${profileDir}`);
 }
 async function install(tarball, extra = []) {
-  if (!tarball || !tarball.endsWith('.tgz')) throw new Error('Usage: node scripts/local-desktop.mjs install /absolute/path/dsh-code-atlas-0.1.0.tgz');
+  if (!tarball || !tarball.endsWith('.tgz')) throw new Error('Usage: node scripts/local-desktop.mjs install /absolute/path/dsh-code-atlas-<version>.tgz');
   const archive = resolve(tarball);
   if (!(await stat(archive)).isFile()) throw new Error('The plugin archive must be a regular .tgz file.');
   const digest = createHash('sha256').update(await readFile(archive)).digest('hex');
@@ -155,6 +155,12 @@ async function verify(workspace = project) {
       nativeTools: ctx.tools.schemas().filter(item => item.name.startsWith('code_atlas_')).length,
       nativeRpc: ctx.typert.local.list().filter(item => item.namespace === 'codeAtlas').length,
       svg: true, verifiedAt: new Date().toISOString() };
+    await fibers.pop().dispose();
+    record.toolsAfterUnload = ctx.tools.schemas().filter(item => item.name.startsWith('code_atlas_')).length;
+    record.serviceUnavailableAfterUnload = false;
+    try { await ctx.typertGateway.invoke({ namespace: 'codeAtlas', method: 'view', args: { sessionId: 'code-atlas-installed-verification' } }); }
+    catch (error) { record.serviceUnavailableAfterUnload = error.code === 'gateway/service-unavailable'; }
+    if (record.toolsAfterUnload !== 0 || !record.serviceUnavailableAfterUnload) throw new Error('The installed plugin did not release its tools or native service.');
     await writeFile(join(home, 'installed-verification.json'), JSON.stringify(record, null, 2), { mode: 0o600 });
     console.log(JSON.stringify(record, null, 2));
   } finally { for (const fiber of fibers.reverse()) await fiber.dispose(); release(); }

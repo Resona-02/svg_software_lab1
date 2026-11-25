@@ -68,8 +68,23 @@ export async function apply(ctx: Context): Promise<void> {
       execute: async (_args, exec) => ctx.codeAtlas.exportSVG(sessionId(exec), exec.signal),
       presentCall: () => ({ card: 'generic', title: 'Export code map SVG', kind: 'read' }),
     }));
+    ctx.tools.register(defineTool({
+      name: 'code_atlas_review_context', description: 'Read a bounded task-focused set of real function/class bodies and static call sites. Scan and inspect an entry first. Use these exact node IDs to explain inputs, steps, failure handling and review questions; do not treat imports as execution order. This does not call a model.',
+      parameters: { task: { type: 'string', required: true } },
+      output: { schema: { type: 'object', additionalProperties: false, properties: { snapshotId: { type: 'string', required: true }, contextJson: { type: 'string', required: true } } },
+        render: (_args, value) => [{ type: 'text', text: value.contextJson }] },
+      execute: async (args, exec) => { const context = await ctx.codeAtlas.reviewContext(sessionId(exec), args.task, exec.signal); return { snapshotId: context.snapshotId, contextJson: JSON.stringify(context) }; },
+      presentCall: () => ({ card: 'generic', title: 'Read task context', kind: 'read' }),
+    }));
+    ctx.tools.register(defineTool({
+      name: 'code_atlas_publish_guide', description: 'Publish an AI reading guide for the last review_context snapshot. guideJson is {title,summary,steps:[{id,title,explanation,nodeIds,next,checks}],risks}. Reference only node IDs returned by review_context. At most16 steps. Label interpretation honestly: these are suggested reading steps, not a verified runtime trace. Does not execute or modify source.',
+      parameters: { snapshotId: { type: 'string', required: true }, guideJson: { type: 'string', required: true } }, output: { schema: summary, render },
+      execute: async (args, exec) => { if (args.guideJson.length > 64000) throw new Error('导览过长，请缩小范围。'); return summarize(await ctx.codeAtlas.publishGuide(sessionId(exec), args.snapshotId, JSON.parse(args.guideJson), exec.signal)); },
+      presentCall: () => ({ card: 'generic', title: 'Publish reading guide', kind: 'edit' }),
+    }));
   });
 }
 
 export { CodeAtlasService };
 export { DshCodeSource } from './host/DshCodeSource.js';
+export { DshGuideProvider } from './host/DshGuideProvider.js';

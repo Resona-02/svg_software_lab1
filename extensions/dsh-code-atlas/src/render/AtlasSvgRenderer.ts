@@ -54,10 +54,11 @@ export class AtlasSvgRenderer {
       body.setAttribute('fill', node.id === selected ? '#dbeafe' : '#f8fafc');
       body.setAttribute('stroke', node.id === selected ? '#2563eb' : '#cbd5e1');
       const titleNode = shape.children.find(child => child.tag === 'text')!;
-      titleNode.importAttributes({ 'fill': '#17243a', 'font-family': 'system-ui, sans-serif', 'font-size': '13' });
+      titleNode.importAttributes({ 'fill': '#17243a', 'font-family': 'system-ui, sans-serif', 'font-size': '16' });
       document.add(shape);
-      const subtitle = new Text(`atlas-note-${i}`, p.x + 20, p.y + 60, `${node.kind} · ${node.file}:${node.location.startLine}`);
-      subtitle.importAttributes({ 'fill': '#526279', 'font-family': 'system-ui, sans-serif', 'font-size': '10', 'pointer-events': 'none' });
+      const path = node.file.length > 43 ? `…${node.file.slice(-42)}` : node.file;
+      const subtitle = new Text(`atlas-note-${i}`, p.x + 20, p.y + 75, `${node.kind} · ${path}:${node.location.startLine}`);
+      subtitle.importAttributes({ 'fill': '#526279', 'font-family': 'system-ui, sans-serif', 'font-size': '11', 'pointer-events': 'none' });
       document.add(subtitle);
     });
     return this.codec.encode(document);

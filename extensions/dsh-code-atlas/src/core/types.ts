@@ -19,6 +19,7 @@ export type NodeKind = 'file' | 'class' | 'interface' | 'function' | 'method' | 
 export interface CodeNode {
   readonly id: string;
   readonly name: string;
+  readonly qualifiedName?: string;
   readonly kind: NodeKind;
   readonly file: string;
   readonly parentId?: string;
@@ -27,12 +28,14 @@ export interface CodeNode {
 }
 export interface CodeRelation {
   readonly id: string;
-  readonly kind: 'imports' | 'reexports' | 'extends' | 'implements';
+  readonly kind: 'imports' | 'reexports' | 'extends' | 'implements' | 'calls' | 'constructs';
   readonly from: string;
   readonly to?: string;
   readonly targetName: string;
   readonly resolved: boolean;
   readonly location: SourceLocation;
+  readonly excerpt?: string;
+  readonly dispatch?: 'direct' | 'declared' | 'unknown';
 }
 export interface AtlasDiagnostic { readonly file: string; readonly message: string; readonly line?: number }
 export interface AnalysisSnapshot {
@@ -60,8 +63,38 @@ export interface AtlasView {
   readonly depth: 1 | 2;
   readonly readIds: readonly string[];
   readonly publicApiLabel: boolean;
+  readonly graphKind: 'structure' | 'calls';
+  readonly guide?: ReadingGuide;
   readonly labels: Readonly<Record<string, string>>;
   readonly graph: { readonly nodeIds: readonly string[]; readonly relationIds: readonly string[]; readonly truncated?: boolean };
   readonly svg: string;
 }
 export interface SourcePreview { readonly node: CodeNode; readonly content: string; readonly snapshotId: string }
+
+/** Model explanations refer to verified symbols; they never become compiler facts. */
+export interface GuideStep {
+  readonly id: string;
+  readonly title: string;
+  readonly explanation: string;
+  readonly nodeIds: readonly string[];
+  readonly next: readonly string[];
+  readonly checks: readonly string[];
+}
+export interface ReadingGuide {
+  readonly snapshotId: string;
+  readonly title: string;
+  readonly summary: string;
+  readonly steps: readonly GuideStep[];
+  readonly risks: readonly string[];
+  readonly origin: 'model';
+  readonly scope: { readonly providedSymbols: number; readonly totalSymbols: number };
+}
+export interface ReviewContext {
+  readonly snapshotId: string;
+  readonly task: string;
+  readonly symbols: readonly { readonly node: CodeNode; readonly source: string; readonly sourceTruncated?: boolean }[];
+  readonly relations: readonly CodeRelation[];
+  readonly omittedSymbols: number;
+  readonly omittedRelations?: number;
+}
+export interface GuideProvider { generate(context: ReviewContext, signal?: AbortSignal): Promise<unknown> }

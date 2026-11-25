@@ -243,3 +243,31 @@ test('static import types resolve while runtime dynamic import stays unresolved 
   }
   assert.notEqual(imports[0].id, imports[1].id);
 });
+
+test('static calls link imported functions, arrow values, constructors and method declarations with full call evidence', async () => {
+  const result = await analyze({
+    'service.ts': 'export function save(x: number) { return x; } export const validate = (x: number) => x > 0; export class Store { put(x: number) { return save(x); } }',
+    'main.ts': 'import { save as persist, validate, Store } from "./service.js"; export function main(x: number) { if (validate(x)) { const db = new Store(); db.put(persist(x)); } }',
+  });
+  const main = named(result, 'main');
+  const calls = result.relations.filter(edge => edge.from === main.id && (edge.kind === 'calls' || edge.kind === 'constructs'));
+  assert.equal(calls.length, 4);
+  assert(calls.every(edge => edge.resolved));
+  assert.deepEqual(new Set(calls.map(edge => targetNode(result, edge).name)), new Set(['validate', 'Store', 'put', 'save']));
+  assert.equal(calls.find(edge => edge.targetName === 'db.put').dispatch, 'declared');
+  const persist = calls.find(edge => edge.targetName === 'persist');
+  assert.equal(persist.excerpt, 'persist(x)');
+  assert.equal(persist.location.file, 'main.ts');
+  assert.equal(persist.dispatch, 'direct');
+});
+
+test('callback bodies have their own caller and unknown external calls remain explicit', async () => {
+  const result = await analyze({ 'index.ts': 'function save() {} export function start() { unknownRegister(() => save()); unknownReceiver.method(); }' });
+  const save = named(result, 'save'), start = named(result, 'start');
+  const callback = result.nodes.find(node => node.name.startsWith('callback@'));
+  assert(callback); assert.equal(callback.parentId, start.id);
+  const edge = result.relations.find(edge => edge.to === save.id && edge.kind === 'calls');
+  assert.equal(edge.from, callback.id);
+  const unresolved = result.relations.find(edge => edge.targetName === 'unknownReceiver.method');
+  assert.equal(unresolved.resolved, false); assert.equal(unresolved.dispatch, 'unknown');
+});

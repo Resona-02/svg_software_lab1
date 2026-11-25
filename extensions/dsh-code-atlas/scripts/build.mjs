@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 await mkdir(resolve(root, 'lib'), { recursive: true });
 await mkdir(resolve(root, 'artifacts'), { recursive: true });
-const entries = { 'client-controller': 'src/client/AtlasController.ts', core: 'src/core/index.ts', analysis: 'src/analysis/index.ts', index: 'src/index.ts',
+const entries = { 'client-controller': 'src/client/AtlasController.ts', 'remote-adapter': 'src/client/RemoteAdapter.ts', 'map-viewport': 'src/client/MapViewport.ts', 'navigation-history': 'src/client/NavigationHistory.ts', core: 'src/core/index.ts', analysis: 'src/analysis/index.ts', index: 'src/index.ts',
   'typert.host': 'src/typert.ts', 'typert.remote-client': 'src/typert.remote-client.ts',
   'test-file-label': 'src/plugins/test-file-label.ts' };
 for (const [name, path] of Object.entries(entries)) {

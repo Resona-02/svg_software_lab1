@@ -1,6 +1,9 @@
 /** Export only the host-generated SVG; browsers never execute project source. */
 export function downloadSVG(svg: string, filename: string): void {
-  const url = URL.createObjectURL(new Blob([svg], { type: 'image/svg+xml;charset=utf-8' }));
+  downloadText(svg, filename, 'image/svg+xml;charset=utf-8');
+}
+export function downloadText(content: string, filename: string, type: string): void {
+  const url = URL.createObjectURL(new Blob([content], { type }));
   const anchor = document.createElement('a');
   anchor.href = url;
   anchor.download = filename.replace(/[\\/]/g, '-');

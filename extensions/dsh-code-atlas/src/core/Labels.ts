@@ -2,7 +2,7 @@ import type { CodeNode, NodeLabelProvider } from './types.js';
 
 /** Component: a label's callers do not need to know whether it is decorated. */
 export class BasicNodeLabel implements NodeLabelProvider {
-  label(node: CodeNode, _readIds: ReadonlySet<string>): string { return node.name; }
+  label(node: CodeNode, _readIds: ReadonlySet<string>): string { return node.qualifiedName ?? node.name; }
 }
 /** Decorator: same interface, holds a component, delegates before adding a responsibility. */
 export class PublicApiLabel implements NodeLabelProvider {

@@ -42,8 +42,8 @@ export class LayeredLayout {
     const rows = new Map<number, number>(), positions = new Map<string, NodePosition>();
     groups.forEach((group, i) => {
       const column = columns[i]!, start = rows.get(column) ?? 0;
-      group.forEach((id, offset) => positions.set(id, { x: 32 + column * 350, y: 40 + (start + offset) * 116,
-        width: 292, height: 80, component: i }));
+      group.forEach((id, offset) => positions.set(id, { x: 32 + column * 400, y: 40 + (start + offset) * 132,
+        width: 330, height: 96, component: i }));
       rows.set(column, start + group.length + (group.length > 1 ? 1 : 0));
     });
     return positions;

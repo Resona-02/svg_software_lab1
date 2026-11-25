@@ -3,7 +3,7 @@ import test from 'node:test';
 import { mkdtemp, mkdir, writeFile, symlink, rm, realpath } from 'node:fs/promises';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
-import { Context } from '@deepseek-ai/cordis';
+import { Context, Service } from '@deepseek-ai/cordis';
 import { LocalFileSystem } from '@deepseek-ai/dsh-fs-local';
 import { SessionStore } from '@deepseek-ai/dsh-session';
 import { SessionId } from '@deepseek-ai/dsh-session/types';
@@ -120,8 +120,8 @@ test('real rc.1 Gateway accepts the manifest, exact wire shapes, existing sessio
   });
   const { host, one, two, invoke } = await nativeHost(t, root);
   assert.equal(host.codeAtlas.typertRemote.namespace, 'codeAtlas');
-  assert.equal(TYPERT_REMOTE.descriptors.length, 10);
-  assert.equal(host.typert.local.list().filter(item => item.namespace === 'codeAtlas').length, 10);
+  assert.equal(TYPERT_REMOTE.descriptors.length, 17);
+  assert.equal(host.typert.local.list().filter(item => item.namespace === 'codeAtlas').length, 17);
   const sessions = await invoke('sessions');
   assert.deepEqual(sessions.map(session => session.id), ['atlas-one', 'atlas-two']);
   assert(sessions.every(session => session.cwd === root && session.title));
@@ -160,7 +160,7 @@ test('real native tool execution validates schemas, shares panel state, refuses 
   const { host, one, two, plugin, execute, invoke } = await nativeHost(t, root);
   let publications = 0;
   const unsubscribe = host.codeAtlas.workbench.subscribe(one.id, () => publications++);
-  assert.equal(host.tools.schemas().filter(tool => tool.name.startsWith('code_atlas_')).length, 5);
+  assert.equal(host.tools.schemas().filter(tool => tool.name.startsWith('code_atlas_')).length, 7);
   const scan = await execute('code_atlas_scan', { root: '/arbitrary-root-ignored-by-tool' });
   assert.equal(scan.isError, false); assert(scan.value.snapshotId);
   assert.equal((await invoke('view', { sessionId: one.id })).snapshot.root, root);
@@ -231,4 +231,61 @@ test('native Typert watch streams tool publications with bounded latest-state de
   await new Promise(resolve => setImmediate(resolve));
   await plugin.dispose();
   await assert.rejects(unloading, /plugin has been unloaded/);
+});
+
+test('real RPC and tools share task guides, verify every reference, reject stale code and preserve prior state', async t => {
+  const { root } = await workspace(t, { 'main.ts': 'export function main() { return save(); } function save() { return 1; }' });
+  const { invoke, execute, one } = await nativeHost(t, root);
+  const view = await invoke('scan', { sessionId: one.id });
+  const main = view.snapshot.nodes.find(node => node.name === 'main');
+  await invoke('inspect', { sessionId: one.id, nodeId: main.id });
+  assert.equal((await invoke('guideStatus')).available, false);
+  await assert.rejects(invoke('generateGuide', { sessionId: one.id, task: '解释 main' }), /模型/);
+  const selected = await invoke('graphKind', { sessionId: one.id, kind: 'calls' });
+  assert(selected.graph.relationIds.length > 0);
+  const contextResult = await execute('code_atlas_review_context', { task: '解释 main' });
+  assert.equal(contextResult.isError, false);
+  const context = JSON.parse(contextResult.value.contextJson);
+  assert(context.symbols.some(item => item.node.id === main.id));
+  const draft = { title: 'main 路径', summary: 'main 调用 save。', steps: [{ id: 'first', title: '入口', explanation: '从 main 开始阅读并检查返回值。', nodeIds: [main.id], next: [], checks: ['是否存在失败处理？'] }], risks: ['未执行程序。'] };
+  const published = await execute('code_atlas_publish_guide', { snapshotId: context.snapshotId, guideJson: JSON.stringify(draft) });
+  assert.equal(published.isError, false);
+  assert.equal((await invoke('view', { sessionId: one.id })).guide.title, draft.title);
+  const invalid = await execute('code_atlas_publish_guide', { snapshotId: context.snapshotId, guideJson: JSON.stringify({ ...draft, steps: [{ ...draft.steps[0], nodeIds: ['invented'] }] }) });
+  assert.equal(invalid.isError, true);
+  await writeFile(join(root, 'main.ts'), 'export function main() { return 2; }');
+  await assert.rejects(invoke('publishGuide', { sessionId: one.id, snapshotId: context.snapshotId, draft }), error => error.code === 'STALE_SOURCE');
+  assert.equal((await invoke('view', { sessionId: one.id })).guide.title, draft.title);
+});
+
+test('native optional model capability generates validated guides and cancellation prevents late publication', async t => {
+  const { root } = await workspace(t, { 'main.ts': 'export function main() { return 1; }' });
+  const { host, one, invoke } = await nativeHost(t, root);
+  const requests = [];
+  let blocked = false, release, started;
+  const model = await host.plugin({ name: 'native-model-fixture', apply(ctx) {
+    const selection = new Service(ctx, 'agentDefaultModel');
+    selection.currentSelection = () => ({ provider: 'fixture', model: 'no-network-fixture' });
+    const llm = new Service(ctx, 'llm');
+    llm.stream = async function* (options) {
+      requests.push(options);
+      if (blocked) { started(); await new Promise(resolve => { release = resolve; }); }
+      const context = JSON.parse(options.messages[0].content[0].text);
+      const draft = { title: '入口核验', summary: '读取 main 并核验返回值。', steps: [{ id: 'entry', title: 'main', explanation: '返回常量。', nodeIds: [context.symbols[0].node.id], next: [], checks: ['返回值是否符合任务？'] }], risks: ['未执行程序。'] };
+      yield { type: 'text-delta', index: 0, text: JSON.stringify(draft) };
+      yield { type: 'finish', reason: { kind: 'stop' } };
+    };
+  } });
+  t.after(() => model.dispose());
+  await new Promise(resolve => setImmediate(resolve));
+  assert.equal((await invoke('guideStatus')).available, true);
+  await invoke('scan', { sessionId: one.id });
+  const first = await invoke('generateGuide', { sessionId: one.id, task: '解释 main' });
+  assert.equal(first.guide.title, '入口核验'); assert.equal(requests[0].model, 'no-network-fixture');
+  blocked = true;
+  const ready = new Promise(resolve => { started = resolve; });
+  const pending = invoke('generateGuide', { sessionId: one.id, task: '再次解释' });
+  const rejected = assert.rejects(pending, /abort/i);
+  await ready; await invoke('cancelGuide', { sessionId: one.id }); release(); await rejected;
+  assert.equal((await invoke('view', { sessionId: one.id })).guide.title, first.guide.title);
 });

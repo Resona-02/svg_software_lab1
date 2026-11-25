@@ -54,7 +54,9 @@ export class TypeScriptSourceFacts {
     if (declaration) {
       const start = node.getStart(source);
       const id = `symbol:${file.path}:${declaration.kind}:${start}`;
-      this.nodes.push({ id, name: declaration.name, kind: declaration.kind, file: file.path, parentId,
+      const parent = this.nodes.find(item => item.id === parentId && item.kind !== 'file');
+      const qualifiedName = parent ? `${parent.qualifiedName ?? parent.name}.${declaration.name}` : declaration.name;
+      this.nodes.push({ id, name: declaration.name, qualifiedName, kind: declaration.kind, file: file.path, parentId,
         exported: this.explicitlyExported(node), location: this.location(file, start, node.getEnd(), source) });
       this.declarations.set(node, id);
       this.declarationKeys.set(this.key(node), id);
@@ -87,6 +89,9 @@ export class TypeScriptSourceFacts {
     if (ts.isPropertyDeclaration(node) && node.initializer
       && (ts.isArrowFunction(node.initializer) || ts.isFunctionExpression(node.initializer))) {
       return { kind: 'method', name: node.name.getText() };
+    }
+    if ((ts.isArrowFunction(node) || ts.isFunctionExpression(node)) && !ts.isVariableDeclaration(node.parent) && !ts.isPropertyDeclaration(node.parent)) {
+      return { kind: 'function', name: `callback@${node.getSourceFile().getLineAndCharacterOfPosition(node.getStart()).line + 1}` };
     }
     return undefined;
   }
@@ -149,7 +154,32 @@ export class TypeScriptSourceFacts {
         }
       }
     }
+    if ((ts.isCallExpression(node) && node.expression.kind !== ts.SyntaxKind.ImportKeyword) || ts.isNewExpression(node)) {
+      this.callRelation(node, source, file);
+    }
     node.forEachChild(child => { this.collectRelations(child, source, file); });
+  }
+
+  private callRelation(node: ts.CallExpression | ts.NewExpression, source: ts.SourceFile, file: SourceFile): void {
+    let owner: ts.Node | undefined = node.parent;
+    while (owner && !this.declarationId(owner)) owner = owner.parent;
+    const from = owner && this.declarationId(owner) || `file:${file.path}`;
+    const signature = this.project.checker.getResolvedSignature(node);
+    const declaration = signature?.declaration?.resolve();
+    let to = declaration && this.declarationId(declaration);
+    // Arrow/function values are represented by their variable/property declaration.
+    if (!to && declaration && (ts.isArrowFunction(declaration) || ts.isFunctionExpression(declaration))) to = this.declarationId(declaration.parent);
+    if (!to && ts.isNewExpression(node)) {
+      const symbol = this.unalias(this.project.checker.getSymbolAtLocation(node.expression));
+      const targets = new Set((symbol?.declarations ?? []).map(handle => handle.resolve()).map(value => value && this.declarationId(value)).filter(Boolean));
+      if (targets.size === 1) to = [...targets][0];
+    }
+    const start = node.getStart(source);
+    this.relations.push({ id: `relation:${file.path}:${ts.isNewExpression(node) ? 'constructs' : 'calls'}:${start}`,
+      kind: ts.isNewExpression(node) ? 'constructs' : 'calls', from, ...(to ? { to } : {}), resolved: !!to,
+      targetName: node.expression.getText(source), location: this.location(file, start, node.getEnd(), source),
+      excerpt: node.getText(source).slice(0, 400),
+      dispatch: !to ? 'unknown' : ts.isPropertyAccessExpression(node.expression) || ts.isElementAccessExpression(node.expression) ? 'declared' : 'direct' });
   }
 
   private moduleRelation(kind: 'imports' | 'reexports', target: ts.Node, source: ts.SourceFile, file: SourceFile): void {
