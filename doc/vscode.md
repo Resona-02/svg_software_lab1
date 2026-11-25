@@ -57,6 +57,8 @@ sequenceDiagram
 
 Adapter 对应得更直接：Client 是 VSCode 大纲调用者，Target 是 DocumentSymbolProvider，Adaptee 是不依赖 VSCode 的 SvgOutlineParser/OutlineNode，Adapter 是 SvgDocumentSymbols。适配器把节点树和源偏移转成宿主的 Symbol/Range；解析器不导入 vscode，宿主也不理解扫描、XML 验证和节点建树细节。文件 provider 使用 workspace.fs 这个宿主端口，而不是自己引入另一套磁盘遍历框架。
 
+文件标记中的接口转换也应单独说明：VSCode 按 `FileDecorationProvider` 请求附加信息，`SvgFileDecorations` 调用 `workspace.fs.stat`，将文件类型事实转换成 `FileDecoration` 或无标记结果。这里有数据适配，但当前类没有显式持有独立的被适配解析对象；其主要角色是宿主回调 provider。不能仅因它实现了接口，就认定经典 Adapter 或 Decorator 的结构已经齐备。大纲中的 `SvgDocumentSymbols` 则明确持有 parser、实现宿主接口并转换不同的数据表示，是本扩展中更清楚的对象适配器实例。
+
 ## Phase 1 的复用评估
 
 完整评估见 [REUSE.md](../extensions/vscode-svg/REUSE.md)。结论是：复用既有 XML 库及 Composite 树的组织思路，大纲另外保留源位置，不复用可编辑图形模型来假装源文本结构。
@@ -81,3 +83,5 @@ Phase 1/2 的 SvgCodec 会验证可编辑形状白名单、补缺失 ID、把字
 10 项独立 parser 测试覆盖嵌套、无 id、重复查询、UTF-16/CRLF/中文/补充字符、引号内 `>`、注释、CDATA、任意 SVG 标签、命名空间、实体、损坏输入及范围包含关系。
 
 真实 Extension Host 检查通过官方测试工具运行：实际扩展激活、实际 `vscode.executeDocumentSymbolProvider`、未保存编辑、异常输入恢复、源位置、真实 workspace 文件类型、取消和 Disposable。结果见 [vscode-host-evidence.json](vscode-host-evidence.json)。最终 VSIX 解包后使用同一真实宿主验收，结果见 [vscode-vsix-evidence.json](vscode-vsix-evidence.json)。截图证明界面表现，自动化断言证明范围、状态与源文件字节，二者互补。
+
+2026-11-25 按 A.1～A.3 再次核对，类型检查、10 项解析测试和 14 项 VSIX 宿主检查通过，并在真实界面再次点击 `rect#start` 验证第 3 行、第 6 列定位。见[本次逐项复核](vscode-review.md)及[新截图](../docs/images/vscode-svg-review-2026-11-25.png)。文件标记的自动化断言直接调用源码编译的 provider 并使用真实宿主文件服务；包内大纲通过原生命令执行，界面截图另行确认标记显示。打包入口与本次构建入口逐字节一致，避免将不同验证路径混为一谈。
