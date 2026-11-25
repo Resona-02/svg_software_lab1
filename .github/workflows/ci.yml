@@ -85,6 +85,7 @@ jobs:
       - run: npm --prefix extensions/dsh-code-atlas run check
       - run: npm --prefix extensions/dsh-code-atlas test
       - run: npm --prefix extensions/dsh-code-atlas run demo
+      - run: node extensions/dsh-code-atlas/scripts/demo-guide.mjs
       - run: node extensions/dsh-code-atlas/scripts/verify-extension.mjs
       - run: npm --prefix extensions/dsh-code-atlas run package
       - uses: actions/upload-artifact@v4

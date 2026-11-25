@@ -11,7 +11,7 @@
 | VSCode 插件 | [extensions/vscode-svg](extensions/vscode-svg) | [安装、模式分析、复用评估与截图](doc/vscode.md)；SVG 文件旁的 `[]`、嵌套大纲、点击定位和编辑更新 |
 | 插件式 CLI | [src](src)、[plugins](plugins) | [四个扩展点、架构图、ADR](doc/README.md)；stats/dir/box/标签、双装配和原子回滚 |
 | DSH 插件 | [extensions/dsh-svg](extensions/dsh-svg) | [安装与实测说明](doc/dsh.md)；七个会话工具、局部撤销、会话隔离和 SVG 导出 |
-| DSH Code Atlas | [extensions/dsh-code-atlas](extensions/dsh-code-atlas) | [设计与模式](doc/code-atlas-design.md)；原生三栏代码阅读、五个工具、源码版本核验 |
+| DSH Code Atlas | [extensions/dsh-code-atlas](extensions/dsh-code-atlas) | [0.2 任务导览与课程设计](doc/code-atlas-v2.md)；分层浏览、静态调用、后退前进、七个工具与源码核验 |
 
 ## 获取与启动
 

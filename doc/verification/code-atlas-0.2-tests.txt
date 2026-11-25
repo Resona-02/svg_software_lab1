@@ -1,0 +1,92 @@
+
+> dsh-code-atlas@0.2.0 test
+> npm run build && node --test test/*.test.mjs
+
+
+> dsh-code-atlas@0.2.0 build
+> node scripts/build.mjs
+
+Code Atlas bundles built (DSH/React/TypeScript supplied as runtime dependencies).
+✔ file and nested namespace/class/interface/function/method facts have explicit parents (57.113666ms)
+✔ imports, reexports, renamed type imports and .js-to-.ts resolution use compiler symbols (22.886709ms)
+✔ root-local tsconfig extends and paths mappings resolve without exposing config as code nodes (18.452084ms)
+✔ TSX, JSX, JavaScript, MJS and CTS parse as source without requiring React or executing source (19.571541ms)
+✔ UTF-16 offsets and 1-based CRLF/Unicode source positions point at real declaration text (16.706416ms)
+✔ malformed source remains inspectable as a file with diagnostics and no invented symbols or outgoing relations (18.210292ms)
+✔ unresolved modules, missing types and dynamic imports stay explicit without false target nodes (19.225166ms)
+✔ module cycles produce finite deterministic relations rather than recursive expansion (16.610042ms)
+✔ snapshot digest is input-order independent, changes with content, and does not invalidate unrelated node IDs (44.797791ms)
+✔ actual source content determines location hashes rather than trusting a stale supplied hash (13.229167ms)
+✔ closed compiler filesystem cannot resolve a real file or extends config outside the supplied snapshot (24.541791ms)
+✔ ambiguous merged interface declarations are not collapsed into a fabricated unique heritage target (14.112334ms)
+✔ invalid source paths are diagnosed, duplicate normalized paths rejected, and metadata-only snapshots are empty (14.704208ms)
+✔ assigned and nested class expressions retain their class identity, methods and direct heritage evidence (16.233666ms)
+✔ static import types resolve while runtime dynamic import stays unresolved with separate source evidence (15.603541ms)
+✔ static calls link imported functions, arrow values, constructors and method declarations with full call evidence (19.573291ms)
+✔ callback bodies have their own caller and unknown external calls remain explicit (15.677333ms)
+✔ the browser bundle registers the native keyed main page and sidebar row, and unload removes both (113.3615ms)
+✔ the client mounts its namespace before accessing it under real Cordis 4 dependency tracing (22.810208ms)
+✔ client roster injections name native rc.1 browser plugins with actual client carriers (7.425833ms)
+✔ every browser bundle external is available from the installed Desktop React runtime (5.344375ms)
+✔ one observable controller updates independent map and source subscribers, then disposes subscriptions (2.049125ms)
+✔ map and tree selection use the same inspection and source version verification path (1.071125ms)
+✔ source evidence highlights its exact range while retaining the host-verified source file (0.67875ms)
+✔ reading direction, depth, read markers and public API labels go through their declared contracts (0.851ms)
+✔ failed source verification clears previously visible code and asks for refresh (2.033875ms)
+✔ changing session invalidates pending inspection and clears the previous project and code (0.762667ms)
+✔ disposing the browser plugin prevents late RPC results from notifying or repopulating state (0.279167ms)
+✔ export obtains only the current session generated SVG and delegates a download to the view boundary (0.537875ms)
+✔ an empty session list has a usable empty state and scan does not invoke a nonexistent workspace (1.631042ms)
+✔ refreshing sessions cannot leave code from a deleted session beside a newly selected project (0.591042ms)
+✔ native tool changes update an open map and clear a different selection without recursively inspecting (6.546833ms)
+✔ read and route pushes for the same verified selection retain its source, while a new snapshot clears it (2.222959ms)
+✔ changing sessions and unloading dispose the native view streams and reject late previous-session updates (1.928833ms)
+✔ back and forward restore selected source, route, search and source pane; a new branch removes forward history (0.970875ms)
+✔ failed stale back navigation does not advance its history cursor or reveal cached source (0.600375ms)
+✔ graph kind changes are part of navigation, with no cross-session history leakage (0.518209ms)
+✔ cancelled or previous-session model responses cannot repopulate the workbench (0.534916ms)
+✔ reading strategies distinguish dependencies/users and one/two hops, retaining cycle edges (8.503958ms)
+✔ classic label decorators preserve delegation order and are independently composable (0.349792ms)
+✔ real SVG provider/codec render escaped labels, stable node metadata and arrows (12.656542ms)
+✔ read marks, source selection, routes and API labels update two observers without modifying source (6.661875ms)
+✔ changed source refuses stale navigation and marking; refresh clears only changed read marks (2.675125ms)
+✔ a failed refresh keeps the previous complete snapshot and reading state (1.3065ms)
+✔ moving a session to another workspace clears marks even when relative files and hashes match (1.426042ms)
+✔ cycle and self edges reach box boundaries through visible external segments (1.567459ms)
+✔ sessions isolate state and close/unload prevent reads; one faulty observer cannot break another (2.5555ms)
+✔ registry rejects duplicate names and a new decorator changes labels without changing core/render code (1.03225ms)
+✔ SCC layout is deterministic and a cycle occupies a shared column without overlapping boxes (0.377625ms)
+✔ close during an in-flight scan prevents late publication (7.890666ms)
+✔ history navigation verifies source before atomically changing direction, depth and graph kind (1.835958ms)
+✔ task context contains bounded implementation bodies and call sites, and model references stay within the supplied snapshot (39.076ms)
+✔ source edits during explanation reject publication; refreshing invalidates old guides atomically (35.514167ms)
+✔ native model adapter uses the host-selected route, accumulates text once, and refuses interrupted or invalid results (18.271917ms)
+✔ high-fanout source bounds model relation metadata and reports the omitted positions (45.50175ms)
+✔ a top-level entry file follows real call targets before unrelated entry-like names elsewhere (18.266042ms)
+✔ native filesystem snapshot respects ignores, local config inheritance, and symlink containment (76.2525ms)
+✔ source limits fail clearly without returning partial snapshots, and cancellation stops reads (12.476959ms)
+✔ real rc.1 Gateway accepts the manifest, exact wire shapes, existing sessions and state isolation (109.887667ms)
+✔ real native tool execution validates schemas, shares panel state, refuses forged roots, and unloads cleanly (44.820417ms)
+✔ native Typert watch streams tool publications with bounded latest-state delivery and cancellation (23.672542ms)
+✔ real RPC and tools share task guides, verify every reference, reject stale code and preserve prior state (33.497708ms)
+✔ native optional model capability generates validated guides and cancellation prevents late publication (21.630417ms)
+✔ test-file plugin recognizes test/spec suffixes and exact test directory components (1.295667ms)
+✔ same-interface test wrapper delegates exact inputs once and preserves inner decorators (10.746666ms)
+✔ existing registry registers and unregisters test-file without changing other label responsibilities (0.841792ms)
+✔ every native unary method unwraps its result and preserves receiver, argument order and false values (3.074459ms)
+✔ native failures retain their machine code and details; thrown carrier errors stay unchanged (1.028291ms)
+✔ native stream handles are not wrapped or consumed early and release their original subscription (0.446959ms)
+✔ zoom keeps the same source point under the cursor and remains bounded (1.188834ms)
+✔ history is bounded, replaces duplicate visits, and commits only successful destinations (1.860958ms)
+✔ large project navigation renders only the first file page and search can reach a later file (23.197542ms)
+✔ module overview defers file buttons until expanded and then pages them (8.464917ms)
+✔ long source renders a bounded context around the selected symbol with accurate line numbers (17.473959ms)
+✔ model guide presents bounded scope and opens actual source rather than embedding executable model markup (3.324083ms)
+ℹ tests 75
+ℹ suites 0
+ℹ pass 75
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 706.238708

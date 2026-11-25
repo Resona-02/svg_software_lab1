@@ -1,0 +1,70 @@
+{
+  "version": "0.2.0",
+  "recordedAt": "2026-11-25T12:36:59.921Z",
+  "implementationCommit": "8b228c0fdf729142ad4e811742cd06ec63fa5d95",
+  "baselineCommit": "5136921",
+  "packageSha256": "78bd394860db5ff332fc8e10feccbc3e52a73e32c5c6162afe14fc639c33b8e3",
+  "automatedTests": {
+    "passed": 297,
+    "failed": 0,
+    "suites": [
+      {
+        "suite": "CLI",
+        "passed": 198,
+        "failed": 0,
+        "logSha256": "54b075ec8ff95c0c101b949eb780e751f43292c86cdadee9803b1ed5c25fa878"
+      },
+      {
+        "suite": "VSCode",
+        "passed": 10,
+        "failed": 0,
+        "logSha256": "429ebc97f95a4df5ffcd0d87db09cfccfe9db715d59c012e7cbe85c5ba1119b0"
+      },
+      {
+        "suite": "DSH SVG",
+        "passed": 14,
+        "failed": 0,
+        "logSha256": "121647ec5d0197cf889c8ced86874c8357a8a09224ac0ebddb72a2874e585bbb"
+      },
+      {
+        "suite": "Code Atlas",
+        "passed": 75,
+        "failed": 0,
+        "logSha256": "330f7e242c44a9ef5f6228049c8173257bd6d2824e04d3a80dfffc3f56738a56"
+      }
+    ]
+  },
+  "typeCheck": true,
+  "phase2RawByteComparisons": 4,
+  "extensionInsertionProof": {
+    "from": "7a5cfbf",
+    "to": "552a7e7",
+    "protectedRuntimeDelta": 0
+  },
+  "host": {
+    "desktop": "2.0.16",
+    "dsh": "0.2.0-rc.1",
+    "cordis": "4.0.4",
+    "typescript": "7.0.2"
+  },
+  "installedPackageVerification": {
+    "packageEntry": "/private/tmp/atlas-dsh-home/profiles/code-atlas/node_modules/dsh-code-atlas/lib/index.js",
+    "typescriptEntry": "/private/tmp/atlas-dsh-home/profiles/code-atlas/node_modules/typescript/dist/api/sync/api.js",
+    "desktopSdk": "/Applications/DSH Desktop.app/Contents/Resources/app/node_modules/@deepseek-ai/cordis/lib/index.js",
+    "workspace": "/Users/xiaoziheng/课程文件/高级软件开发/svg-editor-cli",
+    "nodes": 2390,
+    "relations": 10121,
+    "nativeTools": 7,
+    "nativeRpc": 17,
+    "svg": true,
+    "verifiedAt": "2026-11-25T12:35:18.215Z",
+    "toolsAfterUnload": 0,
+    "serviceUnavailableAfterUnload": true
+  },
+  "modelOnlineAcceptance": false,
+  "modelTests": "No-network native model-service fixture; example authored by assistant and validated against real source",
+  "desktopAcceptance": false,
+  "desktopBlocker": "Computer-use tool reported Mac locked; waiting for the user to unlock manually",
+  "desktopScreenshots": [],
+  "releaseStatus": "preview; Desktop interactions and real model quality not yet accepted"
+}
