@@ -1,11 +1,11 @@
 {
   "version": "0.2.0",
-  "recordedAt": "2026-11-25T12:36:59.921Z",
-  "implementationCommit": "8b228c0fdf729142ad4e811742cd06ec63fa5d95",
+  "recordedAt": "2026-11-25T17:13:22.408963+00:00",
+  "implementationCommit": "45847bb17c98e1c79ef79e40996a93e4929493fd",
   "baselineCommit": "5136921",
-  "packageSha256": "78bd394860db5ff332fc8e10feccbc3e52a73e32c5c6162afe14fc639c33b8e3",
+  "packageSha256": "ec7d9b77c3cfd2678fc1b1097f732baaeb3446d1d6f721ab0248893f09939b33",
   "automatedTests": {
-    "passed": 297,
+    "passed": 298,
     "failed": 0,
     "suites": [
       {
@@ -28,9 +28,9 @@
       },
       {
         "suite": "Code Atlas",
-        "passed": 75,
+        "passed": 76,
         "failed": 0,
-        "logSha256": "330f7e242c44a9ef5f6228049c8173257bd6d2824e04d3a80dfffc3f56738a56"
+        "logSha256": "027b81be1a47228750be2d0829e5bfe1b928f5fe6edad4e607a93f0ea57facd7"
       }
     ]
   },
@@ -52,19 +52,158 @@
     "typescriptEntry": "/private/tmp/atlas-dsh-home/profiles/code-atlas/node_modules/typescript/dist/api/sync/api.js",
     "desktopSdk": "/Applications/DSH Desktop.app/Contents/Resources/app/node_modules/@deepseek-ai/cordis/lib/index.js",
     "workspace": "/Users/xiaoziheng/课程文件/高级软件开发/svg-editor-cli",
-    "nodes": 2390,
-    "relations": 10121,
+    "nodes": 2413,
+    "relations": 10181,
     "nativeTools": 7,
     "nativeRpc": 17,
     "svg": true,
-    "verifiedAt": "2026-11-25T12:35:18.215Z",
+    "verifiedAt": "2026-11-25T17:05:57.664Z",
     "toolsAfterUnload": 0,
     "serviceUnavailableAfterUnload": true
   },
-  "modelOnlineAcceptance": false,
-  "modelTests": "No-network native model-service fixture; example authored by assistant and validated against real source",
-  "desktopAcceptance": false,
-  "desktopBlocker": "Computer-use tool reported Mac locked; waiting for the user to unlock manually",
-  "desktopScreenshots": [],
-  "releaseStatus": "preview; Desktop interactions and real model quality not yet accepted"
+  "modelOnlineAcceptance": true,
+  "modelTests": "No-network native fixtures plus one successful explicitly authorized native model generation",
+  "desktopAcceptance": true,
+  "desktopScreenshots": [
+    {
+      "path": "doc/images/code-atlas-0.2/01-project-overview.jpg",
+      "sha256": "7e42aa0b69ffbe3213173fd8db3758e88c7051ce00950febf15f0425cbb00d8d",
+      "mimeType": "image/jpeg",
+      "width": 2560,
+      "height": 1680
+    },
+    {
+      "path": "doc/images/code-atlas-0.2/02-real-model-guide.jpg",
+      "sha256": "87012c70394bde7a90bd3f73fec7b76056291478b3c28b7a3adfab47a62ae5e2",
+      "mimeType": "image/jpeg",
+      "width": 2560,
+      "height": 1680
+    },
+    {
+      "path": "doc/images/code-atlas-0.2/03-cross-file-source.jpg",
+      "sha256": "3e00783588358e5a20955173a94e4446568c79fe3137904274a90d5e64424906",
+      "mimeType": "image/jpeg",
+      "width": 2560,
+      "height": 1680
+    },
+    {
+      "path": "doc/images/code-atlas-0.2/04-guide-focus-index.jpg",
+      "sha256": "75fd8c95437cf4fa2c7669c0a5a052f2cef88ea8273582c452ecece014c9e3a6",
+      "mimeType": "image/jpeg",
+      "width": 2560,
+      "height": 1680
+    },
+    {
+      "path": "doc/images/code-atlas-0.2/05-guide-branch.jpg",
+      "sha256": "fe84aa4ef0efca2b953e195d7a1c23149e288c13ff880854b94d85f998130269",
+      "mimeType": "image/jpeg",
+      "width": 2560,
+      "height": 1680
+    },
+    {
+      "path": "doc/images/code-atlas-0.2/06-focus-source-reveal.jpg",
+      "sha256": "2fe2a55ac410c7f87e3abc43600d2050e9a79ceb035644c0d8a0ab7213b04344",
+      "mimeType": "image/jpeg",
+      "width": 2560,
+      "height": 1680
+    },
+    {
+      "path": "doc/images/code-atlas-0.2/07-resized-source.jpg",
+      "sha256": "5984b3122e9696b03c00c3b3f14edb4565112459cbe6fc7c0313dfe101c207bf",
+      "mimeType": "image/jpeg",
+      "width": 2560,
+      "height": 1680
+    },
+    {
+      "path": "doc/images/code-atlas-0.2/08-implements-source.jpg",
+      "sha256": "b77b7ed466210ad7f583379d1178bef1e0cc0c42a33cd7b080e639ec868fcdac",
+      "mimeType": "image/jpeg",
+      "width": 2560,
+      "height": 1680
+    },
+    {
+      "path": "doc/images/code-atlas-0.2/09-clear-list.jpg",
+      "sha256": "b924be4f6a6a2755578d51f6e27fd817f88fc8da5272fe2730bfe437a6ec666b",
+      "mimeType": "image/jpeg",
+      "width": 2560,
+      "height": 1680
+    },
+    {
+      "path": "doc/images/code-atlas-0.2/10-map-focus.jpg",
+      "sha256": "e9f29d8a68051f27d959e5b5157dce4fd38a6c2da7bddc8dbc5f56f700260c82",
+      "mimeType": "image/jpeg",
+      "width": 2560,
+      "height": 1680
+    },
+    {
+      "path": "doc/images/code-atlas-0.2/11-map-pan.jpg",
+      "sha256": "060ceb5e957cf668d97cf69e6e180840339bf7b78e8c4b35a15d838c6e19b88f",
+      "mimeType": "image/jpeg",
+      "width": 2560,
+      "height": 1680
+    },
+    {
+      "path": "doc/images/code-atlas-0.2/12-plugin-disabled.jpg",
+      "sha256": "ae6da1cb14d723b0cd0d9e7aa60f24fc8612e853565d16939accde59971e4a1a",
+      "mimeType": "image/jpeg",
+      "width": 2560,
+      "height": 1680
+    },
+    {
+      "path": "doc/images/code-atlas-0.2/13-plugin-enabled.jpg",
+      "sha256": "7752067b6c43f80966fab06def0d4db69dacf30d7656fef3361473a0c81b680a",
+      "mimeType": "image/jpeg",
+      "width": 2560,
+      "height": 1680
+    },
+    {
+      "path": "doc/images/code-atlas-0.2/14-final-installed-overview.jpg",
+      "sha256": "379996d541a190a60b7deeaa251bcb45227991b89ddac52d90b725884a076768",
+      "mimeType": "image/jpeg",
+      "width": 2560,
+      "height": 1680
+    }
+  ],
+  "releaseStatus": "accepted for documented scope; model explanations require source review",
+  "localDate": "2026-11-26",
+  "originalRuntimeDeltaFromBaseline": 0,
+  "modelOnline": {
+    "model": "deepseek-flash",
+    "approvedSuccessfulInvocations": 1,
+    "maxOutputTokens": 6000,
+    "task": "围绕创建 box：解释 CreateCommand.execute 如何进入 EditReceiver.create，再经 ShapeFactory.create 和 BoxProvider.create 插入 SvgDocument.add；说明 UndoState.run 的失败恢复、CommandExecutor.executeCommand 何时登记历史。请区分已读源码和推断，列出需要人工核验的问题。",
+    "requestSnapshotId": "4e2395054a577bb521f349d0242b7b0a14a53409d9c16e1261bc6d7eae3d5a44",
+    "exportedGuideSnapshotId": "4e2395054a577bb521f349d0242b7b0a14a53409d9c16e1261bc6d7eae3d5a44",
+    "requestSnapshotMatchesGuide": true,
+    "approvedRequestFileSha256": "b0ab687fe51e3a9cda5396c90c2df2c44eec2c6aea49043c86714465477be00b",
+    "suppliedSymbols": 24,
+    "sourceCharacters": 8781,
+    "relations": 56,
+    "steps": 7,
+    "export": "extensions/dsh-code-atlas/examples/native-model-box-guide.md",
+    "contextCorrection": "Prioritize explicitly named methods; verified offline without another model request",
+    "earlierInterruptedAttempt": "No usable result was captured before the view stream disconnected; not counted as a successful invocation"
+  },
+  "desktopRuntime": {
+    "sourceFiles": 186,
+    "symbols": 2227,
+    "staticCallPositions": 9315,
+    "diagnostics": 0,
+    "fullRestartVerified": true,
+    "originalDshWindowRestored": true
+  },
+  "desktopChecks": [
+    "project overview and search",
+    "cross-file code and back/forward restoration",
+    "guide step index and failure branch navigation",
+    "source resizing, 17px font, wrapping and centered location",
+    "source reveal exits focus mode",
+    "static calls vs structural references",
+    "dependencies/users and 1/2 relationship layers",
+    "read marker and implements evidence",
+    "clear list, map zoom, fit and pan",
+    "real Markdown and SVG exports",
+    "save cancellation does not claim completion",
+    "native disable removes sidebar entry and enable restores it"
+  ]
 }
