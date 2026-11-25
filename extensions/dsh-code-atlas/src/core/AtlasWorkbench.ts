@@ -116,11 +116,19 @@ export class AtlasWorkbench {
     const terms = task.toLocaleLowerCase().split(/[\s，。；、:：]+/).filter(Boolean);
     const selected = this.node(state, state.selectedId);
     const selectedIds = new Set([selected.id]);
+    const candidates = state.snapshot.nodes.filter(node => node.kind !== 'file');
+    // A named method in the question is a stronger signal than nearby callbacks.
+    // Preserve question order and keep the same total context budget.
+    const question = task.toLocaleLowerCase();
+    const requested = candidates.filter(node => node.qualifiedName?.includes('.')).map(node => {
+      const escaped = node.qualifiedName!.toLocaleLowerCase().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      return { node, at: new RegExp(`(?<![\\w$.])${escaped}(?![\\w$.])`).exec(question)?.index ?? -1 };
+    }).filter(item => item.at >= 0).sort((a, b) => a.at - b.at);
+    for (const { node } of requested) if (selectedIds.size < 24) selectedIds.add(node.id);
     // Top-level entry files often contain only `new Host().run()`: follow those
     // actual resolved calls before considering name-based suggestions elsewhere.
     for (const edge of state.snapshot.relations) if ((edge.kind === 'calls' || edge.kind === 'constructs') && edge.from === selected.id && edge.to && selectedIds.size < 12) selectedIds.add(edge.to);
     // Include an entry body and its direct callees rather than a wall of imports.
-    const candidates = state.snapshot.nodes.filter(node => node.kind !== 'file');
     const ranked = candidates.map(node => ({ node, score: (node.file === selected.file ? 4 : 0)
       + (node.parentId === selected.id ? 6 : 0) + (selectedIds.has(node.id) ? 20 : 0)
       + terms.reduce((sum, term) => sum + ((node.qualifiedName + ' ' + node.name + ' ' + node.file).toLocaleLowerCase().includes(term) ? 8 : 0), 0)

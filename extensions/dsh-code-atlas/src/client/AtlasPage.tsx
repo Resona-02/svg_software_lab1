@@ -73,7 +73,7 @@ export function AtlasPage({ controller }: { controller: AtlasController }) {
       {(['overview', 'guide', 'map'] as const).map((pane, index) => <button key={pane} aria-pressed={state.pane === pane} onClick={() => controller.setPane(pane)}>{['项目总览', '任务导览', '关系浏览'][index]}</button>)}
       <span className="ca-spacer" />
       <button aria-pressed={navigatorOpen} onClick={() => setNavigatorOpen(!navigatorOpen)}>文件导航</button>
-      <button aria-pressed={state.sourceOpen} disabled={!state.source} onClick={() => controller.setSourceOpen(!state.sourceOpen)}>源码</button>
+      <button aria-pressed={state.sourceOpen} disabled={!state.source} onClick={() => { controller.setSourceOpen(focus || !state.sourceOpen); setFocus(false); }}>源码</button>
       <button aria-pressed={focus} onClick={() => setFocus(!focus)}>{focus ? '退出专注' : '专注画布'}</button>
     </nav>
     {state.error && <div className="ca-alert" role="alert">{state.error}</div>}
@@ -89,7 +89,7 @@ export function AtlasPage({ controller }: { controller: AtlasController }) {
       <div className="ca-workspace">
         {navigatorOpen && !focus && <><aside className="ca-navigator" style={{ width: navWidth }}><ProjectNavigator controller={controller} /></aside>
           <div className="ca-split" role="separator" aria-label="调整文件导航宽度" tabIndex={0} aria-orientation="vertical" onPointerDown={event => resize(event, 'nav')} onKeyDown={event => { if (event.key === 'ArrowRight') setNavWidth(Math.min(480, navWidth + 20)); if (event.key === 'ArrowLeft') setNavWidth(Math.max(210, navWidth - 20)); }} /></>}
-        <section className="ca-center">{state.pane === 'overview' ? <ProjectOverview controller={controller} /> : state.pane === 'guide' ? <GuidePanel controller={controller} /> : <MapPanel controller={controller} />}</section>
+        <section className="ca-center">{state.pane === 'overview' ? <ProjectOverview controller={controller} /> : state.pane === 'guide' ? <GuidePanel controller={controller} onRevealSource={() => setFocus(false)} /> : <MapPanel controller={controller} onRevealSource={() => setFocus(false)} />}</section>
         {state.sourceOpen && !focus && <><div className="ca-split ca-source-split" role="separator" aria-label="调整源码宽度" tabIndex={0} aria-orientation="vertical" onPointerDown={event => resize(event, 'source')} onKeyDown={event => { if (event.key === 'ArrowLeft') setSourceWidth(Math.min(900, sourceWidth + 20)); if (event.key === 'ArrowRight') setSourceWidth(Math.max(340, sourceWidth - 20)); }} />
           <aside className="ca-source" style={{ width: sourceWidth }}><SourcePanel controller={controller} fontSize={fontSize} onFontSize={setFontSize} /></aside></>}
       </div>

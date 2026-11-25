@@ -70,6 +70,25 @@ test('high-fanout source bounds model relation metadata and reports the omitted 
   workbench.dispose();
 });
 
+test('methods named in a task are read before numerous nearby callbacks consume the context budget', async () => {
+  const files = [
+    { path: 'entry.ts', content: `declare function register(callback: () => void): void; export class Entry { run() { ${'register(() => {});'.repeat(35)} } }` },
+    { path: 'executor.ts', content: 'export class CommandExecutor { executeCommand() { return "history"; } }' },
+    { path: 'command.ts', content: 'export class CreateCommand { execute() { return "create"; } }' },
+    { path: 'contract.ts', content: 'export interface Command { execute(): string; }' },
+  ].map(file => ({ ...file, hash: hash(file.content) }));
+  const source = { async snapshot(root) { return { root, files }; }, async read(root, path) { return files.find(file => file.path === path); } };
+  const workbench = new AtlasWorkbench(source, new TypeScriptLanguageProvider());
+  const view = await workbench.scan('s', '/project');
+  await workbench.inspect('s', view.snapshot.nodes.find(node => node.qualifiedName === 'Entry.run').id);
+  const context = await workbench.reviewContext('s', '从 CreateCommand.execute 查看创建，确认 CommandExecutor.executeCommand 何时登记历史');
+  assert.deepEqual(context.symbols.slice(0, 3).map(item => item.node.qualifiedName), ['Entry.run', 'CreateCommand.execute', 'CommandExecutor.executeCommand']);
+  assert(context.symbols.some(item => item.source.includes('return "history"')));
+  assert(!context.symbols.some(item => item.node.qualifiedName === 'Command.execute'), 'CreateCommand.execute must not count as an explicit request for Command.execute');
+  assert(context.symbols.length <= 24);
+  workbench.dispose();
+});
+
 test('a top-level entry file follows real call targets before unrelated entry-like names elsewhere', async () => {
   const contents = { 'main.ts': 'import { Host } from "./host.js"; new Host().run();', 'host.ts': 'export class Host { run() { return 1; } }', 'unrelated.ts': 'export function execute() { return "unrelated"; }' };
   const source = { async snapshot(root) { return { root, files: Object.entries(contents).map(([path, content]) => ({ path, content, hash: hash(content) })) }; }, async read(root, path) { return { path, content: contents[path], hash: hash(contents[path]) }; } };

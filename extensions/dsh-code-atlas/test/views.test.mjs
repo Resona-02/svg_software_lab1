@@ -56,10 +56,11 @@ test('long source renders a bounded context around the selected symbol with accu
 });
 test('model guide presents bounded scope and opens actual source rather than embedding executable model markup', async () => {
   const c = controller(); const state = c.getSnapshot(); state.view.guide = { title: '<script>model text</script>', snapshotId: 'snap', origin: 'model', scope: { providedSymbols: 1, totalSymbols: 1000 }, summary: 'A reading suggestion', steps: [{ id: 'a', title: 'Read entry', explanation: 'Interpretation', nodeIds: [symbol.id], next: [], checks: ['Confirm errors'] }], risks: ['Not executed'] }; let tree;
-  await act(async () => { tree = Renderer.create(React.createElement(GuidePanel, { controller: c })); });
+  let reveals = 0;
+  await act(async () => { tree = Renderer.create(React.createElement(GuidePanel, { controller: c, onRevealSource() { reveals++; } })); });
   assert.equal(tree.root.findAllByType('script').length, 0);
   const link = tree.root.findByProps({ className: 'ca-source-links' }).findByType('button');
-  await act(async () => link.props.onClick()); assert.equal(c.calls[0][0], symbol.id); assert.equal(c.calls[0][1].pane, 'guide'); assert.equal(c.calls[0][1].revealSource, true);
+  await act(async () => link.props.onClick()); assert.equal(c.calls[0][0], symbol.id); assert.equal(c.calls[0][1].pane, 'guide'); assert.equal(c.calls[0][1].revealSource, true); assert.equal(reveals, 1);
   assert.match(JSON.stringify(tree.toJSON()), /1000/);
   await act(async () => tree.unmount());
 });

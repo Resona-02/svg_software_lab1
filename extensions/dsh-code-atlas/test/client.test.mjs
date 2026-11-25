@@ -142,7 +142,8 @@ test('export obtains only the current session generated SVG and delegates a down
   await controller.exportSVG((svg, filename) => downloads.push({ svg, filename }));
   assert.deepEqual(downloads, [{ svg: base.svg, filename: 'atlas.svg' }]);
   assert.deepEqual(calls.at(-1), ['export', 'A']);
-  assert.match(controller.getSnapshot().notice, /已导出/);
+  assert.match(controller.getSnapshot().notice, /发起.*导出/);
+  assert.doesNotMatch(controller.getSnapshot().notice, /已导出|下载目录/);
 });
 
 test('an empty session list has a usable empty state and scan does not invoke a nonexistent workspace', async () => {

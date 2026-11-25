@@ -49,5 +49,13 @@ try {
   await workbench.inspect('example-guide', receiver.id); workbench.setGraphKind('example-guide', 'calls');
   const calls = workbench.route('example-guide', 'dependencies', 1);
   await writeFile(resolve(output, 'create-call-reference.svg'), calls.svg);
+  const requestedNames = ['CreateCommand.execute', 'EditReceiver.create', 'ShapeFactory.create', 'BoxProvider.create', 'SvgDocument.add', 'UndoState.run', 'CommandExecutor.executeCommand'];
+  const context = await workbench.reviewContext('example-guide', `梳理创建 box：${requestedNames.join('，')}，核验创建、失败恢复和历史登记。`);
+  for (const name of requestedNames) assert(context.symbols.some(item => item.node.qualifiedName === name), `Explicitly requested ${name} must be read`);
+  await writeFile(resolve(output, 'named-task-context.json'), JSON.stringify({ method: 'Offline source-context selection; no model request', snapshotId: context.snapshotId,
+    requestedNames, supplied: context.symbols.map(item => ({ name: item.node.qualifiedName ?? item.node.name, file: item.node.file, line: item.node.location.startLine,
+      fileHash: item.node.location.fileHash, sourceCharacters: item.source.length, truncated: item.sourceTruncated })),
+    relations: context.relations.length, sourceCharacters: context.symbols.reduce((sum, item) => sum + item.source.length, 0), omittedSymbols: context.omittedSymbols,
+  }, null, 2) + '\n');
   console.log(`Validated ${guide.steps.length} reading steps against ${referenced.size} source symbols; generated guide and actual static call SVG.`);
 } finally { workbench.dispose(); await fs.dispose(); }

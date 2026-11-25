@@ -202,7 +202,7 @@ export class AtlasController {
     if (!session || !this.state.view) return;
     await this.task(async current => {
       const exported = await this.remote.exportSVG(session);
-      if (current()) { download(exported.svg, exported.filename); this.update({ notice: 'SVG 已导出，可在下载目录中查看。' }); }
+      if (current()) { download(exported.svg, exported.filename); this.update({ notice: '已发起 SVG 导出，请确认文件已保存。' }); }
     });
   }
 

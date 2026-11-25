@@ -100,11 +100,11 @@
       "接口分派和插件启用情况需要结合实际装配确认。",
       "源码分析与模型解释不能代替运行回归测试。"
     ],
-    "snapshotId": "8c55f970ff4b684a4858da35d79a32d62100845e65fa48a46c85fa81423775a8",
+    "snapshotId": "a9cc73a767535900f5919992f784ad9e8199d871a1aaedcc42395a04ada957e9",
     "origin": "model",
     "scope": {
       "providedSymbols": 7,
-      "totalSymbols": 2204
+      "totalSymbols": 2227
     }
   }
 }

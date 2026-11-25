@@ -1,0 +1,210 @@
+{
+  "method": "Offline source-context selection; no model request",
+  "snapshotId": "a9cc73a767535900f5919992f784ad9e8199d871a1aaedcc42395a04ada957e9",
+  "requestedNames": [
+    "CreateCommand.execute",
+    "EditReceiver.create",
+    "ShapeFactory.create",
+    "BoxProvider.create",
+    "SvgDocument.add",
+    "UndoState.run",
+    "CommandExecutor.executeCommand"
+  ],
+  "supplied": [
+    {
+      "name": "EditReceiver.create",
+      "file": "src/application/EditReceiver.ts",
+      "line": 18,
+      "fileHash": "1e359e687933c3270fe8bf1e350d61a2ea39ba2484785a2aff3ef10919ce1e21",
+      "sourceCharacters": 400,
+      "truncated": false
+    },
+    {
+      "name": "CreateCommand.execute",
+      "file": "src/application/CreateCommand.ts",
+      "line": 15,
+      "fileHash": "3d5a49cf87b176be7016b6389c92a2372015fe6d11e32feb1a70528eeb690e5c",
+      "sourceCharacters": 125,
+      "truncated": false
+    },
+    {
+      "name": "ShapeFactory.create",
+      "file": "src/domain/ShapeFactory.ts",
+      "line": 8,
+      "fileHash": "e5157f36f22fc188b306261d3d4c654f1ddee7e221d07009a460987212a13626",
+      "sourceCharacters": 240,
+      "truncated": false
+    },
+    {
+      "name": "BoxProvider.create",
+      "file": "plugins/shape-box/BoxProvider.ts",
+      "line": 9,
+      "fileHash": "95c49d9c639483570ebd7e96d9b8bad61d8ce05ed99ba6284bb5db18647f8d36",
+      "sourceCharacters": 452,
+      "truncated": false
+    },
+    {
+      "name": "SvgDocument.add",
+      "file": "src/domain/SvgDocument.ts",
+      "line": 58,
+      "fileHash": "e5b9ecf81dc932b156a90cca6f498d40106bff55737ded83167de116c5982340",
+      "sourceCharacters": 614,
+      "truncated": false
+    },
+    {
+      "name": "UndoState.run",
+      "file": "src/application/UndoState.ts",
+      "line": 10,
+      "fileHash": "5135634f975d3056f4c3c05c95d08de6b0d84d0c496d61c7671db74ff413268d",
+      "sourceCharacters": 290,
+      "truncated": false
+    },
+    {
+      "name": "CommandExecutor.executeCommand",
+      "file": "src/application/CommandExecutor.ts",
+      "line": 12,
+      "fileHash": "0d3c58d29584f70276c767083b76e4941891fbaf93bfb3d3d7f54053faa0be93",
+      "sourceCharacters": 45,
+      "truncated": false
+    },
+    {
+      "name": "CommandExecutor.executeCommand",
+      "file": "src/application/CommandExecutor.ts",
+      "line": 13,
+      "fileHash": "0d3c58d29584f70276c767083b76e4941891fbaf93bfb3d3d7f54053faa0be93",
+      "sourceCharacters": 59,
+      "truncated": false
+    },
+    {
+      "name": "CommandExecutor.executeCommand",
+      "file": "src/application/CommandExecutor.ts",
+      "line": 14,
+      "fileHash": "0d3c58d29584f70276c767083b76e4941891fbaf93bfb3d3d7f54053faa0be93",
+      "sourceCharacters": 576,
+      "truncated": false
+    },
+    {
+      "name": "EditReceiver.create.callback@19",
+      "file": "src/application/EditReceiver.ts",
+      "line": 19,
+      "fileHash": "1e359e687933c3270fe8bf1e350d61a2ea39ba2484785a2aff3ef10919ce1e21",
+      "sourceCharacters": 227,
+      "truncated": false
+    },
+    {
+      "name": "EditReceiver.create.callback@24",
+      "file": "src/application/EditReceiver.ts",
+      "line": 24,
+      "fileHash": "1e359e687933c3270fe8bf1e350d61a2ea39ba2484785a2aff3ef10919ce1e21",
+      "sourceCharacters": 37,
+      "truncated": false
+    },
+    {
+      "name": "BoxProvider.create.callback@13",
+      "file": "plugins/shape-box/BoxProvider.ts",
+      "line": 13,
+      "fileHash": "95c49d9c639483570ebd7e96d9b8bad61d8ce05ed99ba6284bb5db18647f8d36",
+      "sourceCharacters": 32,
+      "truncated": false
+    },
+    {
+      "name": "Validator.number",
+      "file": "src/domain/Validator.ts",
+      "line": 3,
+      "fileHash": "0ea6df78ba9b1c943c908c111186f9ba59dfa43870f8a08ab50bfac1bcfee092",
+      "sourceCharacters": 206,
+      "truncated": false
+    },
+    {
+      "name": "Box.constructor",
+      "file": "plugins/shape-box/Box.ts",
+      "line": 8,
+      "fileHash": "598143c55accf8dfaaf9e0a0af45fdb229e74b27b3c82bbd79c710f9403024b2",
+      "sourceCharacters": 524,
+      "truncated": false
+    },
+    {
+      "name": "Rect.constructor",
+      "file": "src/domain/Rect.ts",
+      "line": 10,
+      "fileHash": "462cc7371e5020f70e1f902ad0f549ee90809746fd158ca25b47ff1b0ce9b94e",
+      "sourceCharacters": 360,
+      "truncated": false
+    },
+    {
+      "name": "Text.constructor",
+      "file": "src/domain/Text.ts",
+      "line": 9,
+      "fileHash": "078b1ba8ff34dcc736924735a15f2601114466d6b0b6dda9d4b83d25b778f9d4",
+      "sourceCharacters": 182,
+      "truncated": false
+    },
+    {
+      "name": "CommandExecutor.assertIdle",
+      "file": "src/application/CommandExecutor.ts",
+      "line": 47,
+      "fileHash": "0d3c58d29584f70276c767083b76e4941891fbaf93bfb3d3d7f54053faa0be93",
+      "sourceCharacters": 127,
+      "truncated": false
+    },
+    {
+      "name": "EditCommand.newExecution",
+      "file": "src/application/EditCommand.ts",
+      "line": 14,
+      "fileHash": "8744843acab13b245cb508b823fed20df00f79a44d73d039f8da51f8029269a0",
+      "sourceCharacters": 37,
+      "truncated": false
+    },
+    {
+      "name": "Command.execute",
+      "file": "src/application/Command.ts",
+      "line": 3,
+      "fileHash": "5c3df15dc14061c6f7903d2f47b8b17adf8a2c4210ed128be56a9a6976628eee",
+      "sourceCharacters": 36,
+      "truncated": false
+    },
+    {
+      "name": "History.recordExecuted",
+      "file": "src/application/History.ts",
+      "line": 12,
+      "fileHash": "457ee71a704276883fb2b5dd610183369160233a47b7c4be0bbce55403928ccc",
+      "sourceCharacters": 139,
+      "truncated": false
+    },
+    {
+      "name": "UndoState.record",
+      "file": "src/application/UndoState.ts",
+      "line": 6,
+      "fileHash": "5135634f975d3056f4c3c05c95d08de6b0d84d0c496d61c7671db74ff413268d",
+      "sourceCharacters": 76,
+      "truncated": false
+    },
+    {
+      "name": "Shape.creationMessage",
+      "file": "src/domain/Shape.ts",
+      "line": 21,
+      "fileHash": "a96bd6b6482ff29099b9542a622d0e449b9285269b738cb8b92e6287e63b83a0",
+      "sourceCharacters": 132,
+      "truncated": false
+    },
+    {
+      "name": "UndoState.restore",
+      "file": "src/application/UndoState.ts",
+      "line": 30,
+      "fileHash": "5135634f975d3056f4c3c05c95d08de6b0d84d0c496d61c7671db74ff413268d",
+      "sourceCharacters": 178,
+      "truncated": false
+    },
+    {
+      "name": "Shape.constructor",
+      "file": "src/domain/Shape.ts",
+      "line": 13,
+      "fileHash": "a96bd6b6482ff29099b9542a622d0e449b9285269b738cb8b92e6287e63b83a0",
+      "sourceCharacters": 80,
+      "truncated": false
+    }
+  ],
+  "relations": 60,
+  "sourceCharacters": 5174,
+  "omittedSymbols": 2203
+}

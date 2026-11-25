@@ -4,7 +4,7 @@ import { sanitizeGeneratedSVG } from './svg.js';
 import { fitCamera, zoomCamera } from './MapViewport.js';
 import type { Camera } from './MapViewport.js';
 
-export function MapPanel({ controller }: { controller: AtlasController }) {
+export function MapPanel({ controller, onRevealSource }: { controller: AtlasController; onRevealSource?: () => void }) {
   const state = useSyncExternalStore(controller.subscribe, controller.getSnapshot), view = state.view;
   const [listMode, setListMode] = useState(false);
   const [evidenceLimit, setEvidenceLimit] = useState(40);
@@ -28,7 +28,7 @@ export function MapPanel({ controller }: { controller: AtlasController }) {
       const node = view.snapshot.nodes.find(node => node.id === id);
       return node && <button key={id} className={id === view.selectedId ? 'ca-selected' : ''} disabled={state.busy} onClick={() => void controller.selectNode(id)}><b>{view.labels[id] ?? node.name}</b><small>{node.kind} · {node.file}:{node.location.startLine}</small><span>作为新中心阅读 →</span></button>;
     })}</div> : <MapCanvas controller={controller} />}
-    <details className="ca-evidence"><summary>展开{calls ? '调用位置与上下文' : '结构引用位置'} · {relations.length} 条</summary><div>{!relations.length && <p>该节点没有可展示的关系。文件节点适合查看导入，函数或方法适合查看调用；未找到关系不代表代码未被使用。</p>}{relations.slice(0, evidenceLimit).map(edge => <article key={edge.id}><b>{names[edge.kind]} {edge.targetName}</b><small>{edge.resolved ? edge.dispatch === 'declared' ? '声明目标已定位 · 实际动态目标未证明' : '静态目标已定位' : '目标未解析'}</small>{edge.excerpt && <pre>{edge.excerpt}</pre>}<button disabled={state.busy} onClick={() => void controller.selectEvidence(edge)}>打开 {edge.location.file}:{edge.location.startLine} 的完整上下文 ↗</button></article>)}{relations.length > evidenceLimit && <button onClick={() => setEvidenceLimit(evidenceLimit + 40)}>再显示 40 条位置（剩余 {relations.length - evidenceLimit} 条）</button>}</div></details>
+    <details className="ca-evidence"><summary>展开{calls ? '调用位置与上下文' : '结构引用位置'} · {relations.length} 条</summary><div>{!relations.length && <p>该节点没有可展示的关系。文件节点适合查看导入，函数或方法适合查看调用；未找到关系不代表代码未被使用。</p>}{relations.slice(0, evidenceLimit).map(edge => <article key={edge.id}><b>{names[edge.kind]} {edge.targetName}</b><small>{edge.resolved ? edge.dispatch === 'declared' ? '声明目标已定位 · 实际动态目标未证明' : '静态目标已定位' : '目标未解析'}</small>{edge.excerpt && <pre>{edge.excerpt}</pre>}<button disabled={state.busy} onClick={() => { onRevealSource?.(); void controller.selectEvidence(edge); }}>打开 {edge.location.file}:{edge.location.startLine} 的完整上下文 ↗</button></article>)}{relations.length > evidenceLimit && <button onClick={() => setEvidenceLimit(evidenceLimit + 40)}>再显示 40 条位置（剩余 {relations.length - evidenceLimit} 条）</button>}</div></details>
   </div>;
 }
 
