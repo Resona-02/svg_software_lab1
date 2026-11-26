@@ -1,0 +1,12 @@
+
+> dsh-code-atlas@0.3.0 demo
+> npm run build && node scripts/demo.mjs
+
+
+> dsh-code-atlas@0.3.0 build
+> node scripts/build.mjs
+
+Code Atlas bundles built (DSH/React/TypeScript supplied as runtime dependencies).
+Generated source-backed examples: 2501 nodes; implements evidence at plugins/shape-box/BoxAttributes.ts:5.
+Validated 6 reading steps against 7 source symbols; generated guide and actual static call SVG.
+Test-file label extension: analysis, workbench, renderer and existing SVG core have zero Git changes.

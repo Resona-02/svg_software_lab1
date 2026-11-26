@@ -4,14 +4,14 @@
 
 完整后续版本在 **`phase2-complete` 分支 / `p2-complete` 标签**；原 `p2` 保留已发布的 CLI 验收快照，`final` 保留 Phase 1。完整版本没有重写这些历史标签。
 
-**Code Atlas 扩展在 `feat/dsh-code-atlas` 分支**：复用 SVG 内核阅读 TS / JS 源码，提供代码地图、源码证据、依赖 / 使用者视角和已读标签。它单独适配本机 Desktop 2.0.16 / DSH 0.2.0-rc.1，并通过独立 profile 试用。见 [安装与使用](extensions/dsh-code-atlas/README.md)、[课程设计说明](doc/code-atlas-design.md)。
+**Code Atlas 0.3 在 `feat/dsh-code-atlas` 分支**：以任务为中心的只读代码审阅工作台，提供运行流程、设计取舍、小步重构计划及两次扫描间的文件变化核验。SVG 关系图保留为辅助视图。适配本机 Desktop 2.0.16 / DSH 0.2.0-rc.1，使用独立 profile。见 [安装与使用](extensions/dsh-code-atlas/README.md)、[本次设计与后续方向](doc/code-atlas-v3.md)、[实际验收范围](doc/code-atlas-verification.md)。
 
 | 部分 | 代码 | 说明与验证 |
 |---|---|---|
 | VSCode 插件 | [extensions/vscode-svg](extensions/vscode-svg) | [安装、模式分析、复用评估与截图](doc/vscode.md)；SVG 文件旁的 `[]`、嵌套大纲、点击定位和编辑更新 |
 | 插件式 CLI | [src](src)、[plugins](plugins) | [四个扩展点、架构图、ADR](doc/README.md)；stats/dir/box/标签、双装配和原子回滚 |
 | DSH 插件 | [extensions/dsh-svg](extensions/dsh-svg) | [安装与实测说明](doc/dsh.md)；七个会话工具、局部撤销、会话隔离和 SVG 导出 |
-| DSH Code Atlas | [extensions/dsh-code-atlas](extensions/dsh-code-atlas) | [0.2 任务导览与课程设计](doc/code-atlas-v2.md)；分层浏览、静态调用、后退前进、七个工具与源码核验 |
+| DSH Code Atlas | [extensions/dsh-code-atlas](extensions/dsh-code-atlas) | [0.3 代码审阅与设计辅助](doc/code-atlas-v3.md)；浅/深色任务工作台、四种意图、快照路径比较、七个工具与源码核验 |
 
 ## 获取与启动
 

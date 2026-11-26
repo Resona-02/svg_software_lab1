@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 832 260" width="832" height="260">
-  <line data-relation-id="relation:plugins/shape-box/BoxAttributes.ts:implements:260" id="edge-0-1" x1="362" y1="88" x2="432" y2="88" stroke="#77849b" stroke-width="1.5"/>
-  <line id="edge-0-arrow-0" x1="432" y1="88" x2="423.78219953718923" y2="91.66984407753613" stroke="#77849b"/>
-  <line id="edge-0-arrow-1" x1="432" y1="88" x2="423.78219953718923" y2="84.33015592246387" stroke="#77849b"/>
+  <line data-relation-id="relation:plugins/shape-box/BoxAttributes.ts:implements:260" id="edge-0-1" x1="362" y1="88" x2="432" y2="88" stroke="#9d9384" stroke-width="1.5"/>
+  <line id="edge-0-arrow-0" x1="432" y1="88" x2="423.78219953718923" y2="91.66984407753613" stroke="#9d9384"/>
+  <line id="edge-0-arrow-1" x1="432" y1="88" x2="423.78219953718923" y2="84.33015592246387" stroke="#9d9384"/>
   <g data-node-id="symbol:plugins/shape-box/BoxAttributes.ts:class:222" role="button" tabindex="0" aria-label="BoxAttributes [公开 API] [已读]" id="atlas-node-0" data-kind="box">
-    <rect id="atlas-node-0-rect" x="32" y="40" width="330" height="96" fill="#f8fafc" stroke="#cbd5e1"/>
-    <text font-family="system-ui, sans-serif" font-size="16" id="atlas-node-0-label" x="52" y="75" fill="#17243a">BoxAttributes [公开 API] [已读]</text>
+    <rect id="atlas-node-0-rect" x="32" y="40" width="330" height="96" fill="#faf8f2" stroke="#d7d1c5"/>
+    <text font-family="system-ui, sans-serif" font-size="16" id="atlas-node-0-label" x="52" y="75" fill="#35322d">BoxAttributes [公开 API] [已读]</text>
   </g>
-  <text font-family="system-ui, sans-serif" font-size="11" pointer-events="none" id="atlas-note-0" x="52" y="115" fill="#526279">class · plugins/shape-box/BoxAttributes.ts:5</text>
+  <text font-family="system-ui, sans-serif" font-size="11" pointer-events="none" id="atlas-note-0" x="52" y="115" fill="#81786c">class · plugins/shape-box/BoxAttributes.ts:5</text>
   <g data-node-id="symbol:src/application/AttributeHandler.ts:interface:415" role="button" tabindex="0" aria-label="AttributeHandler [公开 API]" id="atlas-node-1" data-kind="box">
-    <rect id="atlas-node-1-rect" x="432" y="40" width="330" height="96" fill="#dbeafe" stroke="#2563eb"/>
-    <text font-family="system-ui, sans-serif" font-size="16" id="atlas-node-1-label" x="452" y="75" fill="#17243a">AttributeHandler [公开 API]</text>
+    <rect id="atlas-node-1-rect" x="432" y="40" width="330" height="96" fill="#f4e5d9" stroke="#b66c4c"/>
+    <text font-family="system-ui, sans-serif" font-size="16" id="atlas-node-1-label" x="452" y="75" fill="#35322d">AttributeHandler [公开 API]</text>
   </g>
-  <text font-family="system-ui, sans-serif" font-size="11" pointer-events="none" id="atlas-note-1" x="452" y="115" fill="#526279">interface · src/application/AttributeHandler.ts:13</text>
+  <text font-family="system-ui, sans-serif" font-size="11" pointer-events="none" id="atlas-note-1" x="452" y="115" fill="#81786c">interface · src/application/AttributeHandler.ts:13</text>
 </svg>

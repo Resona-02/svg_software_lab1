@@ -1,0 +1,20 @@
+
+> svg-editor-cli@0.3.0 check:all
+> npm run check && npm --prefix extensions/vscode-svg run check && npm --prefix extensions/dsh-svg run check && npm --prefix extensions/dsh-code-atlas run check
+
+
+> svg-editor-cli@0.3.0 check
+> tsc --noEmit
+
+
+> svg-software-lab@0.1.0 check
+> tsc -p . --noEmit
+
+
+> dsh-svg-workbench@0.1.0 check
+> tsc --noEmit
+
+
+> dsh-code-atlas@0.3.0 check
+> tsc --noEmit
+

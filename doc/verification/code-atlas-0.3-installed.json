@@ -1,0 +1,14 @@
+{
+  "packageEntry": "/private/tmp/atlas-dsh-home/profiles/code-atlas/node_modules/dsh-code-atlas/lib/index.js",
+  "typescriptEntry": "/private/tmp/atlas-dsh-home/profiles/code-atlas/node_modules/typescript/dist/api/sync/api.js",
+  "desktopSdk": "/Applications/DSH Desktop.app/Contents/Resources/app/node_modules/@deepseek-ai/cordis/lib/index.js",
+  "workspace": "/Users/xiaoziheng/课程文件/高级软件开发/svg-editor-cli",
+  "nodes": 2501,
+  "relations": 10533,
+  "nativeTools": 7,
+  "nativeRpc": 17,
+  "svg": true,
+  "verifiedAt": "2026-11-26T06:47:03.818Z",
+  "toolsAfterUnload": 0,
+  "serviceUnavailableAfterUnload": true
+}

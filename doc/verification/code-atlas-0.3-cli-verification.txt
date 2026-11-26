@@ -1,0 +1,10 @@
+
+> svg-editor-cli@0.3.0 verify
+> node scripts/verify-phase2.mjs
+
+Phase 2 replay passed: 4 raw-byte comparisons; recorded outputs verified.
+
+> svg-editor-cli@0.3.0 verify:extensions
+> node scripts/verify-extension-diffs.mjs
+
+Extension diff verification passed: box-code-A, box-config-B, tree-star. Report: /Users/xiaoziheng/课程文件/高级软件开发/svg-editor-cli/docs/metrics/extension-diffs.json
