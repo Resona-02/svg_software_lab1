@@ -70,10 +70,10 @@ export async function apply(ctx: Context): Promise<void> {
     }));
     ctx.tools.register(defineTool({
       name: 'code_atlas_review_context', description: 'Read a bounded task-focused set of real function/class bodies and static call sites. Scan and inspect an entry first. Use these exact node IDs to explain inputs, steps, failure handling and review questions; do not treat imports as execution order. This does not call a model.',
-      parameters: { task: { type: 'string', required: true } },
+      parameters: { task: { type: 'string', required: true }, intent: { type: 'string', enum: ['flow', 'design', 'refactor', 'change-review'] } },
       output: { schema: { type: 'object', additionalProperties: false, properties: { snapshotId: { type: 'string', required: true }, contextJson: { type: 'string', required: true } } },
         render: (_args, value) => [{ type: 'text', text: value.contextJson }] },
-      execute: async (args, exec) => { const context = await ctx.codeAtlas.reviewContext(sessionId(exec), args.task, exec.signal); return { snapshotId: context.snapshotId, contextJson: JSON.stringify(context) }; },
+      execute: async (args, exec) => { const context = await ctx.codeAtlas.reviewContext(sessionId(exec), args.task, args.intent ?? 'flow', exec.signal); return { snapshotId: context.snapshotId, contextJson: JSON.stringify(context) }; },
       presentCall: () => ({ card: 'generic', title: 'Read task context', kind: 'read' }),
     }));
     ctx.tools.register(defineTool({

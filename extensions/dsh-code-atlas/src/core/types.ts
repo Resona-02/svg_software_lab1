@@ -65,6 +65,7 @@ export interface AtlasView {
   readonly publicApiLabel: boolean;
   readonly graphKind: 'structure' | 'calls';
   readonly guide?: ReadingGuide;
+  readonly changes?: SnapshotChanges;
   readonly labels: Readonly<Record<string, string>>;
   readonly graph: { readonly nodeIds: readonly string[]; readonly relationIds: readonly string[]; readonly truncated?: boolean };
   readonly svg: string;
@@ -87,14 +88,28 @@ export interface ReadingGuide {
   readonly steps: readonly GuideStep[];
   readonly risks: readonly string[];
   readonly origin: 'model';
+  readonly intent?: ReviewIntent;
   readonly scope: { readonly providedSymbols: number; readonly totalSymbols: number };
 }
 export interface ReviewContext {
   readonly snapshotId: string;
   readonly task: string;
+  readonly intent?: ReviewIntent;
+  readonly changes?: SnapshotChanges;
+  /** Changed paths that have no current code node and cannot be cited as source evidence. */
+  readonly unavailableFiles?: readonly string[];
   readonly symbols: readonly { readonly node: CodeNode; readonly source: string; readonly sourceTruncated?: boolean }[];
   readonly relations: readonly CodeRelation[];
   readonly omittedSymbols: number;
   readonly omittedRelations?: number;
+}
+export type ReviewIntent = 'flow' | 'design' | 'refactor' | 'change-review';
+/** Difference between consecutive successful scans in one session/workspace, not Git history. */
+export interface SnapshotChanges {
+  readonly baselineAvailable: boolean;
+  readonly baselineSnapshotId?: string;
+  readonly added: readonly string[];
+  readonly modified: readonly string[];
+  readonly deleted: readonly string[];
 }
 export interface GuideProvider { generate(context: ReviewContext, signal?: AbortSignal): Promise<unknown> }

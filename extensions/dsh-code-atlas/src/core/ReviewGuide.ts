@@ -1,6 +1,8 @@
 import { z } from 'zod';
 import { AtlasError } from './AtlasError.js';
-import type { AnalysisSnapshot, ReadingGuide } from './types.js';
+import type { AnalysisSnapshot, ReadingGuide, ReviewIntent } from './types.js';
+
+export const reviewIntentSchema = z.enum(['flow', 'design', 'refactor', 'change-review']);
 
 export const guideDraftSchema = z.object({
   title: z.string().min(1).max(160), summary: z.string().min(1).max(3000),
@@ -11,7 +13,7 @@ export const guideDraftSchema = z.object({
 });
 
 /** Accept only references into the exact snapshot read by the model. */
-export function validateGuide(value: unknown, snapshot: AnalysisSnapshot, allowedIds?: ReadonlySet<string>): ReadingGuide {
+export function validateGuide(value: unknown, snapshot: AnalysisSnapshot, allowedIds?: ReadonlySet<string>, intent: ReviewIntent = 'flow'): ReadingGuide {
   const draft = guideDraftSchema.parse(value);
   const known = new Set(snapshot.nodes.map(node => node.id));
   const steps = new Set(draft.steps.map(step => step.id));
@@ -20,6 +22,6 @@ export function validateGuide(value: unknown, snapshot: AnalysisSnapshot, allowe
     if (step.nodeIds.some(id => !known.has(id) || allowedIds && !allowedIds.has(id))) throw new AtlasError('导览引用了未提供给模型的代码节点，请重新生成。', 'INVALID_GUIDE');
     if (step.next.some(id => !steps.has(id))) throw new AtlasError('导览含有不存在的下一步。', 'INVALID_GUIDE');
   }
-  return { ...draft, snapshotId: snapshot.id, origin: 'model', scope: { providedSymbols: allowedIds?.size ?? new Set(draft.steps.flatMap(step => step.nodeIds)).size,
-    totalSymbols: snapshot.nodes.filter(node => node.kind !== 'file').length } };
+  return { ...draft, snapshotId: snapshot.id, origin: 'model', intent: reviewIntentSchema.parse(intent), scope: { providedSymbols: allowedIds?.size ?? new Set(draft.steps.flatMap(step => step.nodeIds)).size,
+    totalSymbols: snapshot.nodes.filter(node => node.kind !== 'file' || (allowedIds ? allowedIds.has(node.id) : draft.steps.some(step => step.nodeIds.includes(node.id)))).length } };
 }

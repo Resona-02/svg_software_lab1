@@ -5,7 +5,7 @@ import { SessionId } from '@deepseek-ai/dsh-session/types';
 import type {} from '@deepseek-ai/dsh-session';
 import type {} from '@deepseek-ai/dsh-fs';
 import type { AtlasSession } from '../typert.js';
-import type { AtlasView, ReadingDirection, GuideProvider, ReviewContext } from '../core/types.js';
+import type { AtlasView, ReadingDirection, GuideProvider, ReviewContext, ReviewIntent } from '../core/types.js';
 import { DshGuideProvider, type LlmPort, type ModelSelectionPort } from './DshGuideProvider.js';
 import { AtlasWorkbench } from '../core/AtlasWorkbench.js';
 import { TypeScriptLanguageProvider } from '../analysis/index.js';
@@ -101,23 +101,23 @@ export class CodeAtlasService extends TypertRemoteService {
     return { available: !!this.guideProvider, model: this.modelSelection?.currentSelection().model ?? '',
       message: this.guideProvider ? '使用 DSH 当前默认模型，按需发送与任务相关的代码摘录。' : '当前宿主没有可用模型服务；可在会话中让模型调用导览工具。' };
   }
-  async reviewContext(sessionId: string, task: string, signal?: AbortSignal) {
+  async reviewContext(sessionId: string, task: string, intent?: ReviewIntent, signal?: AbortSignal) {
     this.session(sessionId, signal);
-    const context = await this.workbench.reviewContext(sessionId, task, signal);
+    const context = await this.workbench.reviewContext(sessionId, task, signal, intent);
     this.session(sessionId, signal); this.reviewContexts.set(sessionId, context); return context;
   }
-  async generateGuide(sessionId: string, task: string, signal?: AbortSignal) {
+  async generateGuide(sessionId: string, task: string, intent?: ReviewIntent, signal?: AbortSignal) {
     this.session(sessionId, signal);
     if (!this.guideProvider) throw new Error('当前宿主尚未配置模型服务。请在 DSH 配置模型，或使用会话中的导览工具。');
     this.generating.get(sessionId)?.abort();
     const request = new AbortController(); this.generating.set(sessionId, request);
     const cancelled = AbortSignal.any([request.signal, this.lifetime.signal, AbortSignal.timeout(90000), ...(signal ? [signal] : [])]);
     try {
-      const context = await this.workbench.reviewContext(sessionId, task, cancelled);
+      const context = await this.workbench.reviewContext(sessionId, task, cancelled, intent);
       const result = await this.guideProvider.generate(context, cancelled);
       cancelled.throwIfAborted(); this.session(sessionId, cancelled);
       await this.workbench.verifyContext(sessionId, context, cancelled);
-      return this.workbench.publishGuide(sessionId, context.snapshotId, result, new Set(context.symbols.map(item => item.node.id)), cancelled);
+      return this.workbench.publishGuide(sessionId, context.snapshotId, result, new Set(context.symbols.map(item => item.node.id)), cancelled, context.intent, context.changes);
     } finally { if (this.generating.get(sessionId) === request) this.generating.delete(sessionId); }
   }
   cancelGuide(sessionId: string): null { this.session(sessionId); this.generating.get(sessionId)?.abort(); return null; }
@@ -126,7 +126,7 @@ export class CodeAtlasService extends TypertRemoteService {
     const context = this.reviewContexts.get(sessionId);
     if (!context || context.snapshotId !== snapshotId) throw new Error('请先用 code_atlas_review_context 获取当前任务的代码，再发布导览。');
     await this.workbench.verifyContext(sessionId, context, signal);
-    return this.workbench.publishGuide(sessionId, snapshotId, draft, new Set(context.symbols.map(item => item.node.id)), signal);
+    return this.workbench.publishGuide(sessionId, snapshotId, draft, new Set(context.symbols.map(item => item.node.id)), signal, context.intent, context.changes);
   }
 
   /** Native Typert stream; slow consumers retain only the latest published view. */
