@@ -1,4 +1,4 @@
-import type { AtlasView, ReadingDirection, SourcePreview, SourceLocation, CodeRelation } from '../core/types.js';
+import type { AtlasView, ReadingDirection, SourcePreview, SourceLocation, CodeRelation, ReviewIntent } from '../core/types.js';
 import { NavigationHistory } from './NavigationHistory.js';
 
 import type { AtlasSession, AtlasRemote } from '../typert.js';
@@ -147,13 +147,13 @@ export class AtlasController {
     }, false, true);
   }
 
-  async generateGuide(task: string): Promise<void> {
+  async generateGuide(task: string, intent: ReviewIntent = 'flow'): Promise<void> {
     const session = this.state.sessionId;
     if (!session || !this.state.view || !task.trim() || this.state.guideBusy) return;
     const generation = ++this.guideGeneration;
     this.update({ guideBusy: true, error: undefined });
     try {
-      const view = await this.remote.generateGuide(session, task);
+      const view = await this.remote.generateGuide(session, task, intent);
       if (!this.disposed && generation === this.guideGeneration && this.state.sessionId === session) this.update({ view, pane: 'guide' });
     } catch (error) {
       if (!this.disposed && generation === this.guideGeneration) this.update({ error: error instanceof Error ? error.message : String(error) });

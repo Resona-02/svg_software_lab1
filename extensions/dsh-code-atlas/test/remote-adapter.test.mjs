@@ -6,7 +6,7 @@ import { TYPERT_REMOTE } from '../lib/typert.host.js';
 const cases = {
   navigate: ['s', 'n', 'users', 2, 'calls'], sessions: [], scan: ['s'], inspect: ['s', 'n'], route: ['s', 'users', 2], markRead: ['s', 'n', false],
   setPublicApiLabel: ['s', false], view: ['s'], exportSVG: ['s'], close: ['s'], graphKind: ['s', 'calls'],
-  guideStatus: [], reviewContext: ['s', '梳理保存'], generateGuide: ['s', '梳理保存'], cancelGuide: ['s'],
+  guideStatus: [], reviewContext: ['s', '梳理保存', 'design'], generateGuide: ['s', '梳理保存', 'refactor'], cancelGuide: ['s'],
   publishGuide: ['s', 'snapshot', { title: 'guide' }],
 };
 test('every native unary method unwraps its result and preserves receiver, argument order and false values', async () => {

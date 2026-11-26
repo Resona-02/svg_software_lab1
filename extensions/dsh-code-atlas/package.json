@@ -1,7 +1,7 @@
 {
   "name": "dsh-code-atlas",
-  "version": "0.2.0",
-  "description": "Task-focused code reading guides, static call references and review workbench for DSH Desktop",
+  "version": "0.3.0",
+  "description": "Task review, design tradeoffs and small-step refactoring plans for DSH Desktop",
   "private": true,
   "license": "UNLICENSED",
   "type": "module",

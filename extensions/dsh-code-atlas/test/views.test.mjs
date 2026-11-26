@@ -9,9 +9,9 @@ import Renderer, { act } from 'react-test-renderer';
 
 // Render the actual React components in memory. This is not Desktop visual acceptance.
 const componentModule = { exports: {} };
-const output = await build({ stdin: { contents: 'export { ProjectNavigator, ProjectOverview } from "./src/client/ProjectNavigator.tsx"; export { GuidePanel } from "./src/client/GuidePanel.tsx"; export { SourcePanel } from "./src/client/SourcePanel.tsx";', resolveDir: fileURLToPath(new URL('..', import.meta.url)), loader: 'tsx' }, bundle: true, format: 'cjs', platform: 'node', jsx: 'automatic', external: ['react', 'react/*'], write: false });
+const output = await build({ stdin: { contents: 'export { ProjectNavigator } from "./src/client/ProjectNavigator.tsx"; export { GuidePanel } from "./src/client/GuidePanel.tsx"; export { SourcePanel } from "./src/client/SourcePanel.tsx";', resolveDir: fileURLToPath(new URL('..', import.meta.url)), loader: 'tsx' }, bundle: true, format: 'cjs', platform: 'node', jsx: 'automatic', external: ['react', 'react/*'], write: false });
 vm.runInNewContext(output.outputFiles[0].text, { module: componentModule, exports: componentModule.exports, require: createRequire(import.meta.url), console, setTimeout, clearTimeout });
-const { ProjectNavigator, ProjectOverview, GuidePanel, SourcePanel } = componentModule.exports;
+const { ProjectNavigator, GuidePanel, SourcePanel } = componentModule.exports;
 const loc = { file: 'src/feature/file-0.ts', start: 0, end: 1, startLine: 900, startColumn: 1, endLine: 905, endColumn: 1, fileHash: 'hash' };
 const files = Array.from({ length: 1000 }, (_, i) => ({ id: `file:${i}`, name: `src/feature/file-${i}.ts`, file: `src/feature/file-${i}.ts`, kind: 'file', exported: false, location: loc }));
 const symbol = { ...files[0], id: 'function:run', kind: 'function', name: 'run', qualifiedName: 'Host.run', location: loc };
@@ -33,17 +33,8 @@ test('large project navigation renders only the first file page and search can r
   await act(async () => { tree.root.findByProps({ 'aria-label': '搜索文件、类、接口、函数' }).props.onChange({ target: { value: 'Host.run' } }); });
   assert.equal(headings().length, 1);
   assert.equal(tree.root.findAllByProps({ className: 'ca-symbol ' }).length, 1);
-  await act(async () => tree.unmount());
-});
-test('module overview defers file buttons until expanded and then pages them', async () => {
-  const c = controller(); let tree;
-  await act(async () => { tree = Renderer.create(React.createElement(ProjectOverview, { controller: c })); });
-  const buttons = () => tree.root.findAll(node => node.type === 'button' && node.props.title?.startsWith('src/feature/'));
-  assert.equal(buttons().length, 0);
-  await act(async () => tree.root.findByProps({ className: 'ca-module' }).props.onToggle({ currentTarget: { open: true } }));
-  assert.equal(buttons().length, 50);
-  await act(async () => tree.root.findAllByType('button').find(node => node.children.includes('再显示 50 个文件')).props.onClick());
-  assert.equal(buttons().length, 100);
+  await act(async () => tree.root.findByProps({ className: 'ca-symbol ' }).props.onClick());
+  assert.equal(c.calls[0][1].pane, 'overview'); assert.equal(c.calls[0][1].revealSource, true);
   await act(async () => tree.unmount());
 });
 test('long source renders a bounded context around the selected symbol with accurate line numbers', async () => {

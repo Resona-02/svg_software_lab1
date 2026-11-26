@@ -53,7 +53,7 @@ test('the browser bundle registers the native keyed main page and sidebar row, a
     const sidebar = slots.entriesOfSlot('sidebar.panellist');
     assert.equal(sidebar.length, 1);
     assert.equal(sidebar[0].options.id, 'code-atlas');
-    assert.equal(sidebar[0].options.label(), '代码地图');
+    assert.equal(sidebar[0].options.label(), '代码审阅');
     const props = main[0].inject();
     assert.equal(typeof props.controller.subscribe, 'function');
     await props.controller.loadSessions();

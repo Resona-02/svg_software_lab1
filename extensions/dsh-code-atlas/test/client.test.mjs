@@ -269,3 +269,14 @@ test('cancelled or previous-session model responses cannot repopulate the workbe
   assert.equal(controller.getSnapshot().view.guide, undefined);
   controller.dispose();
 });
+
+test('workbench task intent reaches the native model boundary without mutating project code', async () => {
+  const { controller, remote } = fixture(); const calls = [];
+  remote.generateGuide = async (...args) => { calls.push(args); return structuredClone(base); };
+  await controller.loadSessions(); await controller.scan();
+  await controller.generateGuide('讨论模块边界', 'design');
+  assert.equal(calls[0][1], '讨论模块边界'); assert.equal(calls[0][2], 'design');
+  assert.equal(controller.getSnapshot().pane, 'guide');
+  await controller.generateGuide('解释入口'); assert.equal(calls[1][2], 'flow');
+  controller.dispose();
+});

@@ -35,14 +35,14 @@ export class AtlasSvgRenderer {
         : sameColumn ? [[x1, y1], [x1 + 28, y1], [x1 + 28, y2], [x2, y2]] : [[x1, y1], [x2, y2]];
       for (let segment = 1; segment < points.length; segment++) {
         const a = points[segment - 1]!, b = points[segment]!;
-        const line = new Line(`edge-${i}-${segment}`, a[0]!, a[1]!, b[0]!, b[1]!, '#77849b');
+        const line = new Line(`edge-${i}-${segment}`, a[0]!, a[1]!, b[0]!, b[1]!, '#9d9384');
         line.importAttributes({ 'data-relation-id': relation.id, 'stroke-width': '1.5' });
         document.add(line);
       }
       const before = points.at(-2)!, end = points.at(-1)!;
       const angle = Math.atan2(end[1]! - before[1]!, end[0]! - before[0]!);
       for (const [j, sign] of [-1, 1].entries()) document.add(new Line(`edge-${i}-arrow-${j}`, end[0]!, end[1]!,
-        end[0]! - 9 * Math.cos(angle + sign * 0.42), end[1]! - 9 * Math.sin(angle + sign * 0.42), '#77849b'));
+        end[0]! - 9 * Math.cos(angle + sign * 0.42), end[1]! - 9 * Math.sin(angle + sign * 0.42), '#9d9384'));
     });
     nodes.forEach((node, i) => {
       const p = positions.get(node.id)!;
@@ -51,14 +51,14 @@ export class AtlasSvgRenderer {
       const shape = this.shapes.create('box', `atlas-node-${i}`, [String(p.x), String(p.y), String(p.width), String(p.height), title]);
       shape.importAttributes({ 'data-node-id': node.id, 'role': 'button', 'tabindex': '0', 'aria-label': labels[node.id] ?? node.name });
       const body = shape.children.find(child => child.tag === 'rect')!;
-      body.setAttribute('fill', node.id === selected ? '#dbeafe' : '#f8fafc');
-      body.setAttribute('stroke', node.id === selected ? '#2563eb' : '#cbd5e1');
+      body.setAttribute('fill', node.id === selected ? '#f4e5d9' : '#faf8f2');
+      body.setAttribute('stroke', node.id === selected ? '#b66c4c' : '#d7d1c5');
       const titleNode = shape.children.find(child => child.tag === 'text')!;
-      titleNode.importAttributes({ 'fill': '#17243a', 'font-family': 'system-ui, sans-serif', 'font-size': '16' });
+      titleNode.importAttributes({ 'fill': '#35322d', 'font-family': 'system-ui, sans-serif', 'font-size': '16' });
       document.add(shape);
       const path = node.file.length > 43 ? `…${node.file.slice(-42)}` : node.file;
       const subtitle = new Text(`atlas-note-${i}`, p.x + 20, p.y + 75, `${node.kind} · ${path}:${node.location.startLine}`);
-      subtitle.importAttributes({ 'fill': '#526279', 'font-family': 'system-ui, sans-serif', 'font-size': '11', 'pointer-events': 'none' });
+      subtitle.importAttributes({ 'fill': '#81786c', 'font-family': 'system-ui, sans-serif', 'font-size': '11', 'pointer-events': 'none' });
       document.add(subtitle);
     });
     return this.codec.encode(document);

@@ -36,11 +36,11 @@ export async function apply(context: Context): Promise<void> {
       name: 'main', key: 'code-atlas', inject: () => ({ controller }),
     }, AtlasPage));
     scoped.slots.inject('sidebar.panellist', () => scoped.slots.register({
-      name: 'sidebar.panellist', id: 'code-atlas', order: 15, label: () => '代码地图',
+      name: 'sidebar.panellist', id: 'code-atlas', order: 15, label: () => '代码审阅',
     }, CodeAtlasIcon));
   });
 }
 
 function CodeAtlasIcon({ size = 20 }: { size?: number }) {
-  return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="3" width="7" height="6" rx="1.5" stroke="currentColor" strokeWidth="1.6" /><rect x="15" y="3" width="7" height="6" rx="1.5" stroke="currentColor" strokeWidth="1.6" /><rect x="8.5" y="15" width="7" height="6" rx="1.5" stroke="currentColor" strokeWidth="1.6" /><path d="M5.5 9v3h13V9M12 12v3" stroke="currentColor" strokeWidth="1.6" /></svg>;
+  return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2" stroke="currentColor" strokeWidth="1.5" /><path d="M9 7h6M9 11h6M9 16l2 2 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>;
 }
