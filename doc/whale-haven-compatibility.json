@@ -1,0 +1,26 @@
+{
+  "recordedAt": "2026-11-28",
+  "desktop": "2.0.16",
+  "packages": {
+    "dsh": "0.2.0-rc.1",
+    "cordis": "4.0.4",
+    "dsh-client-ui-layout": "0.2.0-rc.1",
+    "dsh-client-ui-slots": "0.2.0-rc.1",
+    "dsh-session": "0.2.0-rc.1",
+    "dsh-llm": "0.2.0-rc.1",
+    "dsh-home-paths": "0.2.0-rc.1"
+  },
+  "uiSlots": [
+    "main (keyed)",
+    "shell.overlay (list)",
+    "sidebar.panellist (list)"
+  ],
+  "activityEvents": [
+    "session/event:turn/start",
+    "session/event:turn/end"
+  ],
+  "independentChat": "Plugin-owned log and checkpoint branches; not native DSH rollback",
+  "storage": "Private local data under DSH_HOME/plugins/whale-haven, excluded from source and backup credentials",
+  "paidModelCallsDuringDevelopment": 0,
+  "status": "Public installed package source inspected; runtime native tests pending"
+}

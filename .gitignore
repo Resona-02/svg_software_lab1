@@ -11,3 +11,8 @@ coverage/
 
 # Reproducible course delivery archives
 /artifacts/
+
+# Whale Haven private data and local install packages never enter course source
+/extensions/dsh-whale-haven/artifacts/
+.whale-haven/
+whale-private/
